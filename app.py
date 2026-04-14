@@ -2,7 +2,7 @@ import streamlit as st
 import time
 import pandas as pd
 import random
- 
+
 from utils.data_loader import load_data
 from components.header import show_header, set_bg
 from components.home_view import show_home
@@ -14,9 +14,9 @@ from components.venue_view import show_venue_view
 from components.bowler_view import show_bowler_view
 from components.knockout_view import show_knockout_view
 from components.live_view import show_live_view
-from utils.chart_style import DID_YOU_KNOW
- 
- 
+from components.home_view import DID_YOU_KNOW
+
+
 # ================================================================
 # LOADER
 # ================================================================
@@ -51,8 +51,8 @@ def cricket_loader():
         bar.progress(i + 1)
     ph.empty()
     bar.empty()
- 
- 
+
+
 # ================================================================
 # PAGE CONFIG
 # ================================================================
@@ -61,26 +61,26 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
- 
+
 if "page" not in st.session_state:
     st.session_state.page = "Home"
- 
+
 if "loader_done" not in st.session_state:
     cricket_loader()
     st.session_state.loader_done = True
- 
+
 # ================================================================
 # DATA
 # ================================================================
 st.sidebar.markdown("### 📂 Upload Match CSV")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
 data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data()
- 
+
 # ================================================================
 # HEADER
 # ================================================================
 show_header()
- 
+
 # ================================================================
 # SIDEBAR DID YOU KNOW
 # ================================================================
@@ -97,7 +97,7 @@ st.sidebar.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 st.sidebar.markdown("---")
- 
+
 # ================================================================
 # MENU
 # ================================================================
@@ -106,16 +106,16 @@ PAGES = [
     "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter",
 ]
- 
+
 if st.session_state.page not in PAGES:
     st.session_state.page = "Home"
- 
+
 menu = st.sidebar.selectbox(
     "Navigate", PAGES,
     index=PAGES.index(st.session_state.page),
 )
 st.session_state.page = menu
- 
+
 # ================================================================
 # BACKGROUND
 # ================================================================
@@ -131,7 +131,7 @@ BG = {
     "Knockout Filter":    "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
 }
 set_bg(BG[menu])
- 
+
 # ================================================================
 # ROUTING
 # ================================================================
@@ -144,4 +144,3 @@ elif menu == "Player Battle":      show_compare_view(data)
 elif menu == "Venue Intelligence": show_venue_view(data)
 elif menu == "Bowler Analytics":   show_bowler_view(data)
 elif menu == "Knockout Filter":    show_knockout_view(data)
- 
