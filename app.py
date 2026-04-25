@@ -15,6 +15,7 @@ from components.bowler_view import show_bowler_view
 from components.knockout_view import show_knockout_view
 from components.live_view import show_live_view
 from components.predictor_view import show_predictor_view
+from components.commentator_view import show_commentator_view
 from components.home_view import DID_YOU_KNOW
 
 
@@ -106,6 +107,7 @@ PAGES = [
     "Home", "🔴 Live Scores", "Player Analysis", "Team Analysis",
     "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
+    "🎙️ AI Commentator",
 ]
 
 if st.session_state.page not in PAGES:
@@ -131,6 +133,7 @@ BG = {
     "Bowler Analytics":   "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
     "Knockout Filter":    "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
     "🤖 ML Predictor":   "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "🎙️ AI Commentator": "https://images.unsplash.com/photo-1593341646782-e0b495cff86d",
 }
 set_bg(BG[menu])
 
@@ -147,3 +150,4 @@ elif menu == "Venue Intelligence": show_venue_view(data)
 elif menu == "Bowler Analytics":   show_bowler_view(data)
 elif menu == "Knockout Filter":    show_knockout_view(data)
 elif menu == "🤖 ML Predictor":   show_predictor_view(data)
+elif menu == "🎙️ AI Commentator": show_commentator_view(data)
