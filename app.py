@@ -14,6 +14,7 @@ from components.venue_view import show_venue_view
 from components.bowler_view import show_bowler_view
 from components.knockout_view import show_knockout_view
 from components.live_view import show_live_view
+from components.predictor_view import show_predictor_view
 from components.home_view import DID_YOU_KNOW
 
 
@@ -104,7 +105,7 @@ st.sidebar.markdown("---")
 PAGES = [
     "Home", "🔴 Live Scores", "Player Analysis", "Team Analysis",
     "Insights", "Player Battle", "Venue Intelligence",
-    "Bowler Analytics", "Knockout Filter",
+    "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
 ]
 
 if st.session_state.page not in PAGES:
@@ -129,6 +130,7 @@ BG = {
     "Venue Intelligence": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
     "Bowler Analytics":   "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
     "Knockout Filter":    "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
+    "🤖 ML Predictor":   "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
 }
 set_bg(BG[menu])
 
@@ -144,3 +146,4 @@ elif menu == "Player Battle":      show_compare_view(data)
 elif menu == "Venue Intelligence": show_venue_view(data)
 elif menu == "Bowler Analytics":   show_bowler_view(data)
 elif menu == "Knockout Filter":    show_knockout_view(data)
+elif menu == "🤖 ML Predictor":   show_predictor_view(data)
