@@ -5,395 +5,358 @@ def show_header():
     st.markdown("""
     <style>
 
-    /* ── FONTS ─────────────────────────────────────────────────── */
-    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
 
-    /* ── CSS VARIABLES ──────────────────────────────────────────── */
     :root {
-        --c-bg:        #080c10;
-        --c-surface:   #0d1117;
-        --c-border:    rgba(255,255,255,0.07);
-        --c-border-hi: rgba(255,255,255,0.14);
-        --c-cyan:      #00e5ff;
-        --c-gold:      #ffd166;
-        --c-red:       #ff4d6d;
-        --c-green:     #06d6a0;
-        --c-text:      rgba(255,255,255,0.92);
-        --c-muted:     rgba(255,255,255,0.45);
-        --c-dimmer:    rgba(255,255,255,0.25);
-        --radius-sm:   8px;
-        --radius-md:   14px;
-        --radius-lg:   20px;
-        --font-display:'Rajdhani', sans-serif;
-        --font-body:   'DM Sans', sans-serif;
-        --font-mono:   'JetBrains Mono', monospace;
+        --cyan:   #00e5ff;
+        --gold:   #ffd166;
+        --red:    #ff4d6d;
+        --green:  #06d6a0;
+        --bg:     #080c10;
+        --surf:   #0d1117;
+        --border: rgba(255,255,255,0.08);
+        --muted:  rgba(255,255,255,0.45);
+        --text:   rgba(255,255,255,0.92);
     }
 
-    /* ── GLOBAL RESET ───────────────────────────────────────────── */
     html, body, [class*="css"], .stApp {
-        font-family: var(--font-body) !important;
-        color: var(--c-text) !important;
-        background: var(--c-bg) !important;
+        font-family: 'DM Sans', sans-serif !important;
+        color: var(--text) !important;
+        background: var(--bg) !important;
         -webkit-font-smoothing: antialiased;
     }
-
-    /* ── HIDE STREAMLIT CHROME ──────────────────────────────────── */
-    #MainMenu, footer, header { visibility: hidden; }
-    .stDeployButton { display: none; }
-
-    /* ── MAIN CONTAINER ─────────────────────────────────────────── */
+    #MainMenu, footer { visibility: hidden; }
+    .stDeployButton  { display: none; }
     .block-container {
         padding: 1.5rem 2.5rem 4rem !important;
         max-width: 1200px !important;
     }
 
-    /* ── SIDEBAR ────────────────────────────────────────────────── */
     section[data-testid="stSidebar"] {
         background: rgba(8,12,16,0.97) !important;
-        border-right: 1px solid var(--c-border) !important;
-        backdrop-filter: blur(20px);
+        border-right: 1px solid var(--border) !important;
     }
     section[data-testid="stSidebar"] * {
-        color: var(--c-text) !important;
-        font-family: var(--font-body) !important;
-    }
-    section[data-testid="stSidebar"] .stSelectbox label,
-    section[data-testid="stSidebar"] .stFileUploader label {
-        color: var(--c-muted) !important;
-        font-size: 11px !important;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
+        color: var(--text) !important;
+        font-family: 'DM Sans', sans-serif !important;
     }
 
-    /* ── SELECTBOX ──────────────────────────────────────────────── */
     div[data-baseweb="select"] > div {
         background: rgba(255,255,255,0.04) !important;
-        border: 1px solid var(--c-border-hi) !important;
-        border-radius: var(--radius-sm) !important;
-        color: var(--c-text) !important;
-        font-family: var(--font-body) !important;
+        border: 1px solid rgba(255,255,255,0.12) !important;
+        border-radius: 8px !important;
+        color: var(--text) !important;
         transition: border-color 0.2s;
     }
-    div[data-baseweb="select"] > div:hover {
-        border-color: var(--c-cyan) !important;
-    }
-    div[data-baseweb="select"] svg { color: var(--c-muted) !important; }
+    div[data-baseweb="select"] > div:hover { border-color: var(--cyan) !important; }
 
-    /* ── INPUT / TEXT INPUT ─────────────────────────────────────── */
     div[data-testid="stTextInput"] input {
         background: rgba(255,255,255,0.04) !important;
-        border: 1px solid var(--c-border-hi) !important;
-        border-radius: var(--radius-sm) !important;
-        color: var(--c-text) !important;
-        font-family: var(--font-mono) !important;
+        border: 1px solid rgba(255,255,255,0.12) !important;
+        border-radius: 8px !important;
+        color: var(--text) !important;
+        font-family: 'JetBrains Mono', monospace !important;
         font-size: 13px !important;
-        transition: border-color 0.2s, box-shadow 0.2s;
     }
     div[data-testid="stTextInput"] input:focus {
-        border-color: var(--c-cyan) !important;
+        border-color: var(--cyan) !important;
         box-shadow: 0 0 0 3px rgba(0,229,255,0.08) !important;
         outline: none !important;
     }
 
-    /* ── BUTTONS ────────────────────────────────────────────────── */
     .stButton > button {
-        background: linear-gradient(135deg, #00e5ff11, #00e5ff22) !important;
+        background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(0,229,255,0.18)) !important;
         border: 1px solid rgba(0,229,255,0.4) !important;
-        color: var(--c-cyan) !important;
-        font-family: var(--font-display) !important;
+        color: var(--cyan) !important;
+        font-family: 'Rajdhani', sans-serif !important;
         font-size: 15px !important;
         font-weight: 600 !important;
         letter-spacing: 1px !important;
-        border-radius: var(--radius-sm) !important;
-        padding: 0.55rem 1.5rem !important;
-        transition: all 0.2s ease !important;
+        border-radius: 8px !important;
         text-transform: uppercase;
+        transition: all 0.2s ease !important;
     }
     .stButton > button:hover {
-        background: linear-gradient(135deg, #00e5ff22, #00e5ff44) !important;
-        border-color: var(--c-cyan) !important;
+        background: linear-gradient(135deg, rgba(0,229,255,0.18), rgba(0,229,255,0.32)) !important;
         box-shadow: 0 0 24px rgba(0,229,255,0.2) !important;
         transform: translateY(-1px) !important;
     }
-    .stButton > button:active {
-        transform: translateY(0) !important;
-    }
 
-    /* ── METRICS ────────────────────────────────────────────────── */
     div[data-testid="metric-container"] {
         background: rgba(255,255,255,0.03) !important;
-        border: 1px solid var(--c-border) !important;
-        border-radius: var(--radius-md) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 14px !important;
         padding: 1rem 1.2rem !important;
     }
     div[data-testid="metric-container"] label {
-        color: var(--c-muted) !important;
+        color: var(--muted) !important;
         font-size: 11px !important;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        font-family: var(--font-body) !important;
     }
     div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
-        color: var(--c-cyan) !important;
-        font-family: var(--font-display) !important;
+        color: var(--cyan) !important;
+        font-family: 'Rajdhani', sans-serif !important;
         font-size: 28px !important;
         font-weight: 700 !important;
     }
 
-    /* ── TABS ───────────────────────────────────────────────────── */
     div[data-testid="stTabs"] button {
-        font-family: var(--font-body) !important;
+        font-family: 'DM Sans', sans-serif !important;
         font-size: 13px !important;
-        color: var(--c-muted) !important;
-        border-bottom: 2px solid transparent !important;
-        padding: 8px 16px !important;
+        color: var(--muted) !important;
         transition: all 0.2s !important;
     }
-    div[data-testid="stTabs"] button:hover {
-        color: var(--c-text) !important;
-    }
     div[data-testid="stTabs"] button[aria-selected="true"] {
-        color: var(--c-cyan) !important;
-        border-bottom-color: var(--c-cyan) !important;
-        font-weight: 500 !important;
+        color: var(--cyan) !important;
+        border-bottom: 2px solid var(--cyan) !important;
     }
 
-    /* ── RADIO BUTTONS ──────────────────────────────────────────── */
     div[data-testid="stRadio"] label {
-        font-family: var(--font-body) !important;
         font-size: 13px !important;
-        color: var(--c-muted) !important;
-        transition: color 0.2s;
+        color: var(--muted) !important;
     }
-    div[data-testid="stRadio"] label:hover { color: var(--c-text) !important; }
 
-    /* ── PROGRESS BAR ───────────────────────────────────────────── */
-    div[data-testid="stProgress"] > div > div {
-        background: linear-gradient(90deg, var(--c-cyan), var(--c-green)) !important;
-        border-radius: 99px !important;
-    }
     div[data-testid="stProgress"] > div {
         background: rgba(255,255,255,0.06) !important;
         border-radius: 99px !important;
         height: 4px !important;
     }
+    div[data-testid="stProgress"] > div > div {
+        background: linear-gradient(90deg, var(--cyan), var(--green)) !important;
+        border-radius: 99px !important;
+    }
 
-    /* ── EXPANDER ───────────────────────────────────────────────── */
     div[data-testid="stExpander"] {
-        border: 1px solid var(--c-border) !important;
-        border-radius: var(--radius-md) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 14px !important;
         background: rgba(255,255,255,0.02) !important;
     }
-    div[data-testid="stExpander"] summary {
-        font-family: var(--font-body) !important;
-        font-size: 13px !important;
-        color: var(--c-muted) !important;
-        padding: 12px 16px !important;
-    }
-    div[data-testid="stExpander"] summary:hover {
-        color: var(--c-text) !important;
-    }
 
-    /* ── SPINNER ────────────────────────────────────────────────── */
-    div[data-testid="stSpinner"] p {
-        font-family: var(--font-body) !important;
-        color: var(--c-muted) !important;
-        font-size: 13px !important;
-    }
-
-    /* ── ALERTS ─────────────────────────────────────────────────── */
-    div[data-testid="stAlert"] {
-        border-radius: var(--radius-md) !important;
-        border: 1px solid var(--c-border-hi) !important;
-        font-family: var(--font-body) !important;
-        font-size: 13px !important;
-    }
-
-    /* ── FILE UPLOADER ──────────────────────────────────────────── */
-    div[data-testid="stFileUploader"] {
-        border: 1px dashed var(--c-border-hi) !important;
-        border-radius: var(--radius-md) !important;
-        background: rgba(255,255,255,0.02) !important;
-        padding: 8px !important;
-        transition: border-color 0.2s;
-    }
-    div[data-testid="stFileUploader"]:hover {
-        border-color: rgba(0,229,255,0.3) !important;
-    }
-
-    /* ── SCROLLBAR ──────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,0.1);
-        border-radius: 99px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: rgba(0,229,255,0.3);
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,229,255,0.3); }
+
+    hr {
+        border: none !important;
+        border-top: 1px solid var(--border) !important;
+        margin: 1.5rem 0 !important;
     }
 
-    /* ── GLOBAL CARD CLASS ──────────────────────────────────────── */
-    .card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--c-border);
-        border-radius: var(--radius-lg);
-        padding: 20px 22px;
-        margin: 10px 0;
-        transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-        position: relative;
-        overflow: hidden;
-    }
-    .card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 1px;
-        background: linear-gradient(90deg,
-            transparent, rgba(255,255,255,0.08), transparent);
-    }
-    .card:hover {
-        border-color: var(--c-border-hi);
-        transform: translateY(-3px);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-    }
-
-    /* ── HEADER BAR ─────────────────────────────────────────────── */
-    .app-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 0 1.5rem;
-        border-bottom: 1px solid var(--c-border);
-        margin-bottom: 1.5rem;
-    }
-    .app-header-left {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-    }
-    .app-logo {
-        width: 40px; height: 40px;
-        background: linear-gradient(135deg, #00e5ff22, #00e5ff44);
-        border: 1px solid rgba(0,229,255,0.3);
-        border-radius: 10px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 20px;
-        flex-shrink: 0;
-    }
-    .app-name {
-        font-family: var(--font-display);
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--c-text);
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        line-height: 1;
-    }
-    .app-tagline {
-        font-size: 11px;
-        color: var(--c-muted);
-        letter-spacing: 0.05em;
-        margin-top: 3px;
-    }
-    .app-header-right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .header-pill {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid var(--c-border-hi);
-        border-radius: 99px;
-        padding: 4px 12px;
-        font-size: 11px;
-        color: var(--c-muted);
-        font-family: var(--font-mono);
-        letter-spacing: 0.02em;
-    }
-    .header-pill span {
-        color: var(--c-cyan);
-        font-weight: 500;
-    }
-
-    /* ── PAGE TITLE STYLE ───────────────────────────────────────── */
     h1, h2, h3, h4 {
-        font-family: var(--font-display) !important;
+        font-family: 'Rajdhani', sans-serif !important;
         letter-spacing: 0.5px !important;
-        color: var(--c-text) !important;
+        color: var(--text) !important;
     }
     h2 { font-size: 24px !important; font-weight: 700 !important; }
     h3 { font-size: 18px !important; font-weight: 600 !important; }
 
-    /* ── DIVIDERS ───────────────────────────────────────────────── */
-    hr {
-        border: none !important;
-        border-top: 1px solid var(--c-border) !important;
-        margin: 1.5rem 0 !important;
+    /* ═══════════════════════════════════════════════════
+       .card  — used by ALL original components
+    ═══════════════════════════════════════════════════ */
+    .card {
+        background: rgba(255,255,255,0.04);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 18px 20px;
+        margin: 10px 0;
+        border: 1px solid rgba(255,255,255,0.09);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+        color: var(--text);
+        font-family: 'DM Sans', sans-serif;
     }
-
-    /* ── SIDEBAR BOTTOM BYLINE ──────────────────────────────────── */
-    .sidebar-byline {
-        position: fixed;
-        bottom: 16px;
-        left: 0;
-        width: 260px;
-        text-align: center;
-        font-size: 11px;
-        color: var(--c-dimmer);
-        font-family: var(--font-mono);
-        letter-spacing: 0.03em;
+    .card:hover {
+        border-color: rgba(255,255,255,0.16);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     }
+    .card h3 { color: var(--cyan) !important; margin-bottom: 8px; }
+    .card p  { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.6; margin: 4px 0; }
+    .card b  { color: var(--text); }
 
-    /* ── ANIMATED GRADIENT BORDER on active card ────────────────── */
-    @keyframes borderGlow {
-        0%   { box-shadow: 0 0 0 0 rgba(0,229,255,0); }
-        50%  { box-shadow: 0 0 20px 2px rgba(0,229,255,0.12); }
-        100% { box-shadow: 0 0 0 0 rgba(0,229,255,0); }
+    /* ═══════════════════════════════════════════════════
+       Updated component styles (player, team, insights,
+       live, predictor, commentator, home)
+    ═══════════════════════════════════════════════════ */
+    .player-profile-card {
+        background: rgba(255,255,255,0.03); border-radius: 18px;
+        padding: 22px 24px; margin-bottom: 16px;
+        border: 1px solid rgba(255,255,255,0.08);
     }
-    .card-glow {
-        animation: borderGlow 3s ease-in-out infinite;
+    .player-avatar {
+        width: 56px; height: 56px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; font-weight: 800; flex-shrink: 0;
     }
-
-    /* ── TEXTAREA ───────────────────────────────────────────────── */
-    textarea {
-        background: rgba(255,255,255,0.03) !important;
-        border: 1px solid var(--c-border-hi) !important;
-        border-radius: var(--radius-sm) !important;
-        color: var(--c-text) !important;
-        font-family: var(--font-mono) !important;
-        font-size: 12px !important;
-        resize: vertical !important;
+    .player-name {
+        font-size: 22px; font-weight: 800; color: white; margin: 0;
+        font-family: 'Rajdhani', sans-serif; letter-spacing: 1px;
     }
-
-    /* ── PYPLOT FIGURES – transparent background ─────────────────  */
-    .stPlotlyChart, .stPyplot { background: transparent !important; }
-
-    /* stImage border radius */
-    img { border-radius: var(--radius-md); }
-
-    /* ── SIDEBAR NAV SELECTED STATE ─────────────────────────────── */
-    div[data-testid="stSidebarNav"] a[aria-current="page"] {
-        background: rgba(0,229,255,0.08) !important;
-        border-left: 2px solid var(--c-cyan) !important;
+    .role-badge {
+        display: inline-block; padding: 3px 10px; border-radius: 99px;
+        font-size: 11px; font-weight: 700; margin-top: 6px; letter-spacing: 0.5px;
     }
+    .commentary-tag {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: rgba(255,255,255,0.06); border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 5px 12px; font-size: 12px;
+        color: rgba(255,255,255,0.8); margin: 3px 3px 3px 0;
+    }
+    .stat-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-value { color: var(--text); font-size: 15px; font-weight: 600; font-family: 'Rajdhani', sans-serif; }
+
+    .team-header {
+        border-radius: 18px; padding: 22px 26px; margin-bottom: 18px;
+        border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
+    }
+    .team-name-title {
+        font-size: 26px; font-weight: 800; color: white; margin: 0 0 4px;
+        font-family: 'Rajdhani', sans-serif; letter-spacing: 1px;
+    }
+    .team-stat-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .team-stat-row:last-child { border-bottom: none; }
+    .team-stat-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .team-stat-value { color: var(--text); font-size: 15px; font-weight: 600; font-family: 'Rajdhani', sans-serif; }
+    .team-player-card {
+        background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px 16px;
+        margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.06);
+        display: flex; justify-content: space-between; align-items: center;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .team-player-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+    .team-rank { font-size: 18px; font-weight: 800; color: rgba(255,255,255,0.2); margin-right: 12px; font-family: 'Rajdhani', sans-serif; }
+    .team-player-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .team-player-stat { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .insight-card {
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 14px; padding: 14px 18px; margin-bottom: 8px;
+        display: flex; justify-content: space-between; align-items: center;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .insight-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+    .insight-rank { font-size: 22px; font-weight: 800; color: rgba(255,255,255,0.2); margin-right: 14px; font-family: 'Rajdhani', sans-serif; }
+    .insight-name { font-size: 15px; font-weight: 600; color: var(--text); font-family: 'Rajdhani', sans-serif; }
+    .insight-sub  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .insight-value { font-size: 18px; font-weight: 800; color: var(--cyan); font-family: 'Rajdhani', sans-serif; }
+
+    .lv-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; margin-bottom: 14px; transition: border-color 0.2s, transform 0.2s; }
+    .lv-card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
+    .lv-score-box { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 12px 16px; margin: 10px 0; }
+    .lv-score-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .lv-score-row:last-child { border-bottom: none; }
+    .lv-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 4px; letter-spacing: 0.5px; }
+    .lv-live-dot { width: 8px; height: 8px; background: #FF4444; border-radius: 50%; display: inline-block; margin-right: 6px; box-shadow: 0 0 6px #FF4444; }
+    .lv-team { color: var(--cyan); font-size: 17px; font-weight: 700; margin: 6px 0 2px; font-family: 'Rajdhani', sans-serif; }
+    .lv-vs { color: rgba(255,255,255,0.25); font-size: 12px; margin: 0 0 6px; }
+    .lv-status { color: var(--muted); font-size: 13px; margin: 6px 0 2px; }
+    .lv-venue { color: rgba(255,255,255,0.25); font-size: 12px; margin: 0; }
+    .lv-date { color: rgba(255,255,255,0.25); font-size: 11px; }
+    .lv-runs { color: white; font-size: 18px; font-weight: 700; font-family: 'Rajdhani', sans-serif; }
+    .lv-overs { color: rgba(255,255,255,0.35); font-size: 12px; font-weight: 400; }
+    .lv-inning { color: var(--muted); font-size: 13px; }
+    .lv-footer { margin-top: 28px; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.02); text-align: center; color: rgba(255,255,255,0.2); font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+    .lv-section-title { color: white; font-size: 18px; font-weight: 700; margin: 16px 0 10px; font-family: 'Rajdhani', sans-serif; }
+    .lv-ended-label { color: rgba(255,255,255,0.25); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .lv-empty { text-align: center; padding: 40px 20px; }
+    .lv-empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .lv-empty-title { color: var(--muted); font-size: 18px; margin-bottom: 6px; }
+    .lv-empty-sub { color: rgba(255,255,255,0.25); font-size: 13px; }
+
+    .pred-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px 22px; margin-bottom: 14px; }
+    .metric-box { background: rgba(0,0,0,0.25); border-radius: 12px; padding: 16px 18px; text-align: center; border: 1px solid rgba(255,255,255,0.06); }
+    .metric-val { font-size: 28px; font-weight: 800; color: var(--cyan); font-family: 'Rajdhani', sans-serif; }
+    .metric-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .winner-banner { border-radius: 14px; padding: 22px; text-align: center; margin: 16px 0; }
+    .winner-name { font-size: 26px; font-weight: 800; color: white; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
+    .winner-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+    .insight-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+    .insight-row:last-child { border-bottom: none; }
+    .insight-label { color: var(--muted); }
+    .insight-value { color: var(--text); font-weight: 600; }
+
+    .comm-hero { background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(255,107,107,0.1)); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 24px 26px; margin-bottom: 20px; }
+    .comm-title { font-size: 28px; font-weight: 800; color: white; margin: 0 0 6px; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
+    .comm-sub { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .match-info-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 16px 18px; margin-bottom: 16px; }
+    .score-block { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 16px 18px; text-align: center; }
+    .score-runs { font-size: 32px; font-weight: 800; color: white; font-family: 'Rajdhani', sans-serif; }
+    .score-team { font-size: 12px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .score-extra { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 2px; }
+    .commentary-output { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px 24px; font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.85); white-space: pre-wrap; word-wrap: break-word; margin-top: 16px; }
+    .mode-badge { display: inline-block; padding: 4px 14px; border-radius: 99px; font-size: 12px; font-weight: 600; background: rgba(0,229,255,0.08); color: var(--cyan); border: 1px solid rgba(0,229,255,0.25); margin-bottom: 14px; }
+
+    .home-section-title { font-size: 20px; font-weight: 700; color: white; margin: 32px 0 14px; letter-spacing: 0.5px; font-family: 'Rajdhani', sans-serif; }
+    .today-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px 20px; margin-bottom: 12px; transition: transform 0.2s, border-color 0.2s; }
+    .today-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.14); }
+    .today-icon { font-size: 28px; margin-bottom: 6px; }
+    .today-headline { font-size: 15px; font-weight: 700; color: var(--cyan); margin: 4px 0; font-family: 'Rajdhani', sans-serif; }
+    .today-detail { font-size: 12px; color: var(--muted); }
+    .season-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; }
+    .season-year { font-size: 22px; font-weight: 800; color: var(--gold); font-family: 'Rajdhani', sans-serif; }
+    .season-champ { font-size: 15px; color: white; font-weight: 600; margin: 4px 0 10px; }
+    .season-award { font-size: 12px; color: var(--muted); margin: 3px 0; }
+    .fact-card { background: rgba(255,255,255,0.03); border-left: 3px solid var(--cyan); border-radius: 0 12px 12px 0; padding: 14px 16px; margin-bottom: 10px; }
+    .fact-icon { font-size: 20px; margin-bottom: 6px; }
+    .fact-text { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+    .hero-banner { background: linear-gradient(135deg, rgba(0,93,160,0.35), rgba(236,28,36,0.25)); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px 30px; text-align: center; margin-bottom: 28px; }
+    .hero-banner h1 { font-size: 44px; font-weight: 800; color: white; margin: 0 0 8px; font-family: 'Rajdhani', sans-serif; letter-spacing: 2px; }
+    .hero-tagline { font-size: 16px; color: rgba(255,255,255,0.6); margin: 0 0 6px; }
+    .hero-byline  { font-size: 13px; color: rgba(255,255,255,0.35); }
+    .ticker-bar { background: rgba(255,230,109,0.06); border: 1px solid rgba(255,230,109,0.18); border-radius: 8px; padding: 8px 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .ticker-label { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; }
+    .ticker-text { font-size: 13px; color: rgba(255,255,255,0.65); }
 
     </style>
     """, unsafe_allow_html=True)
 
-    # ── top header bar ───────────────────────────────────────────
     st.markdown("""
-    <div class="app-header">
-        <div class="app-header-left">
-            <div class="app-logo">🏏</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;
+                padding:0 0 1.2rem;border-bottom:1px solid rgba(255,255,255,0.07);
+                margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:40px;height:40px;border-radius:10px;flex-shrink:0;
+                        background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,229,255,0.3));
+                        border:1px solid rgba(0,229,255,0.3);
+                        display:flex;align-items:center;justify-content:center;font-size:20px;">🏏</div>
             <div>
-                <div class="app-name">Cricklytics</div>
-                <div class="app-tagline">IPL Analytics · AI Commentary · ML Predictions</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;
+                            color:white;letter-spacing:1.5px;text-transform:uppercase;line-height:1;">
+                    Cricklytics
+                </div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.05em;margin-top:3px;">
+                    IPL Analytics · AI Commentary · ML Predictions
+                </div>
             </div>
         </div>
-        <div class="app-header-right">
-            <div class="header-pill">278K <span>deliveries</span></div>
-            <div class="header-pill">18 <span>seasons</span></div>
-            <div class="header-pill">703 <span>players</span></div>
+        <div style="display:flex;gap:8px;align-items:center;">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+                        border-radius:99px;padding:4px 12px;font-size:11px;
+                        color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;">
+                278K <span style="color:#00e5ff;">deliveries</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+                        border-radius:99px;padding:4px 12px;font-size:11px;
+                        color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;">
+                18 <span style="color:#00e5ff;">seasons</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+                        border-radius:99px;padding:4px 12px;font-size:11px;
+                        color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;">
+                703 <span style="color:#00e5ff;">players</span>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -405,24 +368,20 @@ def set_bg(image_url):
     [data-testid="stAppViewContainer"] {{
         background:
             linear-gradient(to bottom,
-                rgba(8,12,16,0.92) 0%,
-                rgba(8,12,16,0.80) 40%,
-                rgba(8,12,16,0.92) 100%),
+                rgba(8,12,16,0.93) 0%,
+                rgba(8,12,16,0.78) 50%,
+                rgba(8,12,16,0.93) 100%),
             url("{image_url}") no-repeat center center fixed;
         background-size: cover;
     }}
     [data-testid="stAppViewContainer"]::before {{
-        content: "";
-        position: fixed;
-        inset: 0;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        background: rgba(8,12,16,0.55);
-        z-index: 0;
+        content:"";
+        position:fixed;inset:0;
+        backdrop-filter:blur(5px);
+        -webkit-backdrop-filter:blur(5px);
+        background:rgba(8,12,16,0.5);
+        z-index:0;
     }}
-    .block-container {{
-        position: relative;
-        z-index: 1;
-    }}
+    .block-container {{ position:relative; z-index:1; }}
     </style>
     """, unsafe_allow_html=True)
