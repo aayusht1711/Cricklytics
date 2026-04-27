@@ -23,41 +23,6 @@ def _batting_role(bat_pos_series):
 
 def show_player_view(data):
 
-    # ── inject player styles ─────────────────────────────────────
-    st.markdown("""
-    <style>
-    .player-profile-card {
-        border-radius: 18px; padding: 22px 24px;
-        margin-bottom: 16px; transition: 0.2s;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    .player-avatar {
-        width: 56px; height: 56px; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 20px; font-weight: 800; flex-shrink: 0;
-    }
-    .player-name   { font-size: 22px; font-weight: 800; color: white; margin: 0; }
-    .role-badge {
-        display: inline-block; padding: 3px 10px;
-        border-radius: 99px; font-size: 11px; font-weight: 700;
-        margin-top: 6px; letter-spacing: 0.5px;
-    }
-    .commentary-tag {
-        display: inline-flex; align-items: center; gap: 6px;
-        background: rgba(255,255,255,0.07); border-radius: 8px;
-        padding: 6px 14px; font-size: 13px;
-        color: rgba(255,255,255,0.85); margin: 4px 4px 4px 0;
-    }
-    .stat-row {
-        display: flex; justify-content: space-between;
-        padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-label { color: rgba(255,255,255,0.5); font-size: 13px; }
-    .stat-value { color: white; font-size: 15px; font-weight: 700; }
-    </style>
-    """, unsafe_allow_html=True)
-
     st.markdown("<h2 style='color:white;'>📊 Batter Profiles</h2>", unsafe_allow_html=True)
 
     player = st.selectbox("Select Batter", sorted(data["batter"].unique()))
