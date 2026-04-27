@@ -1,4 +1,7 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
 
 def show_insights(data):
 
@@ -38,3 +41,39 @@ def show_insights(data):
 
         for player, row in aggressive.iterrows():
             st.markdown(f"<div class='card'>{player} — SR: {round(row['sr'],2)}</div>", unsafe_allow_html=True)
+
+    # HOW IPL SCORING HAS EVOLVED — fixed season sort
+    st.markdown("<h3>📅 How IPL Scoring Has Evolved</h3>", unsafe_allow_html=True)
+
+    season_runs = (
+        data.groupby("season")["runs_total"].mean()
+        .reset_index()
+    )
+    # ← FIX: convert to string before sorting (mixed int/str types)
+    season_runs["season"] = season_runs["season"].astype(str)
+    season_runs["season"] = season_runs["season"].astype(str)
+    seasons_sorted = season_runs.sort_values("season")
+    seasons_sorted = season_runs.sort_values("season")
+    
+
+    fig, ax = plt.subplots(figsize=(10, 4))
+    ax.set_facecolor("#0e1117")
+    fig.patch.set_facecolor("#0e1117")
+    ax.plot(
+        range(len(seasons_sorted)),
+        seasons_sorted["runs_total"],
+        color="#00e5ff", linewidth=2.5, marker="o", markersize=5,
+    )
+    ax.fill_between(range(len(seasons_sorted)), seasons_sorted["runs_total"],
+                    alpha=0.1, color="#00e5ff")
+    ax.set_xticks(range(len(seasons_sorted)))
+    ax.set_xticklabels(seasons_sorted["season"].tolist(),
+                       rotation=45, ha="right", color="#aaa", fontsize=8)
+    ax.set_ylabel("Avg Runs/Ball", color="#aaa", fontsize=9)
+    ax.tick_params(colors="#aaa")
+    for spine in ax.spines.values():
+        spine.set_color("#2a2f3a")
+    ax.grid(True, color="#1e2530", linewidth=0.5, linestyle="--", alpha=0.6)
+    ax.set_title("Average Runs per Ball by Season", color="white", fontsize=11)
+    plt.tight_layout()
+    st.pyplot(fig)
