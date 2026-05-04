@@ -11,9 +11,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
 
-# ════════════════════════════════════════════════════════════════
-# FREE API PROVIDERS  (uses only `requests` — nothing extra to install)
-# ════════════════════════════════════════════════════════════════
+
 PROVIDERS = {
     "🚀 Groq — Llama 3.3 70B  (fastest · 14,400 req/day free)": {
         "signup": "https://console.groq.com",
@@ -257,9 +255,7 @@ Keep each tweet under 280 characters.
 Reference actual player names and scores."""
 
 
-# ════════════════════════════════════════════════════════════════
-# UNIFIED API CALLER  (works for Groq, Gemini, OpenRouter)
-# ════════════════════════════════════════════════════════════════
+
 def call_llm(prompt: str, provider_name: str, api_key: str) -> str:
     """
     Call whichever free provider the user picked.
