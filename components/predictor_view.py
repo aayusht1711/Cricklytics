@@ -22,9 +22,7 @@ from utils.chart_style import (
 )
 
 
-# ════════════════════════════════════════════════════════════════
-# MODEL TRAINING  (cached so it only runs once per session)
-# ════════════════════════════════════════════════════════════════
+
 @st.cache_resource
 def train_model(data_hash: int):
     """
@@ -146,7 +144,6 @@ def train_model(data_hash: int):
     }
 
 
-# ════════════════════════════════════════════════════════════════
 # PREDICTION HELPER
 # ════════════════════════════════════════════════════════════════
 def _predict(bundle, team1, team2, venue, toss_winner, toss_decision):
