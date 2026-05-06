@@ -16,6 +16,9 @@ from components.knockout_view import show_knockout_view
 from components.live_view import show_live_view
 from components.predictor_view import show_predictor_view
 from components.commentator_view import show_commentator_view
+from components.drs_view import show_drs_view
+from components.scouting_view import show_scouting_view
+from components.quiz_view import show_quiz_view
 from components.home_view import DID_YOU_KNOW
 
 
@@ -74,8 +77,8 @@ if "loader_done" not in st.session_state:
 # ================================================================
 # DATA
 # ================================================================
-st.sidebar.markdown("### 📂 Upload Match CSV")
-uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
+st.sidebar.markdown("### 📂 Upload Data")
+uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
 data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data()
 
 # ================================================================
@@ -107,7 +110,8 @@ PAGES = [
     "Home", "🔴 Live Scores", "Player Analysis", "Team Analysis",
     "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
-    "🎙️ AI Commentator",
+    "🎙️ AI Commentator", "🔍 DRS Analytics",
+    "🧠 AI Scouting Report", "🎮 IPL Quiz",
 ]
 
 if st.session_state.page not in PAGES:
@@ -132,8 +136,11 @@ BG = {
     "Venue Intelligence": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
     "Bowler Analytics":   "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
     "Knockout Filter":    "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
-    "🤖 ML Predictor":   "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-    "🎙️ AI Commentator": "https://images.unsplash.com/photo-1593341646782-e0b495cff86d",
+    "🤖 ML Predictor":      "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "🎙️ AI Commentator":   "https://images.unsplash.com/photo-1593341646782-e0b495cff86d",
+    "🔍 DRS Analytics":     "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
+    "🧠 AI Scouting Report":"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    "🎮 IPL Quiz":          "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
 }
 set_bg(BG[menu])
 
@@ -151,3 +158,6 @@ elif menu == "Bowler Analytics":   show_bowler_view(data)
 elif menu == "Knockout Filter":    show_knockout_view(data)
 elif menu == "🤖 ML Predictor":   show_predictor_view(data)
 elif menu == "🎙️ AI Commentator": show_commentator_view(data)
+elif menu == "🔍 DRS Analytics":  show_drs_view(data)
+elif menu == "🧠 AI Scouting Report": show_scouting_view(data)
+elif menu == "🎮 IPL Quiz":       show_quiz_view(data)
