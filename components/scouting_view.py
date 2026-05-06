@@ -36,7 +36,7 @@ def _compute_player_profile(data, player):
     seasons      = df["season"].astype(str).nunique()
     primary_team = df["batting_team"].value_counts().index[0] if len(df) > 0 else ""
 
-    # Phase SRs
+    
     df2 = df.copy()
     df2["phase"] = pd.cut(df2["over"], bins=[-1, 5, 14, 19],
                           labels=["Powerplay", "Middle", "Death"])
@@ -237,7 +237,7 @@ def show_scouting_view(data):
             unsafe_allow_html=True,
         )
 
-    # AI Report
+    
     st.markdown("---")
     st.markdown("<h3>AI Scouting Report</h3>", unsafe_allow_html=True)
 
@@ -268,7 +268,7 @@ def show_scouting_view(data):
 
         st.text_area("Copy report", value=report, height=200)
 
-    # Resume talking point
+    
     st.markdown("---")
     st.markdown(
         "<div class='card'>"
