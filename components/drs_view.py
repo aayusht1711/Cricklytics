@@ -222,7 +222,6 @@ def show_drs_view(data):
                     unsafe_allow_html=True,
                 )
 
-    # Resume talking point
     st.markdown("---")
     st.markdown(
         "<div class='card'>"
