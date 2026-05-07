@@ -154,7 +154,6 @@ def show_drs_view(data):
                 unsafe_allow_html=True,
             )
 
-    # ── TAB 3: Bowlers ────────────────────────────────────────────
     with tab3:
         st.markdown("<h3>Bowlers Whose Decisions Get Overturned Most</h3>", unsafe_allow_html=True)
         st.markdown(
@@ -181,7 +180,7 @@ def show_drs_view(data):
                 unsafe_allow_html=True,
             )
 
-    # ── TAB 4: Wicket Types ───────────────────────────────────────
+    
     with tab4:
         st.markdown("<h3>DRS by Dismissal Type</h3>", unsafe_allow_html=True)
         st.markdown(
