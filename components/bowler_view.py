@@ -151,7 +151,7 @@ def show_bowler_view(data):
 
     st.markdown("---")
 
-    # --- Global Leaderboards ---
+    
     st.markdown("<h3>🏆 Bowling Leaderboards</h3>", unsafe_allow_html=True)
     tab1, tab2, tab3 = st.tabs(["Most Wickets", "Best Economy", "Best Bowling SR"])
 
@@ -187,7 +187,6 @@ def show_bowler_view(data):
 
     st.markdown("---")
 
-    # --- Death Overs Specialists ---
     st.markdown("<h3>💀 Death Over Specialists (Overs 16–19)</h3>", unsafe_allow_html=True)
 
     death = data[data["over"] >= 15].groupby("bowler").agg(
