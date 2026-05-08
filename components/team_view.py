@@ -1,180 +1,168 @@
 import streamlit as st
 import pandas as pd
-from utils.chart_style import (
-    dark_bar_chart, dark_pie_chart,
-    team_color, sr_tag, ACCENT, ACCENT2, ACCENT3, DARK_BG, TEXT_COLOR
-)
-import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
+TEAM_COLORS = {
+    "Mumbai Indians":"#005DA0","Chennai Super Kings":"#F7C010",
+    "Royal Challengers Bengaluru":"#EC1C24","Royal Challengers Bangalore":"#EC1C24",
+    "Kolkata Knight Riders":"#3A225D","Rajasthan Royals":"#EA1A85",
+    "Sunrisers Hyderabad":"#F7700E","Delhi Capitals":"#0078BC",
+    "Delhi Daredevils":"#0078BC","Punjab Kings":"#ED1B24",
+    "Kings XI Punjab":"#ED1B24","Deccan Chargers":"#FDB933",
+    "Gujarat Titans":"#1C4966","Lucknow Super Giants":"#A72056",
+    "Gujarat Lions":"#E8461A","Rising Pune Supergiants":"#6F2DA8",
+}
+
+BASE = dict(template="plotly_dark")
+LAYOUT = dict(
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(14,17,23,0.8)",
+    font=dict(family="DM Sans, sans-serif", color="white"),
+    margin=dict(l=20, r=20, t=50, b=20),
+)
+
+def _fig(fig, title="", **kw):
+    fig.update_layout(title=title, **LAYOUT, **kw)
+    return fig
+
+def _sr_tag(sr):
+    if sr>=180: return "Carnage!"
+    if sr>=150: return "Explosive"
+    if sr>=130: return "Aggressive"
+    if sr>=110: return "Steady"
+    return "Anchor"
 
 def show_team_view(data):
+    st.markdown("<h2>Team HQ</h2>", unsafe_allow_html=True)
+    team    = st.selectbox("Select Team", sorted(data["batting_team"].unique()))
+    df      = data[data["batting_team"]==team]
+    t_color = TEAM_COLORS.get(team,"#00FFFF")
 
-    st.markdown("<h2 style='color:white;'>🏏 Team HQ</h2>", unsafe_allow_html=True)
+    runs         = int(df["runs_batter"].sum())
+    balls        = int(df["valid_ball"].sum()) if "valid_ball" in df.columns else len(df)
+    sr           = round(runs/balls*100,2) if balls>0 else 0
+    boundaries   = int((df["runs_batter"]==4).sum())
+    sixes        = int((df["runs_batter"]==6).sum())
+    wickets      = int(df["player_dismissed"].notna().sum()) if "player_dismissed" in df.columns else 0
+    dots         = int((df["runs_batter"]==0).sum())
+    dot_pct      = round(dots/balls*100,1) if balls>0 else 0
+    boundary_pct = round((boundaries+sixes)/balls*100,1) if balls>0 else 0
+    matches      = df["match_id"].nunique()
 
-    team = st.selectbox("Select Team", sorted(data["batting_team"].unique()))
-    df   = data[data["batting_team"] == team]
-    t_color = team_color(team)
-
-    # ── compute stats ─────────────────────────────────────────────
-    total_runs = int(df["runs_batter"].sum())
-    balls      = int(df["balls_faced"].sum()) if "balls_faced" in df.columns else len(df)
-    sr         = round(total_runs / balls * 100, 2) if balls > 0 else 0
-    boundaries = int((df["runs_batter"] == 4).sum())
-    sixes      = int((df["runs_batter"] == 6).sum())
-    wickets    = int(df["player_dismissed"].notna().sum()) if "player_dismissed" in df.columns else 0
-    dot_balls  = int((df["runs_batter"] == 0).sum())
-    dot_pct    = round(dot_balls / balls * 100, 1) if balls > 0 else 0
-    boundary_pct = round((boundaries + sixes) / balls * 100, 1) if balls > 0 else 0
-
-    sr_emoji, sr_label = sr_tag(sr)
-
-    # ── team header card ─────────────────────────────────────────
-    st.markdown(f"""
-    <div class="team-header" style="background: rgba(255,255,255,0.04);
-         border-left: 5px solid {t_color};">
-        <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
-            <div style="width:50px; height:50px; border-radius:50%;
-                        background:{t_color}25; display:flex; align-items:center;
-                        justify-content:center; font-size:22px; font-weight:800;
-                        color:{t_color}; flex-shrink:0;">
-                {team[:2].upper()}
-            </div>
-            <div>
-                <p class="team-name-title">{team}</p>
-                <span style="background:{t_color}20; color:{t_color};
-                             border:1px solid {t_color}50; border-radius:99px;
-                             font-size:11px; font-weight:700; padding:2px 10px;">
-                    {sr_emoji} {sr_label}
-                </span>
-            </div>
-        </div>
-
-        <div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Runs Plundered</span>
-                <span class="team-stat-value" style="color:{t_color};">{total_runs:,}</span>
-            </div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Deliveries Faced</span>
-                <span class="team-stat-value">{balls:,}</span>
-            </div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Strike Rate</span>
-                <span class="team-stat-value">{sr}</span>
-            </div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Wickets Lost</span>
-                <span class="team-stat-value">{wickets}</span>
-            </div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Fours / Sixes</span>
-                <span class="team-stat-value">{boundaries} / {sixes}</span>
-            </div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Boundary %</span>
-                <span class="team-stat-value">{boundary_pct}%</span>
-            </div>
-            <div class="team-stat-row">
-                <span class="team-stat-label">Dot Ball %</span>
-                <span class="team-stat-value">{dot_pct}%</span>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # ── run composition pie ───────────────────────────────────────
     st.markdown(
-        "<h3 style='color:white; margin:20px 0 10px;'>🎯 How Runs Are Scored</h3>",
+        f"<div class='card'><h3 style='color:{t_color};'>{team}</h3>"
+        f"<p>{_sr_tag(sr)} | {matches} matches played</p></div>",
         unsafe_allow_html=True,
     )
-    boundary_runs = boundaries * 4 + sixes * 6
-    running_runs  = total_runs - boundary_runs
-    fig_pie = dark_pie_chart(
-        ["From Boundaries", "Running Between Wickets"],
-        [boundary_runs, max(running_runs, 0)],
-        title=f"{team} — Run Composition",
-        colors=[t_color, "#444"],
-    )
-    st.pyplot(fig_pie)
+    c1,c2,c3,c4 = st.columns(4)
+    c1.metric("Runs Plundered", f"{runs:,}")
+    c2.metric("Strike Rate",    sr)
+    c3.metric("Wickets Lost",   wickets)
+    c4.metric("Matches",        matches)
+    c5,c6,c7,c8 = st.columns(4)
+    c5.metric("Sixes",        sixes)
+    c6.metric("Fours",        boundaries)
+    c7.metric("Boundary %",   f"{boundary_pct}%")
+    c8.metric("Dot Ball %",   f"{dot_pct}%")
 
-    # ── top batters bar ───────────────────────────────────────────
-    st.markdown(
-        "<h3 style='color:white; margin:20px 0 10px;'>🔥 Top Run Scorers</h3>",
-        unsafe_allow_html=True,
-    )
-    top_batters = (
-        df.groupby("batter")["runs_batter"].sum()
-        .sort_values(ascending=False).head(8)
-    )
+    tab1,tab2,tab3,tab4 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend"])
 
-    for i, (player, p_runs) in enumerate(top_batters.items(), 1):
-        p_balls  = int(df[df["batter"] == player]["balls_faced"].sum())
-        p_sr     = round(p_runs / p_balls * 100, 1) if p_balls > 0 else 0
-        bar_pct  = int(p_runs / top_batters.iloc[0] * 100)
-        medal    = ["🥇","🥈","🥉"][i-1] if i <= 3 else f"#{i}"
-        st.markdown(f"""
-        <div class="team-player-card">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <span class="team-rank">{medal}</span>
-                <div>
-                    <div class="team-player-name">{player}</div>
-                    <div class="team-player-stat">SR: {p_sr}</div>
-                </div>
-            </div>
-            <div style="text-align:right;">
-                <div style="font-size:16px; font-weight:800; color:{t_color};">{p_runs:,}</div>
-                <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:2px;">runs</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    with tab1:
+        col_a, col_b = st.columns(2)
+        with col_a:
+            boundary_runs = boundaries*4 + sixes*6
+            running_runs  = max(runs - boundary_runs, 0)
+            fig1 = px.pie(names=["Boundaries","Running"],
+                          values=[boundary_runs, running_runs],
+                          color_discrete_sequence=[t_color,"#333"],
+                          hole=0.4, **BASE)
+            fig1.update_traces(textinfo="percent+label")
+            _fig(fig1, "Run Composition")
+            st.plotly_chart(fig1, use_container_width=True)
 
-    # ── runs by over phase bar chart ──────────────────────────────
-    st.markdown(
-        "<h3 style='color:white; margin:20px 0 10px;'>⏱️ Runs by Over Phase</h3>",
-        unsafe_allow_html=True,
-    )
-    df2 = df.copy()
-    df2["phase"] = pd.cut(
-        df2["over"], bins=[-1, 5, 14, 19],
-        labels=["Powerplay (0–5)", "Middle (6–14)", "Death (15–19)"],
-    )
-    phase_runs = df2.groupby("phase", observed=True)["runs_batter"].sum()
+        with col_b:
+            over_avg = df.groupby("over")["runs_total"].mean().reset_index()
+            fig2 = px.bar(over_avg, x="over", y="runs_total",
+                          color="runs_total",
+                          color_continuous_scale=["#1a1f2a",t_color,"#FFE66D"],
+                          labels={"over":"Over","runs_total":"Avg Runs"}, **BASE)
+            fig2.update_layout(coloraxis_showscale=False)
+            _fig(fig2, "Avg Runs per Over Slot")
+            st.plotly_chart(fig2, use_container_width=True)
 
-    fig_phase = dark_bar_chart(
-        list(phase_runs.index.astype(str)),
-        list(phase_runs.values),
-        title=f"{team} — Runs by Over Phase",
-        ylabel="Total Runs",
-        color=t_color,
-        highlight_max=True,
-        figsize=(8, 4),
-    )
-    st.pyplot(fig_phase)
+    with tab2:
+        top_bat = df.groupby("batter").agg(
+            runs=("runs_batter","sum"), balls=("valid_ball","sum"),
+            sixes=("runs_batter", lambda x: (x==6).sum()),
+        ).reset_index()
+        top_bat = top_bat[top_bat["balls"]>=50].copy()
+        top_bat["sr"] = (top_bat["runs"]/top_bat["balls"]*100).round(1)
+        top_bat = top_bat.sort_values("runs",ascending=False).head(10)
 
-    # ── most aggressive batters ───────────────────────────────────
-    st.markdown(
-        "<h3 style='color:white; margin:20px 0 10px;'>🚀 Most Aggressive Batters (min 200 balls)</h3>",
-        unsafe_allow_html=True,
-    )
-    agg = df.groupby("batter").agg(
-        runs=("runs_batter", "sum"),
-        balls=("balls_faced", "sum"),
-    )
-    agg = agg[agg["balls"] >= 200].copy()
-    if not agg.empty:
-        agg["sr"] = (agg["runs"] / agg["balls"] * 100).round(1)
-        top_sr = agg.sort_values("sr", ascending=False).head(5)
-        for i, (player, row) in enumerate(top_sr.iterrows(), 1):
-            sr_e, sr_l = sr_tag(row["sr"])
-            st.markdown(f"""
-            <div class="team-player-card">
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <span class="team-rank">#{i}</span>
-                    <div>
-                        <div class="team-player-name">{player}</div>
-                        <div class="team-player-stat">{sr_e} {sr_l}</div>
-                    </div>
-                </div>
-                <div style="font-size:16px; font-weight:800; color:{ACCENT2};">SR {row['sr']}</div>
-            </div>
-            """, unsafe_allow_html=True)
+        fig3 = go.Figure(go.Bar(
+            x=top_bat["runs"], y=top_bat["batter"],
+            orientation="h", marker_color=t_color,
+            text=top_bat["runs"].apply(lambda x: f"{int(x):,}"),
+            textposition="outside",
+            customdata=top_bat[["sr","sixes"]].values,
+            hovertemplate="<b>%{y}</b><br>Runs: %{x:,}<br>SR: %{customdata[0]}<br>Sixes: %{customdata[1]}<extra></extra>",
+        ))
+        _fig(fig3, "Top Run Scorers", xaxis_title="Runs", yaxis=dict(autorange="reversed"))
+        st.plotly_chart(fig3, use_container_width=True)
+
+        sr_leaders = top_bat[top_bat["balls"]>=100].sort_values("sr",ascending=False).head(8)
+        fig4 = px.bar(sr_leaders, x="batter", y="sr",
+                      color="sr", color_continuous_scale="RdYlGn",
+                      text="sr", labels={"sr":"Strike Rate","batter":""}, **BASE)
+        fig4.update_traces(textposition="outside")
+        fig4.update_layout(coloraxis_showscale=False)
+        _fig(fig4, "Most Aggressive Batters (SR)")
+        st.plotly_chart(fig4, use_container_width=True)
+
+    with tab3:
+        df2 = df.copy()
+        df2["phase"] = pd.cut(df2["over"], bins=[-1,5,14,19],
+                               labels=["Powerplay","Middle","Death"])
+        phase_stats = df2.groupby("phase", observed=True).agg(
+            runs=("runs_batter","sum"), balls=("valid_ball","sum"),
+            sixes=("runs_batter", lambda x: (x==6).sum()),
+        ).reset_index()
+        phase_stats["sr"]  = (phase_stats["runs"]/phase_stats["balls"]*100).round(1)
+        phase_stats["rpo"] = (phase_stats["runs"]/phase_stats["balls"]*6).round(2)
+
+        fig5 = make_subplots(rows=1, cols=3,
+                             subplot_titles=("Runs by Phase","SR by Phase","Sixes by Phase"))
+        colors = ["#4ECDC4","#FFE66D","#FF6B6B"]
+        for i, col in enumerate(["runs","sr","sixes"]):
+            fig5.add_trace(go.Bar(
+                x=phase_stats["phase"].astype(str), y=phase_stats[col],
+                marker_color=colors, text=phase_stats[col].round(1),
+                textposition="outside", showlegend=False,
+            ), row=1, col=i+1)
+        _fig(fig5, f"{team} — Phase Breakdown")
+        st.plotly_chart(fig5, use_container_width=True)
+
+    with tab4:
+        by_season = df.groupby("season").agg(
+            runs=("runs_batter","sum"), balls=("valid_ball","sum"),
+            matches=("match_id","nunique"),
+            sixes=("runs_batter", lambda x: (x==6).sum()),
+        ).reset_index().sort_values("season")
+        by_season["sr"]       = (by_season["runs"]/by_season["balls"]*100).round(1)
+        by_season["runs_pm"]  = (by_season["runs"]/by_season["matches"]).round(0)
+        by_season["sixes_pm"] = (by_season["sixes"]/by_season["matches"]).round(1)
+
+        fig6 = make_subplots(specs=[[{"secondary_y":True}]])
+        fig6.add_trace(go.Bar(x=by_season["season"].astype(str), y=by_season["runs_pm"],
+                              name="Runs/Match", marker_color=t_color, opacity=0.8),
+                       secondary_y=False)
+        fig6.add_trace(go.Scatter(x=by_season["season"].astype(str), y=by_season["sr"],
+                                  name="SR", mode="lines+markers",
+                                  line=dict(color="#FFE66D",width=2), marker=dict(size=7)),
+                       secondary_y=True)
+        _fig(fig6, f"{team} — Season Trend")
+        fig6.update_yaxes(title_text="Runs/Match", secondary_y=False)
+        fig6.update_yaxes(title_text="Strike Rate", secondary_y=True)
+        st.plotly_chart(fig6, use_container_width=True)
