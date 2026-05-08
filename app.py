@@ -18,7 +18,8 @@ from components.predictor_view import show_predictor_view
 from components.commentator_view import show_commentator_view
 from components.drs_view import show_drs_view
 from components.scouting_view import show_scouting_view
-from components.quiz_view import show_quiz_view
+from components.whatif_view import show_whatif_view
+from components.dreamxi_view import show_dreamxi_view
 from components.home_view import DID_YOU_KNOW
 
 
@@ -111,7 +112,7 @@ PAGES = [
     "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
     "🎙️ AI Commentator", "🔍 DRS Analytics",
-    "🧠 AI Scouting Report", "🎮 IPL Quiz",
+    "🧠 AI Scouting Report", "🔀 What If Simulator", "🏆 Dream XI",
 ]
 
 if st.session_state.page not in PAGES:
@@ -139,8 +140,9 @@ BG = {
     "🤖 ML Predictor":      "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
     "🎙️ AI Commentator":   "https://images.unsplash.com/photo-1593341646782-e0b495cff86d",
     "🔍 DRS Analytics":     "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
-    "🧠 AI Scouting Report":"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
-    "🎮 IPL Quiz":          "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
+    "🧠 AI Scouting Report": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    "🔀 What If Simulator":  "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "🏆 Dream XI":           "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
 }
 set_bg(BG[menu])
 
@@ -158,6 +160,7 @@ elif menu == "Bowler Analytics":   show_bowler_view(data)
 elif menu == "Knockout Filter":    show_knockout_view(data)
 elif menu == "🤖 ML Predictor":   show_predictor_view(data)
 elif menu == "🎙️ AI Commentator": show_commentator_view(data)
-elif menu == "🔍 DRS Analytics":  show_drs_view(data)
+elif menu == "🔍 DRS Analytics":      show_drs_view(data)
 elif menu == "🧠 AI Scouting Report": show_scouting_view(data)
-elif menu == "🎮 IPL Quiz":       show_quiz_view(data)
+elif menu == "🔀 What If Simulator":  show_whatif_view(data)
+elif menu == "🏆 Dream XI":           show_dreamxi_view(data)
