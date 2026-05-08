@@ -1,19 +1,22 @@
 import pandas as pd
 import streamlit as st
-import gdown
 import os
+
 
 @st.cache_data
 def load_data():
-    file_id = "1y2T7VTz3cjjYUc5IrHq4H9RtsIhc17M4"
-    url = f"https://drive.google.com/uc?id={file_id}"
-    output = "data.csv"
+    """
+    Load IPL ball-by-ball data.
+    Priority:
+      1. data_new.csv  (converted from cricsheet YAML — most complete)
+      2. data.csv      (original fallback)
+    """
+    for fname in ["data_new.csv", "data.csv"]:
+        if os.path.exists(fname):
+            df = pd.read_csv(fname, low_memory=False)
+            # ensure season is string
+            df["season"] = df["season"].astype(str)
+            return df
 
-    # Download only if file not already present
-    if not os.path.exists(output):
-        gdown.download(url, output, quiet=False)
-
-    # Load dataset
-    df = pd.read_csv(output)
-
-    return df
+    st.error("No data file found. Place data_new.csv in project root.")
+    return pd.DataFrame()
