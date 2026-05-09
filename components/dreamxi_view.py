@@ -63,9 +63,10 @@ def _build_player_pool(data):
     ).round(1)
 
     # ── BOWLING POOL ──────────────────────────────────────────────
+    runs_bowl_col = "runs_bowler" if "runs_bowler" in data.columns else "runs_total"
     bowl = data.groupby("bowler").agg(
-        wickets =("bowler_wicket", "sum"),
-        runs_c  =("runs_bowler",   "sum"),
+        wickets =("bowler_wicket",  "sum"),
+        runs_c  =(runs_bowl_col,   "sum"),
         balls   =("valid_ball",    "sum"),
         team    =("batting_team",  lambda x: x.value_counts().index[0]),
     ).reset_index()
@@ -74,9 +75,10 @@ def _build_player_pool(data):
     bowl["bowling_sr"] = (bowl["balls"]  / bowl["wickets"].replace(0, np.nan)).round(1)
 
     # Death overs economy
+    runs_bowl_col2 = "runs_bowler" if "runs_bowler" in data.columns else "runs_total"
     death = data[data["over"] >= 15].groupby("bowler").agg(
-        d_runs =("runs_bowler","sum"),
-        d_balls=("valid_ball", "sum"),
+        d_runs =(runs_bowl_col2, "sum"),
+        d_balls=("valid_ball",   "sum"),
     ).reset_index()
     death["death_econ"] = (death["d_runs"] / death["d_balls"] * 6).round(2)
     bowl = bowl.merge(death, on="bowler", how="left").fillna({"death_econ": 9.0})
