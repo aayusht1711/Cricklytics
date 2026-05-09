@@ -19,7 +19,7 @@ def _bowler_stats(data):
     overall = (
         df.groupby("bowler")
         .agg(
-            runs=("runs_bowler", "sum"),
+            runs=("runs_total", "sum"),
             balls=("valid_ball", "sum"),
             wickets=("bowler_wicket", "sum"),
         )
@@ -37,7 +37,7 @@ def _bowler_stats(data):
     # Phase-wise
     phase_stats = (
         df.groupby(["bowler", "phase"])
-        .agg(runs=("runs_bowler", "sum"), balls=("valid_ball", "sum"))
+        .agg(runs=("runs_total", "sum"), balls=("valid_ball", "sum"))
         .reset_index()
     )
     phase_stats["economy"] = (phase_stats["runs"] / phase_stats["balls"] * 6).round(2)
@@ -151,7 +151,7 @@ def show_bowler_view(data):
 
     st.markdown("---")
 
-    
+    # --- Global Leaderboards ---
     st.markdown("<h3>🏆 Bowling Leaderboards</h3>", unsafe_allow_html=True)
     tab1, tab2, tab3 = st.tabs(["Most Wickets", "Best Economy", "Best Bowling SR"])
 
@@ -187,10 +187,11 @@ def show_bowler_view(data):
 
     st.markdown("---")
 
+    # --- Death Overs Specialists ---
     st.markdown("<h3>💀 Death Over Specialists (Overs 16–19)</h3>", unsafe_allow_html=True)
 
     death = data[data["over"] >= 15].groupby("bowler").agg(
-        runs=("runs_bowler", "sum"),
+        runs=("runs_total", "sum"),
         balls=("valid_ball", "sum"),
         wickets=("bowler_wicket", "sum"),
     ).reset_index()
