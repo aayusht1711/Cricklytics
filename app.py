@@ -23,9 +23,7 @@ from components.dreamxi_view import show_dreamxi_view
 from components.home_view import DID_YOU_KNOW
 
 
-# ================================================================
-# LOADER
-# ================================================================
+
 def cricket_loader():
     loader_html = """
     <style>
@@ -59,9 +57,7 @@ def cricket_loader():
     bar.empty()
 
 
-# ================================================================
-# PAGE CONFIG
-# ================================================================
+
 st.set_page_config(
     page_title="Cricket Analytics — Aayush Tripathi",
     layout="wide",
@@ -82,14 +78,10 @@ st.sidebar.markdown("### 📂 Upload Data")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
 data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data()
 
-# ================================================================
-# HEADER
-# ================================================================
+
 show_header()
 
-# ================================================================
-# SIDEBAR DID YOU KNOW
-# ================================================================
+
 st.sidebar.markdown("---")
 random.seed(int(time.time()) // 300)
 fact_icon, fact_text = random.choice(DID_YOU_KNOW)
