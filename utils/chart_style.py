@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
 
-# ── IPL TEAM COLOURS ────────────────────────────────────────────
+
 TEAM_COLORS = {
     "Mumbai Indians":                "#005DA0",
     "Chennai Super Kings":           "#F7C010",
@@ -50,7 +50,6 @@ CRICKET_VOCAB = {
     "Live Scores":      "Live Action",
 }
 
-# ── COMMENTARY TAGS ──────────────────────────────────────────────
 def sr_tag(sr):
     """Return emoji + label based on strike rate."""
     if sr >= 180:  return ("🔥", "Carnage!")
