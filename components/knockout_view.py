@@ -42,7 +42,6 @@ def _bowler_stats(data):
     )
     phase_stats["economy"] = (phase_stats["runs"] / phase_stats["balls"] * 6).round(2)
 
-    # Wicket types
     wickets_df = df[df["wicket_kind"].notna() & (df["bowler_wicket"] == 1)]
     wicket_types = (
         wickets_df.groupby(["bowler", "wicket_kind"])
@@ -117,7 +116,7 @@ def show_bowler_view(data):
         else:
             st.info("No dismissal data available.")
 
-    # --- Phase economy bar chart ---
+    
     with col2:
         st.markdown("<h3>📊 Economy by Phase</h3>", unsafe_allow_html=True)
         phase_row = phase_stats[phase_stats["bowler"] == bowler]
