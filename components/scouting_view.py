@@ -48,14 +48,14 @@ def _compute_player_profile(data, player):
     mid_sr    = round(phase.loc["Middle", "runs"]    / max(phase.loc["Middle", "balls"],    1) * 100, 1)
     death_sr  = round(phase.loc["Death", "runs"]     / max(phase.loc["Death", "balls"],     1) * 100, 1)
 
-    # Knockout vs league
+    
     ko_stages = ["Final","Semi Final","Qualifier 1","Qualifier 2","Eliminator","Elimination Final"]
     ko_df     = df[df["stage"].isin(ko_stages)]
     ko_runs   = int(ko_df["runs_batter"].sum())
     ko_balls  = int(ko_df["balls_faced"].sum()) if "balls_faced" in ko_df.columns else len(ko_df)
     ko_sr     = round(ko_runs / ko_balls * 100, 1) if ko_balls > 0 else 0
 
-    # Match-level 50s and 100s
+    
     match_runs  = df.groupby("match_id")["runs_batter"].sum()
     fifties     = int(((match_runs >= 50) & (match_runs < 100)).sum())
     hundreds    = int((match_runs >= 100).sum())
