@@ -8,14 +8,14 @@ import matplotlib.patches as mpatches
 def _bowler_stats(data):
     df = data.copy()
 
-    # Phase labels
+   
     df["phase"] = pd.cut(
         df["over"],
         bins=[-1, 5, 14, 19],
         labels=["Powerplay (0–5)", "Middle (6–14)", "Death (15–19)"],
     )
 
-    # Overall stats
+   
     overall = (
         df.groupby("bowler")
         .agg(
