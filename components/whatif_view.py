@@ -209,7 +209,7 @@ def show_whatif_view(data):
     t1c = TEAM_COLORS.get(team1, "#00FFFF")
     t2c = TEAM_COLORS.get(team2, "#FF6B6B")
 
-    # Original match card
+   
     st.markdown(
         f"<div class='card'>"
         f"<h3 style='color:{t1c};'>{team1}</h3>"
@@ -223,7 +223,7 @@ def show_whatif_view(data):
         unsafe_allow_html=True,
     )
 
-    # Original probability
+   
     orig_p1, orig_p2 = _predict_prob(bundle, team1, team2, venue, toss_w, toss_d)
     st.markdown(
         f"<div class='card'>"
