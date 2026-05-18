@@ -138,9 +138,7 @@ BG = {
 }
 set_bg(BG[menu])
 
-# ================================================================
-# ROUTING
-# ================================================================
+
 if   menu == "Home":               show_home(data)
 elif menu == "🔴 Live Scores":     show_live_view()
 elif menu == "Player Analysis":    show_player_view(data)
