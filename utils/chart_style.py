@@ -76,9 +76,9 @@ def runs_tag(runs):
 def team_color(team_name):
     return TEAM_COLORS.get(team_name, DEFAULT_COLOR)
 
-# ── SHARED CHART STYLE ───────────────────────────────────────────
+
 DARK_BG    = "#0e1117"
-GRID_COLOR = "rgba(255,255,255,0.08)"  # not used in mpl, for HTML
+GRID_COLOR = "rgba(255,255,255,0.08)" 
 GRID_MPL   = "#1e2530"
 TEXT_COLOR = "#e0e0e0"
 ACCENT     = "#00FFFF"
@@ -99,7 +99,7 @@ def apply_dark_style(fig, ax, title="", xlabel="", ylabel=""):
     ax.grid(True, color=GRID_MPL, linewidth=0.5, linestyle="--", alpha=0.6)
     ax.set_axisbelow(True)
 
-    # ticks + labels
+   
     ax.tick_params(colors=TEXT_COLOR, labelsize=9)
     ax.xaxis.label.set_color(TEXT_COLOR)
     ax.yaxis.label.set_color(TEXT_COLOR)
