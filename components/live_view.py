@@ -5,11 +5,11 @@ from datetime import datetime
 # -------------------------------------------------------
 # PASTE YOUR API KEY FROM https://cricketdata.org/signup.aspx
 API_KEY = ""
-# -------------------------------------------------------
+
  
 BASE_URL = "https://api.cricapi.com/v1"
  
-# ── self-contained styles (no dependency on header.py) ──────────
+
 LIVE_CSS = """
 <style>
 .lv-card {
