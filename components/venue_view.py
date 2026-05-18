@@ -6,7 +6,7 @@ import matplotlib.patches as mpatches
 
 @st.cache_data
 def _venue_stats(data):
-    # --- Avg 1st innings score per venue ---
+   
     inn1 = (
         data[data["innings"] == 1]
         .groupby(["match_id", "venue"])["runs_total"]
@@ -19,7 +19,7 @@ def _venue_stats(data):
         .reset_index()
     )
 
-    # --- Chasing win % per venue ---
+    
     match_df = data.drop_duplicates("match_id")[
         ["match_id", "venue", "win_outcome"]
     ].copy()
