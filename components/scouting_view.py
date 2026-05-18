@@ -133,7 +133,7 @@ def _radar_chart(profile):
     categories = ["Power\n(Sixes)", "Consistency\n(Avg)", "Aggression\n(SR)",
                   "Clutch\n(KO SR)", "Reliability\n(50s+100s)"]
 
-    # Normalize each to 0-100
+    
     def norm(val, max_val):
         return min(100, round(val / max_val * 100, 0))
 
