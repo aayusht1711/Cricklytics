@@ -20,10 +20,13 @@ from components.drs_view import show_drs_view
 from components.scouting_view import show_scouting_view
 from components.whatif_view import show_whatif_view
 from components.dreamxi_view import show_dreamxi_view
+from components.squad_view import show_squad_view
 from components.home_view import DID_YOU_KNOW
 
 
-
+# ================================================================
+# LOADER
+# ================================================================
 def cricket_loader():
     loader_html = """
     <style>
@@ -57,7 +60,9 @@ def cricket_loader():
     bar.empty()
 
 
-
+# ================================================================
+# PAGE CONFIG
+# ================================================================
 st.set_page_config(
     page_title="Cricket Analytics — Aayush Tripathi",
     layout="wide",
@@ -78,10 +83,14 @@ st.sidebar.markdown("### 📂 Upload Data")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
 data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data()
 
-
+# ================================================================
+# HEADER
+# ================================================================
 show_header()
 
-
+# ================================================================
+# SIDEBAR DID YOU KNOW
+# ================================================================
 st.sidebar.markdown("---")
 random.seed(int(time.time()) // 300)
 fact_icon, fact_text = random.choice(DID_YOU_KNOW)
@@ -104,7 +113,7 @@ PAGES = [
     "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
     "🎙️ AI Commentator", "🔍 DRS Analytics",
-    "🧠 AI Scouting Report", "🔀 What If Simulator", "🏆 Dream XI",
+    "🧠 AI Scouting Report", "🔀 What If Simulator", "🏆 Dream XI","👥 2026 Squads",
 ]
 
 if st.session_state.page not in PAGES:
@@ -135,10 +144,13 @@ BG = {
     "🧠 AI Scouting Report": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
     "🔀 What If Simulator":  "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
     "🏆 Dream XI":           "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
+    "👥 2026 Squads":        "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
 }
 set_bg(BG[menu])
 
-
+# ================================================================
+# ROUTING
+# ================================================================
 if   menu == "Home":               show_home(data)
 elif menu == "🔴 Live Scores":     show_live_view()
 elif menu == "Player Analysis":    show_player_view(data)
@@ -154,3 +166,4 @@ elif menu == "🔍 DRS Analytics":      show_drs_view(data)
 elif menu == "🧠 AI Scouting Report": show_scouting_view(data)
 elif menu == "🔀 What If Simulator":  show_whatif_view(data)
 elif menu == "🏆 Dream XI":           show_dreamxi_view(data)
+elif menu == "👥 2026 Squads":        show_squad_view(data)
