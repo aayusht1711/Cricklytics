@@ -34,7 +34,7 @@ def _bowler_stats(data):
         overall["runs"] / overall["wickets"].replace(0, float("nan"))
     ).round(2)
 
-    # Phase-wise
+
     phase_stats = (
         df.groupby(["bowler", "phase"])
         .agg(runs=("runs_total", "sum"), balls=("valid_ball", "sum"))
