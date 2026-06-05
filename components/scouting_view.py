@@ -218,7 +218,6 @@ def show_scouting_view(data):
     c7.metric("Death SR",     profile["death_sr"])
     c8.metric("Knockout SR",  profile["ko_sr"])
 
-    # Radar chart
     col_r, col_s = st.columns([1, 2])
     with col_r:
         st.markdown("<h3>Player Radar</h3>", unsafe_allow_html=True)
