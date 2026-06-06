@@ -140,8 +140,6 @@ def show_venue_view(data):
         )
 
     st.markdown("---")
-
-    # --- Global leaderboard charts ---
     st.markdown("<h3>📊 All Venues — Avg 1st Innings Score</h3>", unsafe_allow_html=True)
     top_venues = venue_df.sort_values("avg_first_innings", ascending=False).head(12)
 
