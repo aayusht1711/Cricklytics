@@ -4,8 +4,6 @@ import numpy as np
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-
-# ── lazy imports so app doesn't crash if sklearn missing ─────────
 try:
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.preprocessing import LabelEncoder
