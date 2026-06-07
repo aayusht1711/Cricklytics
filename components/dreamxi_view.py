@@ -19,7 +19,7 @@ TEAM_COLORS = {
 def _build_player_pool(data):
     """Build batting, bowling and all-rounder pools with ratings."""
 
-    # ── BATTING POOL ─────────────────────────────────────────────
+   
     bat = data.groupby("batter").agg(
         runs    =("runs_batter", "sum"),
         balls   =("balls_faced", "sum"),
