@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from collections import defaultdict
-
 TEAM_COLORS = {
     "Mumbai Indians": "#005DA0", "Chennai Super Kings": "#F7C010",
     "Royal Challengers Bangalore": "#EC1C24", "Royal Challengers Bengaluru": "#EC1C24",
