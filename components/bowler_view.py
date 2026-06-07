@@ -15,7 +15,6 @@ def _bowler_stats(data):
         labels=["Powerplay (0–5)", "Middle (6–14)", "Death (15–19)"],
     )
 
-   
     overall = (
         df.groupby("bowler")
         .agg(
