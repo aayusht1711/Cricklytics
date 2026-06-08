@@ -38,7 +38,6 @@ def train_model(data_hash: int):
     # ── load fresh inside cache fn (data passed via hash only) ──
     df = pd.read_csv("data.csv", low_memory=False)
 
-    # ── build match-level table ──────────────────────────────────
     inn1 = (
         df[df["innings"] == 1]
         .drop_duplicates("match_id")[["match_id", "batting_team", "bowling_team"]]
