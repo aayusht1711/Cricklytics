@@ -279,7 +279,6 @@ def show_whatif_view(data):
         unsafe_allow_html=True,
     )
 
-    # What-if probability
     wi_p1, wi_p2 = _predict_prob(bundle, wi_team1, wi_team2, wi_venue, wi_toss_w, wi_toss_d)
 
     delta1 = round(wi_p1 - orig_p1, 1)
