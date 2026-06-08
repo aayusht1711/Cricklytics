@@ -96,7 +96,7 @@ def show_insights(data):
         _fig(fig2, "Top 15 Run Scorers", xaxis_title="Runs", yaxis=dict(autorange="reversed"))
         st.plotly_chart(fig2, use_container_width=True)
 
-    # ── TAB 2 ─────────────────────────────────────────────────────
+    
     with tab2:
         st.markdown("<h3>How IPL Scoring Has Evolved</h3>", unsafe_allow_html=True)
         ss = data.groupby("season").agg(
