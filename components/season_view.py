@@ -162,7 +162,7 @@ def show_season_view(data):
         cols = st.columns(5)
         for i, (_, row) in enumerate(top_batters.iterrows()):
             info = get_player_info(row["batter"])
-            team = info["team"] if info else "IPL Player"
+            team = info["team"] if info is not None else "IPL Player"
             color = TEAM_COLORS.get(team, "#00FFFF")
             avatar_html = get_player_avatar_html(row["batter"], color, size=64, display_margin=False)
             
@@ -194,7 +194,7 @@ def show_season_view(data):
         cols = st.columns(5)
         for i, (_, row) in enumerate(top_bowlers.iterrows()):
             info = get_player_info(row["bowler"])
-            team = info["team"] if info else "IPL Player"
+            team = info["team"] if info is not None else "IPL Player"
             color = TEAM_COLORS.get(team, "#FF6B6B")
             avatar_html = get_player_avatar_html(row["bowler"], color, size=64, display_margin=False)
             
