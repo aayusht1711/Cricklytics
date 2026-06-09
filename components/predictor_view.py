@@ -40,7 +40,14 @@ def train_model(data_hash: int):
     from sklearn.metrics import accuracy_score, confusion_matrix
 
     # ── load fresh inside cache fn (data passed via hash only) ──
-    df = pd.read_csv("data.csv", low_memory=False)
+    import os
+    df = None
+    for path in ["data_new.csv", "data.csv"]:
+        if os.path.exists(path):
+            df = pd.read_csv(path, low_memory=False)
+            break
+    if df is None:
+        raise FileNotFoundError("Could not find data_new.csv or data.csv in project root.")
 
     # ── build match-level table ──────────────────────────────────
     inn1 = (

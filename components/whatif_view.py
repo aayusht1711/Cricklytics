@@ -23,7 +23,14 @@ def _get_model(shape):
         import pandas as pd
         from collections import defaultdict
 
-        df = pd.read_csv("data.csv", low_memory=False)
+        import os
+        df = None
+        for path in ["data_new.csv", "data.csv"]:
+            if os.path.exists(path):
+                df = pd.read_csv(path, low_memory=False)
+                break
+        if df is None:
+            raise FileNotFoundError("Could not find data_new.csv or data.csv in project root.")
 
         inn1 = (
             df[df["innings"] == 1]
@@ -179,7 +186,7 @@ def show_whatif_view(data):
         bundle = _get_model(str(data.shape))
 
     if bundle is None:
-        st.error("Could not train model. Make sure data.csv is in your project root.")
+        st.error("Could not train model. Make sure data_new.csv or data.csv is in your project root.")
         return
 
     match_list = _get_match_list(data)
