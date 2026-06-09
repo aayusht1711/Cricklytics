@@ -2,19 +2,27 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-
-
+from utils.photo_helper import get_player_avatar_html, get_player_info
+TEAM_COLORS = {
+    "Mumbai Indians":"#005DA0","Chennai Super Kings":"#F7C010",
+    "Royal Challengers Bengaluru":"#EC1C24","Royal Challengers Bangalore":"#EC1C24",
+    "Kolkata Knight Riders":"#3A225D","Rajasthan Royals":"#EA1A85",
+    "Sunrisers Hyderabad":"#F7700E","Delhi Capitals":"#0078BC",
+    "Delhi Daredevils":"#0078BC","Punjab Kings":"#ED1B24",
+    "Kings XI Punjab":"#ED1B24","Deccan Chargers":"#FDB933",
+    "Gujarat Titans":"#1C4966","Lucknow Super Giants":"#A72056",
+    "Gujarat Lions":"#E8461A","Rising Pune Supergiants":"#6F2DA8",
+}
 @st.cache_data
 def _bowler_stats(data):
     df = data.copy()
-
-   
+    # Phase labels
     df["phase"] = pd.cut(
         df["over"],
         bins=[-1, 5, 14, 19],
         labels=["Powerplay (0–5)", "Middle (6–14)", "Death (15–19)"],
     )
-
+    # Overall stats
     overall = (
         df.groupby("bowler")
         .agg(
@@ -32,7 +40,6 @@ def _bowler_stats(data):
     overall["avg"] = (
         overall["runs"] / overall["wickets"].replace(0, float("nan"))
     ).round(2)
-
     # Phase-wise
     phase_stats = (
         df.groupby(["bowler", "phase"])
@@ -40,7 +47,6 @@ def _bowler_stats(data):
         .reset_index()
     )
     phase_stats["economy"] = (phase_stats["runs"] / phase_stats["balls"] * 6).round(2)
-
     # Wicket types
     wickets_df = df[df["wicket_kind"].notna() & (df["bowler_wicket"] == 1)]
     wicket_types = (
@@ -48,51 +54,54 @@ def _bowler_stats(data):
         .size()
         .reset_index(name="count")
     )
-
     return overall, phase_stats, wicket_types
-
-
 def show_bowler_view(data):
     st.markdown("<h2>🎯 Bowler Analytics</h2>", unsafe_allow_html=True)
-
     overall, phase_stats, wicket_types = _bowler_stats(data)
-
     bowler = st.selectbox(
         "Select Bowler", sorted(overall["bowler"].unique())
     )
-
     row = overall[overall["bowler"] == bowler]
     if row.empty:
         st.warning("Not enough data for this bowler (min 120 valid balls).")
         return
     row = row.iloc[0]
-
+    info = get_player_info(bowler)
+    team = info["team"] if info is not None else ""
+    t_color = TEAM_COLORS.get(team, "#FF6B6B")
+    avatar_html = get_player_avatar_html(bowler, t_color, size=90, display_margin=False)
     # --- Main stats card ---
     st.markdown(
         f"""
-    <div class='card'>
-        <h3 style='color:#FF6B6B;'>⚡ {bowler}</h3>
-        <table style='width:100%; color:white; font-size:15px; margin-top:10px;'>
-            <tr>
-                <td>🎯 Wickets</td><td><b>{int(row['wickets'])}</b></td>
-                <td>💨 Economy</td><td><b>{row['economy']}</b></td>
-            </tr>
-            <tr>
-                <td>📊 Bowling SR</td><td><b>{row['bowling_sr'] if pd.notna(row['bowling_sr']) else '—'}</b></td>
-                <td>📈 Average</td><td><b>{row['avg'] if pd.notna(row['avg']) else '—'}</b></td>
-            </tr>
-            <tr>
-                <td>⚾ Balls Bowled</td><td><b>{int(row['balls'])}</b></td>
-                <td>💣 Runs Conceded</td><td><b>{int(row['runs'])}</b></td>
-            </tr>
-        </table>
+    <div class='card' style='display: flex; align-items: center; gap: 24px; padding: 20px;'>
+        <div>
+            {avatar_html}
+        </div>
+        <div style='flex-grow: 1;'>
+            <h3 style='color:{t_color}; margin: 0 0 4px 0; font-size: 26px;'>⚡ {bowler}</h3>
+            <p style='margin: 0 0 12px 0; color: rgba(255,255,255,0.7); font-size: 14px;'>
+                <b>Team:</b> {team if team else 'N/A'}
+            </p>
+            <table style='width:100%; color:white; font-size:15px;'>
+                <tr>
+                    <td style='padding: 2px 0;'>🎯 Wickets</td><td style='padding: 2px 0;'><b>{int(row['wickets'])}</b></td>
+                    <td style='padding: 2px 0;'>💨 Economy</td><td style='padding: 2px 0;'><b>{row['economy']}</b></td>
+                </tr>
+                <tr>
+                    <td style='padding: 2px 0;'>📊 Bowling SR</td><td style='padding: 2px 0;'><b>{row['bowling_sr'] if pd.notna(row['bowling_sr']) else '—'}</b></td>
+                    <td style='padding: 2px 0;'>📈 Average</td><td style='padding: 2px 0;'><b>{row['avg'] if pd.notna(row['avg']) else '—'}</b></td>
+                </tr>
+                <tr>
+                    <td style='padding: 2px 0;'>⚾ Balls Bowled</td><td style='padding: 2px 0;'><b>{int(row['balls'])}</b></td>
+                    <td style='padding: 2px 0;'>💣 Runs Conceded</td><td style='padding: 2px 0;'><b>{int(row['runs'])}</b></td>
+                </tr>
+            </table>
+        </div>
     </div>
     """,
         unsafe_allow_html=True,
     )
-
     col1, col2 = st.columns(2)
-
     # --- Wicket type pie chart ---
     with col1:
         st.markdown("<h3>🧩 Dismissal Types</h3>", unsafe_allow_html=True)
@@ -115,7 +124,6 @@ def show_bowler_view(data):
             st.pyplot(fig)
         else:
             st.info("No dismissal data available.")
-
     # --- Phase economy bar chart ---
     with col2:
         st.markdown("<h3>📊 Economy by Phase</h3>", unsafe_allow_html=True)
@@ -147,13 +155,10 @@ def show_bowler_view(data):
             st.pyplot(fig2)
         else:
             st.info("No phase data available.")
-
     st.markdown("---")
-
     # --- Global Leaderboards ---
     st.markdown("<h3>🏆 Bowling Leaderboards</h3>", unsafe_allow_html=True)
     tab1, tab2, tab3 = st.tabs(["Most Wickets", "Best Economy", "Best Bowling SR"])
-
     with tab1:
         top_wkts = overall.sort_values("wickets", ascending=False).head(10)
         for i, r in enumerate(top_wkts.itertuples(), 1):
@@ -163,7 +168,6 @@ def show_bowler_view(data):
                 f" — {int(r.wickets)} wkts &nbsp;|&nbsp; Econ: {r.economy}</div>",
                 unsafe_allow_html=True,
             )
-
     with tab2:
         top_econ = overall[overall["balls"] >= 300].sort_values("economy").head(10)
         for i, r in enumerate(top_econ.itertuples(), 1):
@@ -173,7 +177,6 @@ def show_bowler_view(data):
                 f" — Econ: {r.economy} &nbsp;|&nbsp; {int(r.wickets)} wkts</div>",
                 unsafe_allow_html=True,
             )
-
     with tab3:
         top_sr = overall[overall["wickets"] >= 20].sort_values("bowling_sr").head(10)
         for i, r in enumerate(top_sr.itertuples(), 1):
@@ -183,12 +186,9 @@ def show_bowler_view(data):
                 f" — SR: {r.bowling_sr} &nbsp;|&nbsp; {int(r.wickets)} wkts</div>",
                 unsafe_allow_html=True,
             )
-
     st.markdown("---")
-
     # --- Death Overs Specialists ---
     st.markdown("<h3>💀 Death Over Specialists (Overs 16–19)</h3>", unsafe_allow_html=True)
-
     death = data[data["over"] >= 15].groupby("bowler").agg(
         runs=("runs_total", "sum"),
         balls=("valid_ball", "sum"),
@@ -197,7 +197,6 @@ def show_bowler_view(data):
     death = death[death["balls"] >= 60]
     death["economy"] = (death["runs"] / death["balls"] * 6).round(2)
     death_top = death.sort_values("economy").head(5)
-
     for i, r in enumerate(death_top.itertuples(), 1):
         st.markdown(
             f"<div class='card'>#{i} &nbsp; 💀 <b>{r.bowler}</b>"

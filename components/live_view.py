@@ -1,15 +1,15 @@
 import streamlit as st
 import requests
 from datetime import datetime
- 
+
 # -------------------------------------------------------
 # PASTE YOUR API KEY FROM https://cricketdata.org/signup.aspx
-API_KEY = ""
+API_KEY = "YOUR_API_KEY_HERE"
+# -------------------------------------------------------
 
- 
 BASE_URL = "https://api.cricapi.com/v1"
- 
 
+# ── self-contained styles (no dependency on header.py) ──────────
 LIVE_CSS = """
 <style>
 .lv-card {
@@ -21,7 +21,7 @@ LIVE_CSS = """
     border: 1px solid rgba(255,255,255,0.1);
 }
 .lv-card:hover { transform: translateY(-3px); transition: 0.2s; }
- 
+
 .lv-score-box {
     background: rgba(0,0,0,0.35);
     border-radius: 10px;
@@ -36,7 +36,7 @@ LIVE_CSS = """
     border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .lv-score-row:last-child { border-bottom: none; }
- 
+
 .lv-badge {
     display: inline-block;
     font-size: 11px;
@@ -78,8 +78,8 @@ LIVE_CSS = """
 .lv-ended-label { color: rgba(255,255,255,0.35); font-size: 11px; }
 </style>
 """
- 
- 
+
+
 @st.cache_data(ttl=30)
 def fetch_current_matches():
     try:
@@ -96,8 +96,8 @@ def fetch_current_matches():
         return [], "Request timed out — check your internet."
     except Exception as e:
         return [], str(e)
- 
- 
+
+
 @st.cache_data(ttl=60)
 def fetch_upcoming_matches():
     try:
@@ -112,8 +112,8 @@ def fetch_upcoming_matches():
         return [], d.get("reason", "API returned an error")
     except Exception as e:
         return [], str(e)
- 
- 
+
+
 def _badge(match_type):
     colors = {
         "T20":  ("#00FFFF", "rgba(0,255,255,0.12)", "1px solid rgba(0,255,255,0.4)"),
@@ -125,8 +125,8 @@ def _badge(match_type):
     col, bg, border = colors.get(mt, ("#aaa", "rgba(170,170,170,0.1)", "1px solid rgba(170,170,170,0.3)"))
     return (f'<span class="lv-badge" style="color:{col}; background:{bg}; border:{border};">'
             f'{mt}</span>')
- 
- 
+
+
 def _score_rows(score_list):
     if not score_list:
         return '<p style="color:rgba(255,255,255,0.4); font-size:13px; margin:0;">Score not available yet</p>'
@@ -144,20 +144,20 @@ def _score_rows(score_list):
             </span>
         </div>"""
     return html
- 
- 
+
+
 def _format_date(date_str):
     try:
         dt = datetime.strptime(date_str[:10], "%Y-%m-%d")
         return dt.strftime("%a, %d %b %Y")
     except Exception:
         return date_str
- 
- 
+
+
 def show_live_view():
     # Inject self-contained CSS first
     st.markdown(LIVE_CSS, unsafe_allow_html=True)
- 
+
     # Page title
     st.markdown("""
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
@@ -168,7 +168,7 @@ def show_live_view():
         Powered by CricketData.org &nbsp;·&nbsp; Auto-refreshes every 30 seconds
     </p>
     """, unsafe_allow_html=True)
- 
+
     # ── API key not set ─────────────────────────────────────────
     if API_KEY == "YOUR_API_KEY_HERE":
         st.markdown("""
@@ -187,15 +187,15 @@ def show_live_view():
         </div>
         """, unsafe_allow_html=True)
         return
- 
+
     # ── tabs ────────────────────────────────────────────────────
     tab1, tab2 = st.tabs(["🔴 Live Now", "📅 Upcoming"])
- 
+
     # ════════════════════════════════════════════════════════════
     # TAB 1 — LIVE NOW
     # ════════════════════════════════════════════════════════════
     with tab1:
- 
+
         col_btn, col_time = st.columns([1, 4])
         with col_btn:
             if st.button("🔄 Refresh", use_container_width=True):
@@ -207,19 +207,19 @@ def show_live_view():
                 f'Last checked: {datetime.now().strftime("%I:%M:%S %p")}</p>',
                 unsafe_allow_html=True,
             )
- 
+
         matches, error = fetch_current_matches()
- 
+
         if error:
             st.markdown(f"""
             <div class="lv-card" style="border-color:rgba(255,107,107,0.4);">
                 <p style="color:#FF6B6B; margin:0;">❌ {error}</p>
             </div>""", unsafe_allow_html=True)
             return
- 
+
         live  = [m for m in matches if m.get("matchStarted") and not m.get("matchEnded")]
         ended = [m for m in matches if m.get("matchEnded")]
- 
+
         # ── no matches ──
         if not live and not ended:
             st.markdown("""
@@ -228,7 +228,7 @@ def show_live_view():
                 <div class="lv-empty-title">No live matches right now</div>
                 <div class="lv-empty-sub">Check the Upcoming tab for next matches</div>
             </div>""", unsafe_allow_html=True)
- 
+
         # ── live matches ──
         if live:
             st.markdown(
@@ -245,9 +245,9 @@ def show_live_view():
                 venue      = m.get("venue", "")
                 date_str   = m.get("date", "")
                 score_list = m.get("score", [])
- 
+
                 venue_html = f'<p class="lv-venue">📍 {venue}</p>' if venue else ""
- 
+
                 st.markdown(f"""
                 <div class="lv-card" style="border-left:3px solid #FF4444;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -266,7 +266,7 @@ def show_live_view():
                     {venue_html}
                 </div>
                 """, unsafe_allow_html=True)
- 
+
         # ── recently ended ──
         if ended:
             st.markdown(
@@ -281,7 +281,7 @@ def show_live_view():
                 match_type = m.get("matchType", "T20")
                 status     = m.get("status", "")
                 score_list = m.get("score", [])
- 
+
                 with cols[i % 2]:
                     st.markdown(f"""
                     <div class="lv-card" style="border-left:3px solid rgba(255,255,255,0.15); opacity:0.85;">
@@ -296,23 +296,23 @@ def show_live_view():
                         <p class="lv-status" style="font-size:12px;">{status}</p>
                     </div>
                     """, unsafe_allow_html=True)
- 
+
     # ════════════════════════════════════════════════════════════
     # TAB 2 — UPCOMING
     # ════════════════════════════════════════════════════════════
     with tab2:
- 
+
         upcoming_all, error2 = fetch_upcoming_matches()
- 
+
         if error2:
             st.markdown(f"""
             <div class="lv-card" style="border-color:rgba(255,107,107,0.4);">
                 <p style="color:#FF6B6B; margin:0;">❌ {error2}</p>
             </div>""", unsafe_allow_html=True)
             return
- 
+
         upcoming = [m for m in upcoming_all if not m.get("matchStarted") and not m.get("matchEnded")]
- 
+
         if not upcoming:
             st.markdown("""
             <div class="lv-card lv-empty">
@@ -333,9 +333,9 @@ def show_live_view():
                 match_type = m.get("matchType", "T20")
                 venue      = m.get("venue", "")
                 date_str   = m.get("date", "")
- 
+
                 venue_html = f'<p class="lv-venue">📍 {venue}</p>' if venue else ""
- 
+
                 st.markdown(f"""
                 <div class="lv-card" style="border-left:3px solid rgba(0,255,255,0.25);">
                     <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -353,7 +353,7 @@ def show_live_view():
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
- 
+
     # ── footer ──────────────────────────────────────────────────
     st.markdown("""
     <div class="lv-footer">
@@ -361,4 +361,3 @@ def show_live_view():
         Scores cached for 30 seconds
     </div>
     """, unsafe_allow_html=True)
- 

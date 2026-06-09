@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from collections import defaultdict
+
 TEAM_COLORS = {
     "Mumbai Indians": "#005DA0", "Chennai Super Kings": "#F7C010",
     "Royal Challengers Bangalore": "#EC1C24", "Royal Challengers Bengaluru": "#EC1C24",
@@ -208,7 +209,7 @@ def show_whatif_view(data):
     t1c = TEAM_COLORS.get(team1, "#00FFFF")
     t2c = TEAM_COLORS.get(team2, "#FF6B6B")
 
-   
+    # Original match card
     st.markdown(
         f"<div class='card'>"
         f"<h3 style='color:{t1c};'>{team1}</h3>"
@@ -222,7 +223,7 @@ def show_whatif_view(data):
         unsafe_allow_html=True,
     )
 
-   
+    # Original probability
     orig_p1, orig_p2 = _predict_prob(bundle, team1, team2, venue, toss_w, toss_d)
     st.markdown(
         f"<div class='card'>"
@@ -279,6 +280,7 @@ def show_whatif_view(data):
         unsafe_allow_html=True,
     )
 
+    # What-if probability
     wi_p1, wi_p2 = _predict_prob(bundle, wi_team1, wi_team2, wi_venue, wi_toss_w, wi_toss_d)
 
     delta1 = round(wi_p1 - orig_p1, 1)

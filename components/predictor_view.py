@@ -4,6 +4,8 @@ import numpy as np
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+
+# ── lazy imports so app doesn't crash if sklearn missing ─────────
 try:
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.preprocessing import LabelEncoder
@@ -20,7 +22,9 @@ from utils.chart_style import (
 )
 
 
-
+# ════════════════════════════════════════════════════════════════
+# MODEL TRAINING  (cached so it only runs once per session)
+# ════════════════════════════════════════════════════════════════
 @st.cache_resource
 def train_model(data_hash: int):
     """
@@ -38,6 +42,7 @@ def train_model(data_hash: int):
     # ── load fresh inside cache fn (data passed via hash only) ──
     df = pd.read_csv("data.csv", low_memory=False)
 
+    # ── build match-level table ──────────────────────────────────
     inn1 = (
         df[df["innings"] == 1]
         .drop_duplicates("match_id")[["match_id", "batting_team", "bowling_team"]]
@@ -141,6 +146,7 @@ def train_model(data_hash: int):
     }
 
 
+# ════════════════════════════════════════════════════════════════
 # PREDICTION HELPER
 # ════════════════════════════════════════════════════════════════
 def _predict(bundle, team1, team2, venue, toss_winner, toss_decision):

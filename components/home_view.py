@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 import random
 
+# ── Season award data (precomputed) ─────────────────────────────
 SEASON_CHAMPIONS = {
     "2007/08": "Rajasthan Royals",    "2009": "Deccan Chargers",
     "2009/10": "Chennai Super Kings", "2011": "Chennai Super Kings",

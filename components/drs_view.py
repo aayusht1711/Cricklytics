@@ -37,6 +37,8 @@ def _compute_drs(data):
     bow_stats    = bow_total.merge(bow_overturn, on="bowler", how="left").fillna(0)
     bow_stats["overturn_pct"] = (bow_stats["overturned"] / bow_stats["total"] * 100).round(1)
     bow_stats    = bow_stats[bow_stats["total"] >= 3].sort_values("overturn_pct", ascending=False)
+
+    # Wicket kind breakdown
     wkt_kind = drs["wicket_kind"].value_counts().reset_index()
     wkt_kind.columns = ["kind", "count"]
 
@@ -152,6 +154,7 @@ def show_drs_view(data):
                 unsafe_allow_html=True,
             )
 
+    # ── TAB 3: Bowlers ────────────────────────────────────────────
     with tab3:
         st.markdown("<h3>Bowlers Whose Decisions Get Overturned Most</h3>", unsafe_allow_html=True)
         st.markdown(
@@ -178,7 +181,7 @@ def show_drs_view(data):
                 unsafe_allow_html=True,
             )
 
-    
+    # ── TAB 4: Wicket Types ───────────────────────────────────────
     with tab4:
         st.markdown("<h3>DRS by Dismissal Type</h3>", unsafe_allow_html=True)
         st.markdown(
@@ -219,6 +222,7 @@ def show_drs_view(data):
                     unsafe_allow_html=True,
                 )
 
+    # Resume talking point
     st.markdown("---")
     st.markdown(
         "<div class='card'>"

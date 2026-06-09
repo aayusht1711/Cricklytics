@@ -23,6 +23,7 @@ from components.dreamxi_view import show_dreamxi_view
 from components.squad_view import show_squad_view
 from components.home_view import DID_YOU_KNOW
 
+
 # ================================================================
 # LOADER
 # ================================================================
@@ -75,6 +76,9 @@ if "loader_done" not in st.session_state:
     cricket_loader()
     st.session_state.loader_done = True
 
+# ================================================================
+# DATA
+# ================================================================
 st.sidebar.markdown("### 📂 Upload Data")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
 data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data()

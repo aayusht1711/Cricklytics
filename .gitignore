@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+scratch/
+.system_generated/
+*.log
+data_new.csv

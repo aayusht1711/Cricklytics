@@ -36,7 +36,7 @@ def _compute_player_profile(data, player):
     seasons      = df["season"].astype(str).nunique()
     primary_team = df["batting_team"].value_counts().index[0] if len(df) > 0 else ""
 
-    
+    # Phase SRs
     df2 = df.copy()
     df2["phase"] = pd.cut(df2["over"], bins=[-1, 5, 14, 19],
                           labels=["Powerplay", "Middle", "Death"])
@@ -48,14 +48,14 @@ def _compute_player_profile(data, player):
     mid_sr    = round(phase.loc["Middle", "runs"]    / max(phase.loc["Middle", "balls"],    1) * 100, 1)
     death_sr  = round(phase.loc["Death", "runs"]     / max(phase.loc["Death", "balls"],     1) * 100, 1)
 
-    
+    # Knockout vs league
     ko_stages = ["Final","Semi Final","Qualifier 1","Qualifier 2","Eliminator","Elimination Final"]
     ko_df     = df[df["stage"].isin(ko_stages)]
     ko_runs   = int(ko_df["runs_batter"].sum())
     ko_balls  = int(ko_df["balls_faced"].sum()) if "balls_faced" in ko_df.columns else len(ko_df)
     ko_sr     = round(ko_runs / ko_balls * 100, 1) if ko_balls > 0 else 0
 
-    
+    # Match-level 50s and 100s
     match_runs  = df.groupby("match_id")["runs_batter"].sum()
     fifties     = int(((match_runs >= 50) & (match_runs < 100)).sum())
     hundreds    = int((match_runs >= 100).sum())
@@ -133,7 +133,7 @@ def _radar_chart(profile):
     categories = ["Power\n(Sixes)", "Consistency\n(Avg)", "Aggression\n(SR)",
                   "Clutch\n(KO SR)", "Reliability\n(50s+100s)"]
 
-    
+    # Normalize each to 0-100
     def norm(val, max_val):
         return min(100, round(val / max_val * 100, 0))
 
@@ -218,6 +218,7 @@ def show_scouting_view(data):
     c7.metric("Death SR",     profile["death_sr"])
     c8.metric("Knockout SR",  profile["ko_sr"])
 
+    # Radar chart
     col_r, col_s = st.columns([1, 2])
     with col_r:
         st.markdown("<h3>Player Radar</h3>", unsafe_allow_html=True)
@@ -236,7 +237,7 @@ def show_scouting_view(data):
             unsafe_allow_html=True,
         )
 
-    
+    # AI Report
     st.markdown("---")
     st.markdown("<h3>AI Scouting Report</h3>", unsafe_allow_html=True)
 
@@ -267,7 +268,7 @@ def show_scouting_view(data):
 
         st.text_area("Copy report", value=report, height=200)
 
-    
+    # Resume talking point
     st.markdown("---")
     st.markdown(
         "<div class='card'>"

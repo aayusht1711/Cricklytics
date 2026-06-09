@@ -50,7 +50,7 @@ def show_insights(data):
         "Batting Landscape","Run Evolution","Bowling Attack","Team DNA","Records"
     ])
 
-   
+    # ── TAB 1 ─────────────────────────────────────────────────────
     with tab1:
         st.markdown("<h3>IPL Batting Landscape</h3>", unsafe_allow_html=True)
         st.caption("Bubble size = total runs | Hover for full stats")
@@ -96,7 +96,7 @@ def show_insights(data):
         _fig(fig2, "Top 15 Run Scorers", xaxis_title="Runs", yaxis=dict(autorange="reversed"))
         st.plotly_chart(fig2, use_container_width=True)
 
-    
+    # ── TAB 2 ─────────────────────────────────────────────────────
     with tab2:
         st.markdown("<h3>How IPL Scoring Has Evolved</h3>", unsafe_allow_html=True)
         ss = data.groupby("season").agg(

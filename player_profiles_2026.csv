@@ -1,146 +1,146 @@
 name,role,team,photo_id,photo_url,nationality,team_abbr,auction_price_cr,is_overseas,flag
-Ishan Kishan,Wicket-Keeper,Sunrisers Hyderabad,164,https://www.iplt20.com/assets/images/PlayerImage/164.png,India,SRH,6.0,0,🇮🇳
-Aniket Verma,Batter,Sunrisers Hyderabad,3576,https://www.iplt20.com/assets/images/PlayerImage/3576.png,India,SRH,0.0,0,🇮🇳
-Smaran Ravichandran,Batter,Sunrisers Hyderabad,3752,https://www.iplt20.com/assets/images/PlayerImage/3752.png,India,SRH,0.0,0,🇮🇳
-Salil Arora,Wicket-Keeper,Sunrisers Hyderabad,4556,https://www.iplt20.com/assets/images/PlayerImage/4556.png,India,SRH,0.0,0,🇮🇳
-Heinrich Klaasen,Wicket-Keeper,Sunrisers Hyderabad,202,https://www.iplt20.com/assets/images/PlayerImage/202.png,South Africa,SRH,5.25,1,🇿🇦
-Travis Head,Batter,Sunrisers Hyderabad,37,https://www.iplt20.com/assets/images/PlayerImage/37.png,Australia,SRH,6.8,1,🇦🇺
-Harshal Patel,All-Rounder,Sunrisers Hyderabad,114,https://www.iplt20.com/assets/images/PlayerImage/114.png,India,SRH,4.0,0,🇮🇳
-Kamindu Mendis,All-Rounder,Sunrisers Hyderabad,627,https://www.iplt20.com/assets/images/PlayerImage/627.png,Sri Lanka,SRH,4.5,1,🇱🇰
-Harsh Dubey,All-Rounder,Sunrisers Hyderabad,1494,https://www.iplt20.com/assets/images/PlayerImage/1494.png,India,SRH,0.0,0,🇮🇳
-Shivang Kumar,All-Rounder,Sunrisers Hyderabad,4561,https://www.iplt20.com/assets/images/PlayerImage/4561.png,India,SRH,0.0,0,🇮🇳
-Krains Fuletra,All-Rounder,Sunrisers Hyderabad,4557,https://www.iplt20.com/assets/images/PlayerImage/4557.png,India,SRH,0.0,0,🇮🇳
-Liam Livingstone,All-Rounder,Sunrisers Hyderabad,183,https://www.iplt20.com/assets/images/PlayerImage/183.png,England,SRH,8.5,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
-R.S Ambrish,All-Rounder,Sunrisers Hyderabad,212,https://www.iplt20.com/assets/images/PlayerImage/212.png,India,SRH,0.0,0,🇮🇳
-Abhishek Sharma,All-Rounder,Sunrisers Hyderabad,1944,https://www.iplt20.com/assets/images/PlayerImage/1944.png,India,SRH,14.0,0,🇮🇳
-Nitish Kumar Reddy,All-Rounder,Sunrisers Hyderabad,33,https://www.iplt20.com/assets/images/PlayerImage/33.png,India,SRH,8.0,0,🇮🇳
-Pat Cummins,Bowler,Sunrisers Hyderabad,3575,https://www.iplt20.com/assets/images/PlayerImage/3575.png,Australia,SRH,18.0,1,🇦🇺
-Zeeshan Ansari,Bowler,Sunrisers Hyderabad,180,https://www.iplt20.com/assets/images/PlayerImage/180.png,India,SRH,0.0,0,🇮🇳
-Jaydev Unadkat,Bowler,Sunrisers Hyderabad,3339,https://www.iplt20.com/assets/images/PlayerImage/3339.png,India,SRH,0.0,0,🇮🇳
-Eshan Malinga,Bowler,Sunrisers Hyderabad,3104,https://www.iplt20.com/assets/images/PlayerImage/3104.png,Sri Lanka,SRH,3.0,1,🇱🇰
-Sakib Hussain,Bowler,Sunrisers Hyderabad,4560,https://www.iplt20.com/assets/images/PlayerImage/4560.png,India,SRH,0.0,0,🇮🇳
-Onkar Tarmale,Bowler,Sunrisers Hyderabad,4559,https://www.iplt20.com/assets/images/PlayerImage/4559.png,India,SRH,0.0,0,🇮🇳
-Amit Kumar,Bowler,Sunrisers Hyderabad,4558,https://www.iplt20.com/assets/images/PlayerImage/4558.png,India,SRH,0.0,0,🇮🇳
-Praful Hinge,Bowler,Sunrisers Hyderabad,1018,https://www.iplt20.com/assets/images/PlayerImage/1018.png,India,SRH,0.0,0,🇮🇳
-Dilshan Madushanka,Bowler,Sunrisers Hyderabad,2535,https://www.iplt20.com/assets/images/PlayerImage/2535.png,Sri Lanka,SRH,0.0,1,🇱🇰
+Ishan Kishan,Wicket-Keeper,Sunrisers Hyderabad,164.0,https://www.iplt20.com/assets/images/PlayerImage/164.png,India,SRH,6.0,0,🇮🇳
+Aniket Verma,Batter,Sunrisers Hyderabad,3576.0,https://www.iplt20.com/assets/images/PlayerImage/3576.png,India,SRH,0.0,0,🇮🇳
+Smaran Ravichandran,Batter,Sunrisers Hyderabad,3752.0,https://www.iplt20.com/assets/images/PlayerImage/3752.png,India,SRH,0.0,0,🇮🇳
+Salil Arora,Wicket-Keeper,Sunrisers Hyderabad,4556.0,https://www.iplt20.com/assets/images/PlayerImage/4556.png,India,SRH,0.0,0,🇮🇳
+Heinrich Klaasen,Wicket-Keeper,Sunrisers Hyderabad,202.0,https://www.iplt20.com/assets/images/PlayerImage/202.png,South Africa,SRH,5.25,1,🇿🇦
+Travis Head,Batter,Sunrisers Hyderabad,37.0,https://www.iplt20.com/assets/images/PlayerImage/37.png,Australia,SRH,6.8,1,🇦🇺
+Harshal Patel,All-Rounder,Sunrisers Hyderabad,114.0,https://www.iplt20.com/assets/images/PlayerImage/114.png,India,SRH,4.0,0,🇮🇳
+Kamindu Mendis,All-Rounder,Sunrisers Hyderabad,627.0,https://www.iplt20.com/assets/images/PlayerImage/627.png,Sri Lanka,SRH,4.5,1,🇱🇰
+Harsh Dubey,All-Rounder,Sunrisers Hyderabad,1494.0,https://www.iplt20.com/assets/images/PlayerImage/1494.png,India,SRH,0.0,0,🇮🇳
+Shivang Kumar,All-Rounder,Sunrisers Hyderabad,4561.0,https://www.iplt20.com/assets/images/PlayerImage/4561.png,India,SRH,0.0,0,🇮🇳
+Krains Fuletra,All-Rounder,Sunrisers Hyderabad,4557.0,https://www.iplt20.com/assets/images/PlayerImage/4557.png,India,SRH,0.0,0,🇮🇳
+Liam Livingstone,All-Rounder,Sunrisers Hyderabad,183.0,https://www.iplt20.com/assets/images/PlayerImage/183.png,England,SRH,8.5,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
+R.S Ambrish,All-Rounder,Sunrisers Hyderabad,212.0,https://www.iplt20.com/assets/images/PlayerImage/212.png,India,SRH,0.0,0,🇮🇳
+Abhishek Sharma,All-Rounder,Sunrisers Hyderabad,1944.0,https://www.iplt20.com/assets/images/PlayerImage/1944.png,India,SRH,14.0,0,🇮🇳
+Nitish Kumar Reddy,All-Rounder,Sunrisers Hyderabad,33.0,https://www.iplt20.com/assets/images/PlayerImage/33.png,India,SRH,8.0,0,🇮🇳
+Pat Cummins,Bowler,Sunrisers Hyderabad,3575.0,https://www.iplt20.com/assets/images/PlayerImage/3575.png,Australia,SRH,18.0,1,🇦🇺
+Zeeshan Ansari,Bowler,Sunrisers Hyderabad,180.0,https://www.iplt20.com/assets/images/PlayerImage/180.png,India,SRH,0.0,0,🇮🇳
+Jaydev Unadkat,Bowler,Sunrisers Hyderabad,3339.0,https://www.iplt20.com/assets/images/PlayerImage/3339.png,India,SRH,0.0,0,🇮🇳
+Eshan Malinga,Bowler,Sunrisers Hyderabad,3104.0,https://www.iplt20.com/assets/images/PlayerImage/3104.png,Sri Lanka,SRH,3.0,1,🇱🇰
+Sakib Hussain,Bowler,Sunrisers Hyderabad,4560.0,https://www.iplt20.com/assets/images/PlayerImage/4560.png,India,SRH,0.0,0,🇮🇳
+Onkar Tarmale,Bowler,Sunrisers Hyderabad,4559.0,https://www.iplt20.com/assets/images/PlayerImage/4559.png,India,SRH,0.0,0,🇮🇳
+Amit Kumar,Bowler,Sunrisers Hyderabad,4558.0,https://www.iplt20.com/assets/images/PlayerImage/4558.png,India,SRH,0.0,0,🇮🇳
+Praful Hinge,Bowler,Sunrisers Hyderabad,1018.0,https://www.iplt20.com/assets/images/PlayerImage/1018.png,India,SRH,0.0,0,🇮🇳
+Dilshan Madushanka,Bowler,Sunrisers Hyderabad,2535.0,https://www.iplt20.com/assets/images/PlayerImage/2535.png,Sri Lanka,SRH,0.0,1,🇱🇰
 Gerald Coetzee,Bowler,Sunrisers Hyderabad,,,South Africa,SRH,0.0,1,🇿🇦
-Rajat Patidar,Batter,Royal Challengers Bengaluru,597,https://www.iplt20.com/assets/images/PlayerImage/597.png,India,RCB,0.0,0,🇮🇳
-Devdutt Padikkal,Batter,Royal Challengers Bengaluru,200,https://www.iplt20.com/assets/images/PlayerImage/200.png,India,RCB,0.0,0,🇮🇳
-Virat Kohli,Batter,Royal Challengers Bengaluru,2,https://www.iplt20.com/assets/images/PlayerImage/2.png,India,RCB,21.0,0,🇮🇳
-Phil Salt,Wicket-Keeper,Royal Challengers Bengaluru,1220,https://www.iplt20.com/assets/images/PlayerImage/1220.png,England,RCB,11.5,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
-Jitesh Sharma,Wicket-Keeper,Royal Challengers Bengaluru,1000,https://www.iplt20.com/assets/images/PlayerImage/1000.png,India,RCB,0.0,0,🇮🇳
-Jordan Cox,Wicket-Keeper,Royal Challengers Bengaluru,3372,https://www.iplt20.com/assets/images/PlayerImage/3372.png,India,RCB,0.0,0,🇮🇳
-Krunal Pandya,All-Rounder,Royal Challengers Bengaluru,17,https://www.iplt20.com/assets/images/PlayerImage/17.png,India,RCB,0.0,0,🇮🇳
-Swapnil Singh,All-Rounder,Royal Challengers Bengaluru,1483,https://www.iplt20.com/assets/images/PlayerImage/1483.png,India,RCB,0.0,0,🇮🇳
-Tim David,All-Rounder,Royal Challengers Bengaluru,636,https://www.iplt20.com/assets/images/PlayerImage/636.png,Singapore,RCB,8.0,1,🇸🇬
-Romario Shepherd,All-Rounder,Royal Challengers Bengaluru,371,https://www.iplt20.com/assets/images/PlayerImage/371.png,India,RCB,0.0,0,🇮🇳
-Jacob Bethell,All-Rounder,Royal Challengers Bengaluru,869,https://www.iplt20.com/assets/images/PlayerImage/869.png,England,RCB,0.0,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
-Venkatesh Iyer,All-Rounder,Royal Challengers Bengaluru,584,https://www.iplt20.com/assets/images/PlayerImage/584.png,India,RCB,0.0,0,🇮🇳
-Satvik Deswal,All-Rounder,Royal Challengers Bengaluru,4555,https://www.iplt20.com/assets/images/PlayerImage/4555.png,India,RCB,0.0,0,🇮🇳
-Mangesh Yadav,All-Rounder,Royal Challengers Bengaluru,4554,https://www.iplt20.com/assets/images/PlayerImage/4554.png,India,RCB,0.0,0,🇮🇳
-Vicky Ostwal,All-Rounder,Royal Challengers Bengaluru,786,https://www.iplt20.com/assets/images/PlayerImage/786.png,India,RCB,0.0,0,🇮🇳
-Vihaan Malhotra,All-Rounder,Royal Challengers Bengaluru,4012,https://www.iplt20.com/assets/images/PlayerImage/4012.png,India,RCB,0.0,0,🇮🇳
-Kanishk Chouhan,All-Rounder,Royal Challengers Bengaluru,4016,https://www.iplt20.com/assets/images/PlayerImage/4016.png,India,RCB,0.0,0,🇮🇳
-Josh Hazlewood,Bowler,Royal Challengers Bengaluru,,,Australia,RCB,0.0,1,🇦🇺
+Rajat Patidar,Batter,Royal Challengers Bengaluru,597.0,https://www.iplt20.com/assets/images/PlayerImage/597.png,India,RCB,0.0,0,🇮🇳
+Devdutt Padikkal,Batter,Royal Challengers Bengaluru,200.0,https://www.iplt20.com/assets/images/PlayerImage/200.png,India,RCB,0.0,0,🇮🇳
+Virat Kohli,Batter,Royal Challengers Bengaluru,2.0,https://www.iplt20.com/assets/images/PlayerImage/2.png,India,RCB,21.0,0,🇮🇳
+Phil Salt,Wicket-Keeper,Royal Challengers Bengaluru,1220.0,https://www.iplt20.com/assets/images/PlayerImage/1220.png,England,RCB,11.5,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
+Jitesh Sharma,Wicket-Keeper,Royal Challengers Bengaluru,1000.0,https://www.iplt20.com/assets/images/PlayerImage/1000.png,India,RCB,0.0,0,🇮🇳
+Jordan Cox,Wicket-Keeper,Royal Challengers Bengaluru,3372.0,https://www.iplt20.com/assets/images/PlayerImage/3372.png,India,RCB,0.0,0,🇮🇳
+Krunal Pandya,All-Rounder,Royal Challengers Bengaluru,17.0,https://www.iplt20.com/assets/images/PlayerImage/17.png,India,RCB,0.0,0,🇮🇳
+Swapnil Singh,All-Rounder,Royal Challengers Bengaluru,1483.0,https://www.iplt20.com/assets/images/PlayerImage/1483.png,India,RCB,0.0,0,🇮🇳
+Tim David,All-Rounder,Royal Challengers Bengaluru,636.0,https://www.iplt20.com/assets/images/PlayerImage/636.png,Singapore,RCB,8.0,1,🇸🇬
+Romario Shepherd,All-Rounder,Royal Challengers Bengaluru,371.0,https://www.iplt20.com/assets/images/PlayerImage/371.png,India,RCB,0.0,0,🇮🇳
+Jacob Bethell,All-Rounder,Royal Challengers Bengaluru,869.0,https://www.iplt20.com/assets/images/PlayerImage/869.png,England,RCB,0.0,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
+Venkatesh Iyer,All-Rounder,Royal Challengers Bengaluru,584.0,https://www.iplt20.com/assets/images/PlayerImage/584.png,India,RCB,0.0,0,🇮🇳
+Satvik Deswal,All-Rounder,Royal Challengers Bengaluru,4555.0,https://www.iplt20.com/assets/images/PlayerImage/4555.png,India,RCB,0.0,0,🇮🇳
+Mangesh Yadav,All-Rounder,Royal Challengers Bengaluru,4554.0,https://www.iplt20.com/assets/images/PlayerImage/4554.png,India,RCB,0.0,0,🇮🇳
+Vicky Ostwal,All-Rounder,Royal Challengers Bengaluru,786.0,https://www.iplt20.com/assets/images/PlayerImage/786.png,India,RCB,0.0,0,🇮🇳
+Vihaan Malhotra,All-Rounder,Royal Challengers Bengaluru,4012.0,https://www.iplt20.com/assets/images/PlayerImage/4012.png,India,RCB,0.0,0,🇮🇳
+Kanishk Chouhan,All-Rounder,Royal Challengers Bengaluru,4016.0,https://www.iplt20.com/assets/images/PlayerImage/4016.png,India,RCB,0.0,0,🇮🇳
+Josh Hazlewood,Bowler,Royal Challengers Bengaluru,36,https://documents.iplt20.com/ipl/IPLHeadshot2026/36.png,Australia,RCB,0.0,1,🇦🇺
 Rasikh Dar,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
 Suyash Sharma,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
-Bhuvneshwar Kumar,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
+Bhuvneshwar Kumar,Bowler,Royal Challengers Bengaluru,15,https://documents.iplt20.com/ipl/IPLHeadshot2026/15.png,India,RCB,0.0,0,🇮🇳
 Abhinandan Singh,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
 Jacob Duffy,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
 Richard Gleeson,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
 Yash Dayal,Bowler,Royal Challengers Bengaluru,,,India,RCB,0.0,0,🇮🇳
-Shubham Dubey,Batter,Rajasthan Royals,3112,https://www.iplt20.com/assets/images/PlayerImage/3112.png,India,RR,0.0,0,🇮🇳
-Vaibhav Sooryavanshi,Batter,Rajasthan Royals,3498,https://www.iplt20.com/assets/images/PlayerImage/3498.png,India,RR,0.0,0,🇮🇳
-Donovan Ferreira,Wicket-Keeper,Rajasthan Royals,2033,https://www.iplt20.com/assets/images/PlayerImage/2033.png,India,RR,0.0,0,🇮🇳
-Lhuan-dre Pretorious,Wicket-Keeper,Rajasthan Royals,2827,https://www.iplt20.com/assets/images/PlayerImage/2827.png,India,RR,0.0,0,🇮🇳
-Aman Rao Perala,Batter,Rajasthan Royals,4552,https://www.iplt20.com/assets/images/PlayerImage/4552.png,India,RR,0.0,0,🇮🇳
-Shimron Hetmyer,Batter,Rajasthan Royals,210,https://www.iplt20.com/assets/images/PlayerImage/210.png,West Indies,RR,0.0,1,🏝️
-Yashasvi Jaiswal,Batter,Rajasthan Royals,533,https://www.iplt20.com/assets/images/PlayerImage/533.png,India,RR,18.0,0,🇮🇳
-Dhruv Jurel,Wicket-Keeper,Rajasthan Royals,1004,https://www.iplt20.com/assets/images/PlayerImage/1004.png,India,RR,14.0,0,🇮🇳
-Riyan Parag,All-Rounder,Rajasthan Royals,189,https://www.iplt20.com/assets/images/PlayerImage/189.png,India,RR,14.0,0,🇮🇳
-Yudhvir Singh Charak,All-Rounder,Rajasthan Royals,587,https://www.iplt20.com/assets/images/PlayerImage/587.png,India,RR,0.0,0,🇮🇳
-Emanjot Chahal,All-Rounder,Rajasthan Royals,46,https://www.iplt20.com/assets/images/PlayerImage/46.png,India,RR,0.0,0,🇮🇳
-Ravindra Jadeja,All-Rounder,Rajasthan Royals,375,https://www.iplt20.com/assets/images/PlayerImage/375.png,India,RR,18.0,0,🇮🇳
-Dasun Shanaka,All-Rounder,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
-Jofra Archer,Bowler,Rajasthan Royals,,,England,RR,17.5,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
-Tushar Deshpande,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
+Shubham Dubey,Batter,Rajasthan Royals,3112.0,https://www.iplt20.com/assets/images/PlayerImage/3112.png,India,RR,0.0,0,🇮🇳
+Vaibhav Sooryavanshi,Batter,Rajasthan Royals,3498.0,https://www.iplt20.com/assets/images/PlayerImage/3498.png,India,RR,0.0,0,🇮🇳
+Donovan Ferreira,Wicket-Keeper,Rajasthan Royals,2033.0,https://www.iplt20.com/assets/images/PlayerImage/2033.png,India,RR,0.0,0,🇮🇳
+Lhuan-dre Pretorious,Wicket-Keeper,Rajasthan Royals,2827.0,https://www.iplt20.com/assets/images/PlayerImage/2827.png,India,RR,0.0,0,🇮🇳
+Aman Rao Perala,Batter,Rajasthan Royals,4552.0,https://www.iplt20.com/assets/images/PlayerImage/4552.png,India,RR,0.0,0,🇮🇳
+Shimron Hetmyer,Batter,Rajasthan Royals,210.0,https://www.iplt20.com/assets/images/PlayerImage/210.png,West Indies,RR,0.0,1,🏝️
+Yashasvi Jaiswal,Batter,Rajasthan Royals,533.0,https://www.iplt20.com/assets/images/PlayerImage/533.png,India,RR,18.0,0,🇮🇳
+Dhruv Jurel,Wicket-Keeper,Rajasthan Royals,1004.0,https://www.iplt20.com/assets/images/PlayerImage/1004.png,India,RR,14.0,0,🇮🇳
+Riyan Parag,All-Rounder,Rajasthan Royals,189.0,https://www.iplt20.com/assets/images/PlayerImage/189.png,India,RR,14.0,0,🇮🇳
+Yudhvir Singh Charak,All-Rounder,Rajasthan Royals,587.0,https://www.iplt20.com/assets/images/PlayerImage/587.png,India,RR,0.0,0,🇮🇳
+Emanjot Chahal,All-Rounder,Rajasthan Royals,46.0,https://www.iplt20.com/assets/images/PlayerImage/46.png,India,RR,0.0,0,🇮🇳
+Ravindra Jadeja,All-Rounder,Rajasthan Royals,375.0,https://www.iplt20.com/assets/images/PlayerImage/375.png,India,RR,18.0,0,🇮🇳
+Dasun Shanaka,All-Rounder,Rajasthan Royals,375,https://documents.iplt20.com/ipl/IPLHeadshot2026/375.png,India,RR,0.0,0,🇮🇳
+Jofra Archer,Bowler,Rajasthan Royals,181,https://documents.iplt20.com/ipl/IPLHeadshot2026/181.png,England,RR,17.5,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
+Tushar Deshpande,Bowler,Rajasthan Royals,539,https://documents.iplt20.com/ipl/IPLHeadshot2026/539.png,India,RR,0.0,0,🇮🇳
 Kwena Maphaka,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
 Ravi Bishnoi,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
 Sushant Mishra,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
 Yash Raj Punja,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
 Vignesh Puthur,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
 Brijesh Sharma,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
-Adam Milne,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
+Adam Milne,Bowler,Rajasthan Royals,157,https://documents.iplt20.com/ipl/IPLHeadshot2026/157.png,India,RR,0.0,0,🇮🇳
 Kuldeep Sen,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
-Sandeep Sharma,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
+Sandeep Sharma,Bowler,Rajasthan Royals,220,https://documents.iplt20.com/ipl/IPLHeadshot2026/220.png,India,RR,0.0,0,🇮🇳
 Nandre Burger,Bowler,Rajasthan Royals,,,India,RR,0.0,0,🇮🇳
-Shreyas Iyer,Batter,Punjab Kings,12,https://www.iplt20.com/assets/images/PlayerImage/12.png,India,PBKS,26.75,0,🇮🇳
-Nehal Wadhera,Batter,Punjab Kings,1541,https://www.iplt20.com/assets/images/PlayerImage/1541.png,India,PBKS,0.0,0,🇮🇳
-Vishnu Vinod,Wicket-Keeper,Punjab Kings,581,https://www.iplt20.com/assets/images/PlayerImage/581.png,India,PBKS,0.0,0,🇮🇳
-Harnoor Pannu,Batter,Punjab Kings,784,https://www.iplt20.com/assets/images/PlayerImage/784.png,India,PBKS,0.0,0,🇮🇳
-Pyla Avinash,Batter,Punjab Kings,3573,https://www.iplt20.com/assets/images/PlayerImage/3573.png,India,PBKS,0.0,0,🇮🇳
-Prabhsimran Singh,Wicket-Keeper,Punjab Kings,137,https://www.iplt20.com/assets/images/PlayerImage/137.png,India,PBKS,0.0,0,🇮🇳
-Shashank Singh,Batter,Punjab Kings,191,https://www.iplt20.com/assets/images/PlayerImage/191.png,India,PBKS,0.0,0,🇮🇳
-Marcus Stoinis,All-Rounder,Punjab Kings,23,https://www.iplt20.com/assets/images/PlayerImage/23.png,India,PBKS,0.0,0,🇮🇳
-Harpreet Brar,All-Rounder,Punjab Kings,130,https://www.iplt20.com/assets/images/PlayerImage/130.png,India,PBKS,0.0,0,🇮🇳
-Marco Jansen,All-Rounder,Punjab Kings,586,https://www.iplt20.com/assets/images/PlayerImage/586.png,South Africa,PBKS,7.0,1,🇿🇦
-Azmatullah Omarzai,All-Rounder,Punjab Kings,1354,https://www.iplt20.com/assets/images/PlayerImage/1354.png,India,PBKS,0.0,0,🇮🇳
-Priyansh Arya,All-Rounder,Punjab Kings,3571,https://www.iplt20.com/assets/images/PlayerImage/3571.png,India,PBKS,0.0,0,🇮🇳
+Shreyas Iyer,Batter,Punjab Kings,12.0,https://www.iplt20.com/assets/images/PlayerImage/12.png,India,PBKS,26.75,0,🇮🇳
+Nehal Wadhera,Batter,Punjab Kings,1541.0,https://www.iplt20.com/assets/images/PlayerImage/1541.png,India,PBKS,0.0,0,🇮🇳
+Vishnu Vinod,Wicket-Keeper,Punjab Kings,581.0,https://www.iplt20.com/assets/images/PlayerImage/581.png,India,PBKS,0.0,0,🇮🇳
+Harnoor Pannu,Batter,Punjab Kings,784.0,https://www.iplt20.com/assets/images/PlayerImage/784.png,India,PBKS,0.0,0,🇮🇳
+Pyla Avinash,Batter,Punjab Kings,3573.0,https://www.iplt20.com/assets/images/PlayerImage/3573.png,India,PBKS,0.0,0,🇮🇳
+Prabhsimran Singh,Wicket-Keeper,Punjab Kings,137.0,https://www.iplt20.com/assets/images/PlayerImage/137.png,India,PBKS,0.0,0,🇮🇳
+Shashank Singh,Batter,Punjab Kings,191.0,https://www.iplt20.com/assets/images/PlayerImage/191.png,India,PBKS,0.0,0,🇮🇳
+Marcus Stoinis,All-Rounder,Punjab Kings,23.0,https://www.iplt20.com/assets/images/PlayerImage/23.png,India,PBKS,0.0,0,🇮🇳
+Harpreet Brar,All-Rounder,Punjab Kings,130.0,https://www.iplt20.com/assets/images/PlayerImage/130.png,India,PBKS,0.0,0,🇮🇳
+Marco Jansen,All-Rounder,Punjab Kings,586.0,https://www.iplt20.com/assets/images/PlayerImage/586.png,South Africa,PBKS,7.0,1,🇿🇦
+Azmatullah Omarzai,All-Rounder,Punjab Kings,1354.0,https://www.iplt20.com/assets/images/PlayerImage/1354.png,India,PBKS,0.0,0,🇮🇳
+Priyansh Arya,All-Rounder,Punjab Kings,3571.0,https://www.iplt20.com/assets/images/PlayerImage/3571.png,India,PBKS,0.0,0,🇮🇳
 Musheer Khan,All-Rounder,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
 Suryansh Shedge,All-Rounder,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
 Mitch Owen,All-Rounder,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
 Cooper Connolly,All-Rounder,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
-Ben Dwarshuis,All-Rounder,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
+Ben Dwarshuis,All-Rounder,Punjab Kings,632,https://documents.iplt20.com/ipl/IPLHeadshot2026/632.png,India,PBKS,0.0,0,🇮🇳
 Arshdeep Singh,Bowler,Punjab Kings,,,India,PBKS,18.0,0,🇮🇳
-Yuzvendra Chahal,Bowler,Punjab Kings,,,India,PBKS,18.0,0,🇮🇳
-Vyshak Vijaykumar,Bowler,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
+Yuzvendra Chahal,Bowler,Punjab Kings,10,https://documents.iplt20.com/ipl/IPLHeadshot2026/10.png,India,PBKS,18.0,0,🇮🇳
+Vyshak Vijaykumar,Bowler,Punjab Kings,2034,https://documents.iplt20.com/ipl/IPLHeadshot2026/2034.png,India,PBKS,0.0,0,🇮🇳
 Yash Thakur,Bowler,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
 Xavier Bartlett,Bowler,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
-Pravin Dubey,Bowler,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
+Pravin Dubey,Bowler,Punjab Kings,548,https://documents.iplt20.com/ipl/IPLHeadshot2026/548.png,India,PBKS,0.0,0,🇮🇳
 Vishal Nishad,Bowler,Punjab Kings,,,India,PBKS,0.0,0,🇮🇳
-Lockie Ferguson,Bowler,Punjab Kings,,,New Zealand,PBKS,0.0,1,🇳🇿
-Rohit Sharma,Batter,Mumbai Indians,6,https://www.iplt20.com/assets/images/PlayerImage/6.png,India,MI,16.3,0,🇮🇳
-Surya Kumar Yadav,Batter,Mumbai Indians,174,https://www.iplt20.com/assets/images/PlayerImage/174.png,India,MI,0.0,0,🇮🇳
-Robin Minz,Wicket-Keeper,Mumbai Indians,3103,https://www.iplt20.com/assets/images/PlayerImage/3103.png,India,MI,0.0,0,🇮🇳
-Sherfane Rutherford,Batter,Mumbai Indians,122,https://www.iplt20.com/assets/images/PlayerImage/122.png,India,MI,0.0,0,🇮🇳
-Ryan Rickelton,Wicket-Keeper,Mumbai Indians,743,https://www.iplt20.com/assets/images/PlayerImage/743.png,South Africa,MI,0.0,1,🇿🇦
-Quinton de Kock,Wicket-Keeper,Mumbai Indians,170,https://www.iplt20.com/assets/images/PlayerImage/170.png,India,MI,0.0,0,🇮🇳
-Danish Malewar,Batter,Mumbai Indians,4546,https://www.iplt20.com/assets/images/PlayerImage/4546.png,India,MI,0.0,0,🇮🇳
-Ruchit Ahir,Wicket-Keeper,Mumbai Indians,993,https://www.iplt20.com/assets/images/PlayerImage/993.png,India,MI,0.0,0,🇮🇳
-N. Tilak Varma,Batter,Mumbai Indians,54,https://www.iplt20.com/assets/images/PlayerImage/54.png,India,MI,0.0,0,🇮🇳
-Hardik Pandya,All-Rounder,Mumbai Indians,3107,https://www.iplt20.com/assets/images/PlayerImage/3107.png,India,MI,16.35,0,🇮🇳
-Naman Dhir,All-Rounder,Mumbai Indians,781,https://www.iplt20.com/assets/images/PlayerImage/781.png,India,MI,0.0,0,🇮🇳
-Raj Angad Bawa,All-Rounder,Mumbai Indians,1228,https://www.iplt20.com/assets/images/PlayerImage/1228.png,India,MI,0.0,0,🇮🇳
-Mayank Rawat,All-Rounder,Mumbai Indians,5034,https://www.iplt20.com/assets/images/PlayerImage/5034.png,India,MI,0.0,0,🇮🇳
+Lockie Ferguson,Bowler,Punjab Kings,69,https://documents.iplt20.com/ipl/IPLHeadshot2026/69.png,New Zealand,PBKS,0.0,1,🇳🇿
+Rohit Sharma,Batter,Mumbai Indians,6.0,https://www.iplt20.com/assets/images/PlayerImage/6.png,India,MI,16.3,0,🇮🇳
+Surya Kumar Yadav,Batter,Mumbai Indians,174.0,https://www.iplt20.com/assets/images/PlayerImage/174.png,India,MI,0.0,0,🇮🇳
+Robin Minz,Wicket-Keeper,Mumbai Indians,3103.0,https://www.iplt20.com/assets/images/PlayerImage/3103.png,India,MI,0.0,0,🇮🇳
+Sherfane Rutherford,Batter,Mumbai Indians,122.0,https://www.iplt20.com/assets/images/PlayerImage/122.png,India,MI,0.0,0,🇮🇳
+Ryan Rickelton,Wicket-Keeper,Mumbai Indians,743.0,https://www.iplt20.com/assets/images/PlayerImage/743.png,South Africa,MI,0.0,1,🇿🇦
+Quinton de Kock,Wicket-Keeper,Mumbai Indians,170.0,https://www.iplt20.com/assets/images/PlayerImage/170.png,India,MI,0.0,0,🇮🇳
+Danish Malewar,Batter,Mumbai Indians,4546.0,https://www.iplt20.com/assets/images/PlayerImage/4546.png,India,MI,0.0,0,🇮🇳
+Ruchit Ahir,Wicket-Keeper,Mumbai Indians,993.0,https://www.iplt20.com/assets/images/PlayerImage/993.png,India,MI,0.0,0,🇮🇳
+N. Tilak Varma,Batter,Mumbai Indians,54.0,https://www.iplt20.com/assets/images/PlayerImage/54.png,India,MI,0.0,0,🇮🇳
+Hardik Pandya,All-Rounder,Mumbai Indians,3107.0,https://www.iplt20.com/assets/images/PlayerImage/3107.png,India,MI,16.35,0,🇮🇳
+Naman Dhir,All-Rounder,Mumbai Indians,781.0,https://www.iplt20.com/assets/images/PlayerImage/781.png,India,MI,0.0,0,🇮🇳
+Raj Angad Bawa,All-Rounder,Mumbai Indians,1228.0,https://www.iplt20.com/assets/images/PlayerImage/1228.png,India,MI,0.0,0,🇮🇳
+Mayank Rawat,All-Rounder,Mumbai Indians,5034.0,https://www.iplt20.com/assets/images/PlayerImage/5034.png,India,MI,0.0,0,🇮🇳
 Krish Bhagat,All-Rounder,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
-Mahipal Lomror,All-Rounder,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
+Mahipal Lomror,All-Rounder,Mumbai Indians,54,https://documents.iplt20.com/ipl/IPLHeadshot2026/54.png,India,MI,0.0,0,🇮🇳
 Corbin Bosch,All-Rounder,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
 Will Jacks,All-Rounder,Mumbai Indians,,,England,MI,0.0,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
-Shardul Thakur,All-Rounder,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
-Trent Boult,Bowler,Mumbai Indians,,,New Zealand,MI,6.0,1,🇳🇿
+Shardul Thakur,All-Rounder,Mumbai Indians,105,https://documents.iplt20.com/ipl/IPLHeadshot2026/105.png,India,MI,0.0,0,🇮🇳
+Trent Boult,Bowler,Mumbai Indians,66,https://documents.iplt20.com/ipl/IPLHeadshot2026/66.png,New Zealand,MI,6.0,1,🇳🇿
 Mayank Markande,Bowler,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
-Deepak Chahar,Bowler,Mumbai Indians,,,India,MI,9.5,0,🇮🇳
+Deepak Chahar,Bowler,Mumbai Indians,91,https://documents.iplt20.com/ipl/IPLHeadshot2026/91.png,India,MI,9.5,0,🇮🇳
 Ashwani Kumar,Bowler,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
 Raghu Sharma,Bowler,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
 Mohammad Izhar,Bowler,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
 Keshav Maharaj,Bowler,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
 Allah Ghazanfar,Bowler,Mumbai Indians,,,India,MI,0.0,0,🇮🇳
-Jasprit Bumrah,Bowler,Mumbai Indians,,,India,MI,18.0,0,🇮🇳
-Rishabh Pant,Wicket-Keeper,Lucknow Super Giants,18,https://www.iplt20.com/assets/images/PlayerImage/18.png,India,LSG,27.0,0,🇮🇳
-Aiden Markram,Batter,Lucknow Super Giants,287,https://www.iplt20.com/assets/images/PlayerImage/287.png,South Africa,LSG,0.0,1,🇿🇦
-Himmat Singh,Batter,Lucknow Super Giants,203,https://www.iplt20.com/assets/images/PlayerImage/203.png,India,LSG,0.0,0,🇮🇳
-Matthew Breetzke,Batter,Lucknow Super Giants,2805,https://www.iplt20.com/assets/images/PlayerImage/2805.png,India,LSG,0.0,0,🇮🇳
-Mukul Choudhary,Wicket-Keeper,Lucknow Super Giants,4549,https://www.iplt20.com/assets/images/PlayerImage/4549.png,India,LSG,0.0,0,🇮🇳
-Akshat Raghuwanshi,Batter,Lucknow Super Giants,1487,https://www.iplt20.com/assets/images/PlayerImage/1487.png,India,LSG,0.0,0,🇮🇳
-Josh Inglis,Wicket-Keeper,Lucknow Super Giants,647,https://www.iplt20.com/assets/images/PlayerImage/647.png,Australia,LSG,6.0,1,🇦🇺
-Nicholas Pooran,Wicket-Keeper,Lucknow Super Giants,136,https://www.iplt20.com/assets/images/PlayerImage/136.png,West Indies,LSG,6.0,1,🏝️
-Mitchell Marsh,All-Rounder,Lucknow Super Giants,40,https://www.iplt20.com/assets/images/PlayerImage/40.png,India,LSG,0.0,0,🇮🇳
-Abdul Samad,All-Rounder,Lucknow Super Giants,525,https://www.iplt20.com/assets/images/PlayerImage/525.png,India,LSG,0.0,0,🇮🇳
-Shahbaz Ahamad,All-Rounder,Lucknow Super Giants,523,https://www.iplt20.com/assets/images/PlayerImage/523.png,India,LSG,0.0,0,🇮🇳
-Arshin Kulkarni,All-Rounder,Lucknow Super Giants,2788,https://www.iplt20.com/assets/images/PlayerImage/2788.png,India,LSG,0.0,0,🇮🇳
-Ayush Badoni,All-Rounder,Lucknow Super Giants,985,https://www.iplt20.com/assets/images/PlayerImage/985.png,India,LSG,0.0,0,🇮🇳
-Mohammad Shami,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
-Avesh Khan,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
+Jasprit Bumrah,Bowler,Mumbai Indians,9,https://documents.iplt20.com/ipl/IPLHeadshot2026/9.png,India,MI,18.0,0,🇮🇳
+Rishabh Pant,Wicket-Keeper,Lucknow Super Giants,18.0,https://www.iplt20.com/assets/images/PlayerImage/18.png,India,LSG,27.0,0,🇮🇳
+Aiden Markram,Batter,Lucknow Super Giants,287.0,https://www.iplt20.com/assets/images/PlayerImage/287.png,South Africa,LSG,0.0,1,🇿🇦
+Himmat Singh,Batter,Lucknow Super Giants,203.0,https://www.iplt20.com/assets/images/PlayerImage/203.png,India,LSG,0.0,0,🇮🇳
+Matthew Breetzke,Batter,Lucknow Super Giants,2805.0,https://www.iplt20.com/assets/images/PlayerImage/2805.png,India,LSG,0.0,0,🇮🇳
+Mukul Choudhary,Wicket-Keeper,Lucknow Super Giants,4549.0,https://www.iplt20.com/assets/images/PlayerImage/4549.png,India,LSG,0.0,0,🇮🇳
+Akshat Raghuwanshi,Batter,Lucknow Super Giants,1487.0,https://www.iplt20.com/assets/images/PlayerImage/1487.png,India,LSG,0.0,0,🇮🇳
+Josh Inglis,Wicket-Keeper,Lucknow Super Giants,647.0,https://www.iplt20.com/assets/images/PlayerImage/647.png,Australia,LSG,6.0,1,🇦🇺
+Nicholas Pooran,Wicket-Keeper,Lucknow Super Giants,136.0,https://www.iplt20.com/assets/images/PlayerImage/136.png,West Indies,LSG,6.0,1,🏝️
+Mitchell Marsh,All-Rounder,Lucknow Super Giants,40.0,https://www.iplt20.com/assets/images/PlayerImage/40.png,India,LSG,0.0,0,🇮🇳
+Abdul Samad,All-Rounder,Lucknow Super Giants,525.0,https://www.iplt20.com/assets/images/PlayerImage/525.png,India,LSG,0.0,0,🇮🇳
+Shahbaz Ahamad,All-Rounder,Lucknow Super Giants,523.0,https://www.iplt20.com/assets/images/PlayerImage/523.png,India,LSG,0.0,0,🇮🇳
+Arshin Kulkarni,All-Rounder,Lucknow Super Giants,2788.0,https://www.iplt20.com/assets/images/PlayerImage/2788.png,India,LSG,0.0,0,🇮🇳
+Ayush Badoni,All-Rounder,Lucknow Super Giants,985.0,https://www.iplt20.com/assets/images/PlayerImage/985.png,India,LSG,0.0,0,🇮🇳
+Mohammad Shami,Bowler,Lucknow Super Giants,47,https://documents.iplt20.com/ipl/IPLHeadshot2026/47.png,India,LSG,0.0,0,🇮🇳
+Avesh Khan,Bowler,Lucknow Super Giants,109,https://documents.iplt20.com/ipl/IPLHeadshot2026/109.png,India,LSG,0.0,0,🇮🇳
 M. Siddharth,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
 Digvesh Singh,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
 Akash Singh,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
@@ -151,92 +151,92 @@ Naman Tiwari,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
 George Linde,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
 Mayank Yadav,Bowler,Lucknow Super Giants,,,India,LSG,11.0,0,🇮🇳
 Mohsin Khan,Bowler,Lucknow Super Giants,,,India,LSG,0.0,0,🇮🇳
-Ajinkya Rahane,Batter,Kolkata Knight Riders,44,https://www.iplt20.com/assets/images/PlayerImage/44.png,India,KKR,0.0,0,🇮🇳
-Rinku Singh,Batter,Kolkata Knight Riders,152,https://www.iplt20.com/assets/images/PlayerImage/152.png,India,KKR,13.0,0,🇮🇳
-Angkrish Raghuvanshi,Batter,Kolkata Knight Riders,787,https://www.iplt20.com/assets/images/PlayerImage/787.png,India,KKR,0.0,0,🇮🇳
-Manish Pandey,Batter,Kolkata Knight Riders,16,https://www.iplt20.com/assets/images/PlayerImage/16.png,India,KKR,0.0,0,🇮🇳
-Finn Allen,Wicket-Keeper,Kolkata Knight Riders,595,https://www.iplt20.com/assets/images/PlayerImage/595.png,India,KKR,0.0,0,🇮🇳
-Tejasvi Singh,Wicket-Keeper,Kolkata Knight Riders,4281,https://www.iplt20.com/assets/images/PlayerImage/4281.png,India,KKR,0.0,0,🇮🇳
-Rahul Tripathi,Batter,Kolkata Knight Riders,188,https://www.iplt20.com/assets/images/PlayerImage/188.png,India,KKR,0.0,0,🇮🇳
-Tim Seifert,Wicket-Keeper,Kolkata Knight Riders,82,https://www.iplt20.com/assets/images/PlayerImage/82.png,India,KKR,0.0,0,🇮🇳
-Luvnith Sisodia,Wicket-Keeper,Kolkata Knight Riders,329,https://www.iplt20.com/assets/images/PlayerImage/329.png,India,KKR,0.0,0,🇮🇳
-Rovman Powell,Batter,Kolkata Knight Riders,160,https://www.iplt20.com/assets/images/PlayerImage/160.png,West Indies,KKR,0.0,1,🏝️
-Anukul Roy,All-Rounder,Kolkata Knight Riders,550,https://www.iplt20.com/assets/images/PlayerImage/550.png,India,KKR,0.0,0,🇮🇳
-Cameron Green,All-Rounder,Kolkata Knight Riders,4203,https://www.iplt20.com/assets/images/PlayerImage/4203.png,Australia,KKR,18.0,1,🇦🇺
-Sarthak Ranjan,All-Rounder,Kolkata Knight Riders,4548,https://www.iplt20.com/assets/images/PlayerImage/4548.png,India,KKR,0.0,0,🇮🇳
-Daksh Kamra,All-Rounder,Kolkata Knight Riders,724,https://www.iplt20.com/assets/images/PlayerImage/724.png,India,KKR,0.0,0,🇮🇳
+Ajinkya Rahane,Batter,Kolkata Knight Riders,44.0,https://www.iplt20.com/assets/images/PlayerImage/44.png,India,KKR,0.0,0,🇮🇳
+Rinku Singh,Batter,Kolkata Knight Riders,152.0,https://www.iplt20.com/assets/images/PlayerImage/152.png,India,KKR,13.0,0,🇮🇳
+Angkrish Raghuvanshi,Batter,Kolkata Knight Riders,787.0,https://www.iplt20.com/assets/images/PlayerImage/787.png,India,KKR,0.0,0,🇮🇳
+Manish Pandey,Batter,Kolkata Knight Riders,16.0,https://www.iplt20.com/assets/images/PlayerImage/16.png,India,KKR,0.0,0,🇮🇳
+Finn Allen,Wicket-Keeper,Kolkata Knight Riders,595.0,https://www.iplt20.com/assets/images/PlayerImage/595.png,India,KKR,0.0,0,🇮🇳
+Tejasvi Singh,Wicket-Keeper,Kolkata Knight Riders,4281.0,https://www.iplt20.com/assets/images/PlayerImage/4281.png,India,KKR,0.0,0,🇮🇳
+Rahul Tripathi,Batter,Kolkata Knight Riders,188.0,https://www.iplt20.com/assets/images/PlayerImage/188.png,India,KKR,0.0,0,🇮🇳
+Tim Seifert,Wicket-Keeper,Kolkata Knight Riders,82.0,https://www.iplt20.com/assets/images/PlayerImage/82.png,India,KKR,0.0,0,🇮🇳
+Luvnith Sisodia,Wicket-Keeper,Kolkata Knight Riders,329.0,https://www.iplt20.com/assets/images/PlayerImage/329.png,India,KKR,0.0,0,🇮🇳
+Rovman Powell,Batter,Kolkata Knight Riders,160.0,https://www.iplt20.com/assets/images/PlayerImage/160.png,West Indies,KKR,0.0,1,🏝️
+Anukul Roy,All-Rounder,Kolkata Knight Riders,550.0,https://www.iplt20.com/assets/images/PlayerImage/550.png,India,KKR,0.0,0,🇮🇳
+Cameron Green,All-Rounder,Kolkata Knight Riders,4203.0,https://www.iplt20.com/assets/images/PlayerImage/4203.png,Australia,KKR,18.0,1,🇦🇺
+Sarthak Ranjan,All-Rounder,Kolkata Knight Riders,4548.0,https://www.iplt20.com/assets/images/PlayerImage/4548.png,India,KKR,0.0,0,🇮🇳
+Daksh Kamra,All-Rounder,Kolkata Knight Riders,724.0,https://www.iplt20.com/assets/images/PlayerImage/724.png,India,KKR,0.0,0,🇮🇳
 Rachin Ravindra,All-Rounder,Kolkata Knight Riders,,,New Zealand,KKR,6.5,1,🇳🇿
 Ramandeep Singh,All-Rounder,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
-Sunil Narine,All-Rounder,Kolkata Knight Riders,,,West Indies,KKR,12.5,1,🏝️
+Sunil Narine,All-Rounder,Kolkata Knight Riders,156,https://documents.iplt20.com/ipl/IPLHeadshot2026/156.png,West Indies,KKR,12.5,1,🏝️
 Blessing Muzarabani,Bowler,Kolkata Knight Riders,,,Zimbabwe,KKR,2.0,1,🇿🇼
 Vaibhav Arora,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
 Kartik Tyagi,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
 Prashant Solanki,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
 Saurabh Dubey,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
-Navdeep Saini,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
+Navdeep Saini,Bowler,Kolkata Knight Riders,207,https://documents.iplt20.com/ipl/IPLHeadshot2026/207.png,India,KKR,0.0,0,🇮🇳
 Umran Malik,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
 Varun Chakaravarthy,Bowler,Kolkata Knight Riders,,,India,KKR,0.0,0,🇮🇳
-Shubman Gill,Batter,Gujarat Titans,62,https://www.iplt20.com/assets/images/PlayerImage/62.png,India,GT,16.5,0,🇮🇳
-Jos Buttler,Wicket-Keeper,Gujarat Titans,182,https://www.iplt20.com/assets/images/PlayerImage/182.png,England,GT,10.0,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
-Kumar Kushagra,Wicket-Keeper,Gujarat Titans,3101,https://www.iplt20.com/assets/images/PlayerImage/3101.png,India,GT,0.0,0,🇮🇳
-Anuj Rawat,Wicket-Keeper,Gujarat Titans,534,https://www.iplt20.com/assets/images/PlayerImage/534.png,India,GT,0.0,0,🇮🇳
-Connor Esterhuizen,Batter,Gujarat Titans,5035,https://www.iplt20.com/assets/images/PlayerImage/5035.png,India,GT,0.0,0,🇮🇳
-Glenn Phillips,Batter,Gujarat Titans,635,https://www.iplt20.com/assets/images/PlayerImage/635.png,New Zealand,GT,0.0,1,🇳🇿
-Sai Sudharsan,Batter,Gujarat Titans,976,https://www.iplt20.com/assets/images/PlayerImage/976.png,India,GT,0.0,0,🇮🇳
-Nishant Sindhu,All-Rounder,Gujarat Titans,791,https://www.iplt20.com/assets/images/PlayerImage/791.png,India,GT,0.0,0,🇮🇳
-Washington Sundar,All-Rounder,Gujarat Titans,20,https://www.iplt20.com/assets/images/PlayerImage/20.png,India,GT,8.75,0,🇮🇳
-Mohd. Arshad Khan,All-Rounder,Gujarat Titans,988,https://www.iplt20.com/assets/images/PlayerImage/988.png,India,GT,0.0,0,🇮🇳
-Sai Kishore,All-Rounder,Gujarat Titans,544,https://www.iplt20.com/assets/images/PlayerImage/544.png,India,GT,0.0,0,🇮🇳
-Jayant Yadav,All-Rounder,Gujarat Titans,165,https://www.iplt20.com/assets/images/PlayerImage/165.png,India,GT,0.0,0,🇮🇳
-Jason Holder,All-Rounder,Gujarat Titans,,,West Indies,GT,0.0,1,🏝️
-Rahul Tewatia,All-Rounder,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
+Shubman Gill,Batter,Gujarat Titans,62.0,https://www.iplt20.com/assets/images/PlayerImage/62.png,India,GT,16.5,0,🇮🇳
+Jos Buttler,Wicket-Keeper,Gujarat Titans,182.0,https://www.iplt20.com/assets/images/PlayerImage/182.png,England,GT,10.0,1,🏴󠁧󠁢󠁥󠁮󠁧󠁿
+Kumar Kushagra,Wicket-Keeper,Gujarat Titans,3101.0,https://www.iplt20.com/assets/images/PlayerImage/3101.png,India,GT,0.0,0,🇮🇳
+Anuj Rawat,Wicket-Keeper,Gujarat Titans,534.0,https://www.iplt20.com/assets/images/PlayerImage/534.png,India,GT,0.0,0,🇮🇳
+Connor Esterhuizen,Batter,Gujarat Titans,5035.0,https://www.iplt20.com/assets/images/PlayerImage/5035.png,India,GT,0.0,0,🇮🇳
+Glenn Phillips,Batter,Gujarat Titans,635.0,https://www.iplt20.com/assets/images/PlayerImage/635.png,New Zealand,GT,0.0,1,🇳🇿
+Sai Sudharsan,Batter,Gujarat Titans,976.0,https://www.iplt20.com/assets/images/PlayerImage/976.png,India,GT,0.0,0,🇮🇳
+Nishant Sindhu,All-Rounder,Gujarat Titans,791.0,https://www.iplt20.com/assets/images/PlayerImage/791.png,India,GT,0.0,0,🇮🇳
+Washington Sundar,All-Rounder,Gujarat Titans,20.0,https://www.iplt20.com/assets/images/PlayerImage/20.png,India,GT,8.75,0,🇮🇳
+Mohd. Arshad Khan,All-Rounder,Gujarat Titans,988.0,https://www.iplt20.com/assets/images/PlayerImage/988.png,India,GT,0.0,0,🇮🇳
+Sai Kishore,All-Rounder,Gujarat Titans,544.0,https://www.iplt20.com/assets/images/PlayerImage/544.png,India,GT,0.0,0,🇮🇳
+Jayant Yadav,All-Rounder,Gujarat Titans,165.0,https://www.iplt20.com/assets/images/PlayerImage/165.png,India,GT,0.0,0,🇮🇳
+Jason Holder,All-Rounder,Gujarat Titans,263,https://documents.iplt20.com/ipl/IPLHeadshot2026/263.png,West Indies,GT,0.0,1,🏝️
+Rahul Tewatia,All-Rounder,Gujarat Titans,120,https://documents.iplt20.com/ipl/IPLHeadshot2026/120.png,India,GT,0.0,0,🇮🇳
 Shahrukh Khan,All-Rounder,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
-Kagiso Rabada,Bowler,Gujarat Titans,,,South Africa,GT,8.0,1,🇿🇦
-Mohammed Siraj,Bowler,Gujarat Titans,,,India,GT,12.5,0,🇮🇳
+Kagiso Rabada,Bowler,Gujarat Titans,116,https://documents.iplt20.com/ipl/IPLHeadshot2026/116.png,South Africa,GT,8.0,1,🇿🇦
+Mohammed Siraj,Bowler,Gujarat Titans,63,https://documents.iplt20.com/ipl/IPLHeadshot2026/63.png,India,GT,12.5,0,🇮🇳
 Prasidh Krishna,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
 Manav Suthar,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
-Gurnoor Singh Brar,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
-Ishant Sharma,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
+Gurnoor Singh Brar,Bowler,Gujarat Titans,1231,https://documents.iplt20.com/ipl/IPLHeadshot2026/1231.png,India,GT,0.0,0,🇮🇳
+Ishant Sharma,Bowler,Gujarat Titans,50,https://documents.iplt20.com/ipl/IPLHeadshot2026/50.png,India,GT,0.0,0,🇮🇳
 Ashok Sharma,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
 Luke Wood,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
-Kulwant Khejroliya,Bowler,Gujarat Titans,,,India,GT,0.0,0,🇮🇳
-Rashid Khan,Bowler,Gujarat Titans,,,Afghanistan,GT,18.0,1,🇦🇫
-KL Rahul,Wicket-Keeper,Delhi Capitals,19,https://www.iplt20.com/assets/images/PlayerImage/19.png,India,DC,14.0,0,🇮🇳
-Karun Nair,Batter,Delhi Capitals,131,https://www.iplt20.com/assets/images/PlayerImage/131.png,India,DC,0.0,0,🇮🇳
-David Miller,Batter,Delhi Capitals,128,https://www.iplt20.com/assets/images/PlayerImage/128.png,South Africa,DC,0.0,1,🇿🇦
-Pathum Nissanka,Batter,Delhi Capitals,618,https://www.iplt20.com/assets/images/PlayerImage/618.png,Sri Lanka,DC,0.0,1,🇱🇰
-Sahil Parakh,Batter,Delhi Capitals,4542,https://www.iplt20.com/assets/images/PlayerImage/4542.png,India,DC,0.0,0,🇮🇳
-Prithvi Shaw,Batter,Delhi Capitals,51,https://www.iplt20.com/assets/images/PlayerImage/51.png,India,DC,0.0,0,🇮🇳
-Abishek Porel,Wicket-Keeper,Delhi Capitals,1580,https://www.iplt20.com/assets/images/PlayerImage/1580.png,India,DC,0.0,0,🇮🇳
-Tristan Stubbs,Wicket-Keeper,Delhi Capitals,1017,https://www.iplt20.com/assets/images/PlayerImage/1017.png,South Africa,DC,6.5,1,🇿🇦
-Axar Patel,All-Rounder,Delhi Capitals,110,https://www.iplt20.com/assets/images/PlayerImage/110.png,India,DC,16.5,0,🇮🇳
-Sameer Rizvi,All-Rounder,Delhi Capitals,1229,https://www.iplt20.com/assets/images/PlayerImage/1229.png,India,DC,0.0,0,🇮🇳
-Ashutosh Sharma,All-Rounder,Delhi Capitals,3109,https://www.iplt20.com/assets/images/PlayerImage/3109.png,India,DC,0.0,0,🇮🇳
-Vipraj Nigam,All-Rounder,Delhi Capitals,3560,https://www.iplt20.com/assets/images/PlayerImage/3560.png,India,DC,0.0,0,🇮🇳
-Ajay Mandal,All-Rounder,Delhi Capitals,1931,https://www.iplt20.com/assets/images/PlayerImage/1931.png,India,DC,0.0,0,🇮🇳
+Kulwant Khejroliya,Bowler,Gujarat Titans,204,https://documents.iplt20.com/ipl/IPLHeadshot2026/204.png,India,GT,0.0,0,🇮🇳
+Rashid Khan,Bowler,Gujarat Titans,218,https://documents.iplt20.com/ipl/IPLHeadshot2026/218.png,Afghanistan,GT,18.0,1,🇦🇫
+KL Rahul,Wicket-Keeper,Delhi Capitals,19.0,https://www.iplt20.com/assets/images/PlayerImage/19.png,India,DC,14.0,0,🇮🇳
+Karun Nair,Batter,Delhi Capitals,131.0,https://www.iplt20.com/assets/images/PlayerImage/131.png,India,DC,0.0,0,🇮🇳
+David Miller,Batter,Delhi Capitals,128.0,https://www.iplt20.com/assets/images/PlayerImage/128.png,South Africa,DC,0.0,1,🇿🇦
+Pathum Nissanka,Batter,Delhi Capitals,618.0,https://www.iplt20.com/assets/images/PlayerImage/618.png,Sri Lanka,DC,0.0,1,🇱🇰
+Sahil Parakh,Batter,Delhi Capitals,4542.0,https://www.iplt20.com/assets/images/PlayerImage/4542.png,India,DC,0.0,0,🇮🇳
+Prithvi Shaw,Batter,Delhi Capitals,51.0,https://www.iplt20.com/assets/images/PlayerImage/51.png,India,DC,0.0,0,🇮🇳
+Abishek Porel,Wicket-Keeper,Delhi Capitals,1580.0,https://www.iplt20.com/assets/images/PlayerImage/1580.png,India,DC,0.0,0,🇮🇳
+Tristan Stubbs,Wicket-Keeper,Delhi Capitals,1017.0,https://www.iplt20.com/assets/images/PlayerImage/1017.png,South Africa,DC,6.5,1,🇿🇦
+Axar Patel,All-Rounder,Delhi Capitals,110.0,https://www.iplt20.com/assets/images/PlayerImage/110.png,India,DC,16.5,0,🇮🇳
+Sameer Rizvi,All-Rounder,Delhi Capitals,1229.0,https://www.iplt20.com/assets/images/PlayerImage/1229.png,India,DC,0.0,0,🇮🇳
+Ashutosh Sharma,All-Rounder,Delhi Capitals,3109.0,https://www.iplt20.com/assets/images/PlayerImage/3109.png,India,DC,0.0,0,🇮🇳
+Vipraj Nigam,All-Rounder,Delhi Capitals,3560.0,https://www.iplt20.com/assets/images/PlayerImage/3560.png,India,DC,0.0,0,🇮🇳
+Ajay Mandal,All-Rounder,Delhi Capitals,1931.0,https://www.iplt20.com/assets/images/PlayerImage/1931.png,India,DC,0.0,0,🇮🇳
 Tripurana Vijay,All-Rounder,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
 Madhav Tiwari,All-Rounder,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
-Nitish Rana,All-Rounder,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
-Mitchell Starc,Bowler,Delhi Capitals,,,Australia,DC,11.0,1,🇦🇺
-T. Natarajan,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
+Nitish Rana,All-Rounder,Delhi Capitals,148,https://documents.iplt20.com/ipl/IPLHeadshot2026/148.png,India,DC,0.0,0,🇮🇳
+Mitchell Starc,Bowler,Delhi Capitals,31,https://documents.iplt20.com/ipl/IPLHeadshot2026/31.png,Australia,DC,11.0,1,🇦🇺
+T. Natarajan,Bowler,Delhi Capitals,224,https://documents.iplt20.com/ipl/IPLHeadshot2026/224.png,India,DC,0.0,0,🇮🇳
 Mukesh Kumar,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
-Dushmantha Chameera,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
+Dushmantha Chameera,Bowler,Delhi Capitals,608,https://documents.iplt20.com/ipl/IPLHeadshot2026/608.png,India,DC,0.0,0,🇮🇳
 Auqib Nabi,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
-Lungisani Ngidi,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
-Kyle Jamieson,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
+Lungisani Ngidi,Bowler,Delhi Capitals,99,https://documents.iplt20.com/ipl/IPLHeadshot2026/99.png,India,DC,0.0,0,🇮🇳
+Kyle Jamieson,Bowler,Delhi Capitals,382,https://documents.iplt20.com/ipl/IPLHeadshot2026/382.png,India,DC,0.0,0,🇮🇳
 Rehan Ahmed,Bowler,Delhi Capitals,,,India,DC,0.0,0,🇮🇳
-Kuldeep Yadav,Bowler,Delhi Capitals,,,India,DC,13.25,0,🇮🇳
-Ruturaj Gaikwad,Batter,Chennai Super Kings,102,https://www.iplt20.com/assets/images/PlayerImage/102.png,India,CSK,0.0,0,🇮🇳
-MS Dhoni,Wicket-Keeper,Chennai Super Kings,57,https://www.iplt20.com/assets/images/PlayerImage/57.png,India,CSK,4.0,0,🇮🇳
-Sanju Samson,Wicket-Keeper,Chennai Super Kings,190,https://www.iplt20.com/assets/images/PlayerImage/190.png,India,CSK,14.0,0,🇮🇳
-Dewald Brevis,Batter,Chennai Super Kings,797,https://www.iplt20.com/assets/images/PlayerImage/797.png,India,CSK,0.0,0,🇮🇳
-Kartik Sharma,Wicket-Keeper,Chennai Super Kings,4540,https://www.iplt20.com/assets/images/PlayerImage/4540.png,India,CSK,0.0,0,🇮🇳
-Sarfaraz Khan,Batter,Chennai Super Kings,139,https://www.iplt20.com/assets/images/PlayerImage/139.png,India,CSK,0.0,0,🇮🇳
-Urvil Patel,Wicket-Keeper,Chennai Super Kings,1486,https://www.iplt20.com/assets/images/PlayerImage/1486.png,India,CSK,0.0,0,🇮🇳
-Prashant Veer,All-Rounder,Chennai Super Kings,4541,https://www.iplt20.com/assets/images/PlayerImage/4541.png,India,CSK,0.0,0,🇮🇳
-Matthew William Short,All-Rounder,Chennai Super Kings,2032,https://www.iplt20.com/assets/images/PlayerImage/2032.png,India,CSK,0.0,0,🇮🇳
-Aman Khan,All-Rounder,Chennai Super Kings,979,https://www.iplt20.com/assets/images/PlayerImage/979.png,India,CSK,0.0,0,🇮🇳
-Zak Foulkes,All-Rounder,Chennai Super Kings,3493,https://www.iplt20.com/assets/images/PlayerImage/3493.png,India,CSK,0.0,0,🇮🇳
+Kuldeep Yadav,Bowler,Delhi Capitals,14,https://documents.iplt20.com/ipl/IPLHeadshot2026/14.png,India,DC,13.25,0,🇮🇳
+Ruturaj Gaikwad,Batter,Chennai Super Kings,102.0,https://www.iplt20.com/assets/images/PlayerImage/102.png,India,CSK,0.0,0,🇮🇳
+MS Dhoni,Wicket-Keeper,Chennai Super Kings,57.0,https://www.iplt20.com/assets/images/PlayerImage/57.png,India,CSK,4.0,0,🇮🇳
+Sanju Samson,Wicket-Keeper,Chennai Super Kings,190.0,https://www.iplt20.com/assets/images/PlayerImage/190.png,India,CSK,14.0,0,🇮🇳
+Dewald Brevis,Batter,Chennai Super Kings,797.0,https://www.iplt20.com/assets/images/PlayerImage/797.png,India,CSK,0.0,0,🇮🇳
+Kartik Sharma,Wicket-Keeper,Chennai Super Kings,4540.0,https://www.iplt20.com/assets/images/PlayerImage/4540.png,India,CSK,0.0,0,🇮🇳
+Sarfaraz Khan,Batter,Chennai Super Kings,139.0,https://www.iplt20.com/assets/images/PlayerImage/139.png,India,CSK,0.0,0,🇮🇳
+Urvil Patel,Wicket-Keeper,Chennai Super Kings,1486.0,https://www.iplt20.com/assets/images/PlayerImage/1486.png,India,CSK,0.0,0,🇮🇳
+Prashant Veer,All-Rounder,Chennai Super Kings,4541.0,https://www.iplt20.com/assets/images/PlayerImage/4541.png,India,CSK,0.0,0,🇮🇳
+Matthew William Short,All-Rounder,Chennai Super Kings,2032.0,https://www.iplt20.com/assets/images/PlayerImage/2032.png,India,CSK,0.0,0,🇮🇳
+Aman Khan,All-Rounder,Chennai Super Kings,979.0,https://www.iplt20.com/assets/images/PlayerImage/979.png,India,CSK,0.0,0,🇮🇳
+Zak Foulkes,All-Rounder,Chennai Super Kings,3493.0,https://www.iplt20.com/assets/images/PlayerImage/3493.png,India,CSK,0.0,0,🇮🇳
 Macneil Noronha,All-Rounder,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
 Dian Forrester,All-Rounder,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
 Shivam Dube,All-Rounder,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
@@ -246,8 +246,8 @@ Mukesh Choudhary,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
 Shreyas Gopal,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
 Gurjapneet Singh,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
 Akeal Hosein,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
-Matt Henry,Bowler,Chennai Super Kings,,,New Zealand,CSK,0.0,1,🇳🇿
-Rahul Chahar,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
+Matt Henry,Bowler,Chennai Super Kings,71,https://documents.iplt20.com/ipl/IPLHeadshot2026/71.png,New Zealand,CSK,0.0,1,🇳🇿
+Rahul Chahar,Bowler,Chennai Super Kings,171,https://documents.iplt20.com/ipl/IPLHeadshot2026/171.png,India,CSK,0.0,0,🇮🇳
 Spencer Johnson,Bowler,Chennai Super Kings,,,Australia,CSK,0.0,1,🇦🇺
 Akash Madhwal,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳
 Kuldip Yadav,Bowler,Chennai Super Kings,,,India,CSK,0.0,0,🇮🇳

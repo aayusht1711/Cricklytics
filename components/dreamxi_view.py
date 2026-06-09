@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
-
+from utils.photo_helper import get_player_avatar_html, get_player_info
 TEAM_COLORS = {
     "Mumbai Indians": "#005DA0", "Chennai Super Kings": "#F7C010",
     "Royal Challengers Bangalore": "#EC1C24", "Royal Challengers Bengaluru": "#EC1C24",
@@ -13,13 +12,10 @@ TEAM_COLORS = {
     "Punjab Kings": "#ED1B24", "Deccan Chargers": "#FDB933",
     "Gujarat Titans": "#1C4966", "Lucknow Super Giants": "#A72056",
 }
-
-
 @st.cache_data
 def _build_player_pool(data):
     """Build batting, bowling and all-rounder pools with ratings."""
-
-   
+    # ── BATTING POOL ─────────────────────────────────────────────
     bat = data.groupby("batter").agg(
         runs    =("runs_batter", "sum"),
         balls   =("balls_faced", "sum"),
@@ -30,7 +26,6 @@ def _build_player_pool(data):
     bat = bat[bat["balls"] >= 200].copy()
     bat["sr"]          = (bat["runs"] / bat["balls"] * 100).round(1)
     bat["boundary_pct"]= ((bat["fours"] + bat["sixes"]) / bat["balls"] * 100).round(1)
-
     # dismissals
     if "player_dismissed" in data.columns:
         dis = data[data["player_dismissed"].notna()].groupby("player_dismissed").size().reset_index(name="outs")
@@ -38,14 +33,12 @@ def _build_player_pool(data):
         bat["avg"] = (bat["runs"] / bat["outs"]).round(1)
     else:
         bat["avg"] = bat["runs"] / 30
-
     # match-level 50s and 100s
     match_runs = data.groupby(["match_id","batter"])["runs_batter"].sum().reset_index()
     match_runs["is_50"]  = ((match_runs["runs_batter"] >= 50) & (match_runs["runs_batter"] < 100)).astype(int)
     match_runs["is_100"] = (match_runs["runs_batter"] >= 100).astype(int)
     milestone = match_runs.groupby("batter").agg(fifties=("is_50","sum"), hundreds=("is_100","sum")).reset_index()
     bat = bat.merge(milestone, on="batter", how="left").fillna(0)
-
     # Powerplay SR
     pp = data[data["over"] <= 5].groupby("batter").agg(
         pp_runs =("runs_batter","sum"),
@@ -53,7 +46,6 @@ def _build_player_pool(data):
     ).reset_index()
     pp["pp_sr"] = (pp["pp_runs"] / pp["pp_balls"] * 100).round(1)
     bat = bat.merge(pp, on="batter", how="left").fillna({"pp_sr": 0})
-
     # Batter rating (0-100)
     bat["bat_rating"] = (
         bat["runs"].clip(0, 8000) / 8000 * 35 +
@@ -61,7 +53,6 @@ def _build_player_pool(data):
         bat["avg"].clip(0, 60)   / 60   * 20 +
         (bat["fifties"] + bat["hundreds"] * 2).clip(0, 50) / 50 * 20
     ).round(1)
-
     # ── BOWLING POOL ──────────────────────────────────────────────
     runs_bowl_col = "runs_bowler" if "runs_bowler" in data.columns else "runs_total"
     bowl = data.groupby("bowler").agg(
@@ -73,7 +64,6 @@ def _build_player_pool(data):
     bowl = bowl[bowl["balls"] >= 120].copy()
     bowl["economy"]    = (bowl["runs_c"] / bowl["balls"] * 6).round(2)
     bowl["bowling_sr"] = (bowl["balls"]  / bowl["wickets"].replace(0, np.nan)).round(1)
-
     # Death overs economy
     runs_bowl_col2 = "runs_bowler" if "runs_bowler" in data.columns else "runs_total"
     death = data[data["over"] >= 15].groupby("bowler").agg(
@@ -82,29 +72,23 @@ def _build_player_pool(data):
     ).reset_index()
     death["death_econ"] = (death["d_runs"] / death["d_balls"] * 6).round(2)
     bowl = bowl.merge(death, on="bowler", how="left").fillna({"death_econ": 9.0})
-
     # Bowler rating (0-100)
     bowl["bowl_rating"] = (
         bowl["wickets"].clip(0, 200) / 200 * 40 +
         (10 - bowl["economy"].clip(5, 10)) / 5 * 35 +
         (40  - bowl["bowling_sr"].clip(10, 40).fillna(40)) / 30 * 25
     ).round(1)
-
     # ── ALL ROUNDERS ─────────────────────────────────────────────
     both = set(bat["batter"].tolist()) & set(bowl["bowler"].tolist())
     ar_bat  = bat[bat["batter"].isin(both)][["batter","bat_rating","runs","sr","team"]].copy()
     ar_bowl = bowl[bowl["bowler"].isin(both)][["bowler","bowl_rating","wickets","economy"]].copy()
     ar      = ar_bat.merge(ar_bowl, left_on="batter", right_on="bowler")
     ar["ar_rating"] = (ar["bat_rating"] * 0.5 + ar["bowl_rating"] * 0.5).round(1)
-
     # ── KEEPER POOL ───────────────────────────────────────────────
     keepers = ["MS Dhoni","KD Karthik","RV Uthappa","WP Saha","RR Pant",
                 "SV Samson","Q de Kock","AB de Villiers","KL Rahul","Ishan Kishan"]
     keep_df = bat[bat["batter"].isin(keepers)][["batter","bat_rating","runs","sr","team"]].copy()
-
     return bat, bowl, ar, keep_df
-
-
 def _radar(players_data, label, color):
     """Spider chart for team profile."""
     categories = ["Batting\nPower", "Strike\nRate", "Bowling\nAttack",
@@ -120,7 +104,6 @@ def _radar(players_data, label, color):
     N      = len(categories)
     angles = [n / float(N) * 2 * np.pi for n in range(N)]
     angles += angles[:1]
-
     fig, ax = plt.subplots(figsize=(4, 4), subplot_kw=dict(polar=True))
     fig.patch.set_facecolor("#0e1117")
     ax.set_facecolor("#0e1117")
@@ -136,24 +119,18 @@ def _radar(players_data, label, color):
     ax.set_title(label, color="white", fontsize=10, pad=12)
     plt.tight_layout()
     return fig
-
-
 def _compute_team_rating(selected_players, bat_df, bowl_df, ar_df):
     """Compute overall team rating out of 100."""
     scores = []
-
     for p in selected_players:
         b = bat_df[bat_df["batter"] == p]
         if not b.empty:
             scores.append(float(b.iloc[0]["bat_rating"]))
-
         bw = bowl_df[bowl_df["bowler"] == p]
         if not bw.empty:
             scores.append(float(bw.iloc[0]["bowl_rating"]))
-
     if not scores:
         return 0, {}
-
     avg_bat  = float(bat_df[bat_df["batter"].isin(selected_players)]["bat_rating"].mean()) \
                if not bat_df[bat_df["batter"].isin(selected_players)].empty else 50
     avg_sr   = float(bat_df[bat_df["batter"].isin(selected_players)]["sr"].mean()) \
@@ -163,7 +140,6 @@ def _compute_team_rating(selected_players, bat_df, bowl_df, ar_df):
     avg_econ = float(bowl_df[bowl_df["bowler"].isin(selected_players)]["economy"].mean()) \
                if not bowl_df[bowl_df["bowler"].isin(selected_players)].empty else 8.0
     ar_count = len(ar_df[ar_df["batter"].isin(selected_players)])
-
     overall = round(
         avg_bat * 0.35 +
         avg_bowl * 0.35 +
@@ -171,7 +147,6 @@ def _compute_team_rating(selected_players, bat_df, bowl_df, ar_df):
         min(100, ar_count / 4 * 100) * 0.15,
         1,
     )
-
     return min(100, overall), {
         "avg_bat_rating": avg_bat,
         "avg_sr":         avg_sr,
@@ -179,8 +154,6 @@ def _compute_team_rating(selected_players, bat_df, bowl_df, ar_df):
         "avg_econ":       avg_econ,
         "ar_count":       ar_count,
     }
-
-
 def show_dreamxi_view(data):
     st.markdown("<h2>Build Your Dream XI</h2>", unsafe_allow_html=True)
     st.markdown(
@@ -189,14 +162,10 @@ def show_dreamxi_view(data):
         "Get an instant team rating based on real career stats.</p>",
         unsafe_allow_html=True,
     )
-
     bat_df, bowl_df, ar_df, keep_df = _build_player_pool(data)
-
     # ── ROLE-BASED SELECTION ──────────────────────────────────────
     st.markdown("<h3>Step 1 — Pick Your Playing XI</h3>", unsafe_allow_html=True)
-
     col1, col2 = st.columns(2)
-
     with col1:
         st.markdown(
             "<p style='color:#FFE66D;font-weight:700;margin-bottom:4px;'>Wicket Keeper (pick 1)</p>",
@@ -207,7 +176,6 @@ def show_dreamxi_view(data):
             keep_df.sort_values("bat_rating", ascending=False)["batter"].tolist(),
             label_visibility="collapsed",
         )
-
         st.markdown(
             "<p style='color:#00FFFF;font-weight:700;margin:12px 0 4px;'>Batters (pick 4)</p>",
             unsafe_allow_html=True,
@@ -222,7 +190,6 @@ def show_dreamxi_view(data):
             max_selections=4,
             label_visibility="collapsed",
         )
-
         st.markdown(
             "<p style='color:#4ECDC4;font-weight:700;margin:12px 0 4px;'>All Rounders (pick 2)</p>",
             unsafe_allow_html=True,
@@ -235,7 +202,6 @@ def show_dreamxi_view(data):
             max_selections=2,
             label_visibility="collapsed",
         )
-
     with col2:
         st.markdown(
             "<p style='color:#FF6B6B;font-weight:700;margin-bottom:4px;'>Bowlers (pick 4)</p>",
@@ -251,25 +217,21 @@ def show_dreamxi_view(data):
             max_selections=4,
             label_visibility="collapsed",
         )
-
         st.markdown(
             "<p style='color:rgba(255,255,255,0.5);font-weight:700;margin:12px 0 4px;'>Team Name</p>",
             unsafe_allow_html=True,
         )
         team_name = st.text_input("Team Name", value="My Dream XI",
                                    label_visibility="collapsed")
-
         st.markdown(
             "<p style='color:rgba(255,255,255,0.5);font-weight:700;margin:12px 0 4px;'>Team Color</p>",
             unsafe_allow_html=True,
         )
         team_color = st.color_picker("Pick team color", value="#00FFFF",
                                       label_visibility="collapsed")
-
     # Build full squad
     all_selected = ([keeper] if keeper else []) + batters + allrounders + bowlers
     total = len(all_selected)
-
     # Team constraint check
     team_counts = {}
     for p in all_selected:
@@ -279,21 +241,16 @@ def show_dreamxi_view(data):
         if len(team) > 0:
             t = team[0]
             team_counts[t] = team_counts.get(t, 0) + 1
-
     violations = {t: c for t, c in team_counts.items() if c > 4}
-
     st.markdown("---")
     st.markdown(f"<h3>Step 2 — Your Team ({total}/11 players)</h3>",
                 unsafe_allow_html=True)
-
     if violations:
         for t, c in violations.items():
             st.warning(f"Too many players from {t} ({c}/4 max). Adjust your selection.")
-
     if total == 0:
         st.info("Select players above to build your XI.")
         return
-
     # ── TEAM CARD ─────────────────────────────────────────────────
     roles = {
         keeper:       ("WK",  "#FFE66D"),
@@ -301,23 +258,26 @@ def show_dreamxi_view(data):
         **{a: ("AR",  "#4ECDC4")  for a in allrounders},
         **{bw: ("BOWL","#FF6B6B") for bw in bowlers},
     }
-
     player_rows = ""
     for p in all_selected:
         role_tag, role_color = roles.get(p, ("", "white"))
         b_stat = bat_df[bat_df["batter"] == p]
         bw_stat = bowl_df[bowl_df["bowler"] == p]
-
         if not b_stat.empty:
             stat = f"{int(b_stat.iloc[0]['runs']):,} runs | SR {b_stat.iloc[0]['sr']}"
+            team = b_stat.iloc[0]["team"]
         elif not bw_stat.empty:
             stat = f"{int(bw_stat.iloc[0]['wickets'])} wkts | Econ {bw_stat.iloc[0]['economy']}"
+            team = bw_stat.iloc[0]["team"]
         else:
             stat = "—"
-
+            team = ""
+        t_color = TEAM_COLORS.get(team, "#00FFFF")
+        avatar_html = get_player_avatar_html(p, t_color, size=32, display_margin=False)
         player_rows += (
             f"<tr>"
-            f"<td style='padding:8px 4px;color:white;font-weight:600;'>{p}</td>"
+            f"<td style='padding:8px 4px;color:white;font-weight:600;display:flex;align-items:center;gap:10px;'>"
+            f"{avatar_html} {p}</td>"
             f"<td style='padding:8px 4px;'>"
             f"<span style='background:{role_color}22;color:{role_color};"
             f"border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;'>"
@@ -325,7 +285,6 @@ def show_dreamxi_view(data):
             f"<td style='padding:8px 4px;color:rgba(255,255,255,0.6);font-size:13px;'>{stat}</td>"
             f"</tr>"
         )
-
     st.markdown(
         f"<div class='card'>"
         f"<h3 style='color:{team_color};margin-bottom:12px;'>{team_name}</h3>"
@@ -343,25 +302,20 @@ def show_dreamxi_view(data):
         f"</div>",
         unsafe_allow_html=True,
     )
-
     # ── TEAM RATING ───────────────────────────────────────────────
     st.markdown("<h3>Team Rating</h3>", unsafe_allow_html=True)
-
     if total >= 5:
         rating, radar_data = _compute_team_rating(all_selected, bat_df, bowl_df, ar_df)
-
         if rating >= 80:   grade, gc = "World Class", "#FFE66D"
         elif rating >= 65: grade, gc = "Strong XI",   "#4ECDC4"
         elif rating >= 50: grade, gc = "Competitive",  "#00FFFF"
         elif rating >= 35: grade, gc = "Average",      "#F7700E"
         else:              grade, gc = "Needs Work",   "#FF6B6B"
-
         c1, c2, c3, c4 = st.columns(4)
         c1.metric("Overall Rating", f"{rating}/100")
         c2.metric("Avg Bat Rating",  f"{round(radar_data['avg_bat_rating'], 1)}")
         c3.metric("Avg Bowl Rating", f"{round(radar_data['avg_bowl_rating'], 1)}")
         c4.metric("All Rounders",    radar_data["ar_count"])
-
         st.markdown(
             f"<div class='card'>"
             f"<h3 style='color:{gc};font-size:22px;'>{grade} — {rating}/100</h3>"
@@ -376,20 +330,17 @@ def show_dreamxi_view(data):
             + f"</p></div>",
             unsafe_allow_html=True,
         )
-
         # Radar chart
         col_r, col_s = st.columns([1, 1])
         with col_r:
             fig = _radar(radar_data, team_name, team_color)
             st.pyplot(fig)
-
         with col_s:
             # Stat breakdown
             bat_total = int(bat_df[bat_df["batter"].isin(all_selected)]["runs"].sum())
             bowl_wkts = int(bowl_df[bowl_df["bowler"].isin(all_selected)]["wickets"].sum())
             avg_econ  = round(radar_data["avg_econ"], 2)
             avg_sr    = round(radar_data["avg_sr"], 1)
-
             st.markdown(
                 f"<div class='card'>"
                 f"<p><b style='color:#00FFFF;'>Combined career runs:</b> "
@@ -405,7 +356,6 @@ def show_dreamxi_view(data):
             )
     else:
         st.info("Select at least 5 players to see team rating.")
-
     # ── COMPARE WITH RANDOM BEST XI ───────────────────────────────
     if st.button("Compare with All-Time Best XI", use_container_width=True):
         best_bat   = bat_df.sort_values("bat_rating",  ascending=False).head(5)["batter"].tolist()
@@ -413,12 +363,10 @@ def show_dreamxi_view(data):
         best_ar    = ar_df.sort_values("ar_rating",    ascending=False).head(2)["batter"].tolist()
         best_keep  = keep_df.sort_values("bat_rating",  ascending=False).head(1)["batter"].tolist()
         best_xi    = best_keep + best_bat + best_ar + best_bowl
-
         best_rating, _ = _compute_team_rating(best_xi, bat_df, bowl_df, ar_df)
         your_rating, _ = _compute_team_rating(all_selected, bat_df, bowl_df, ar_df)
         diff            = round(your_rating - best_rating, 1)
         diff_str        = f"+{diff}" if diff >= 0 else str(diff)
-
         pos_color = "#4ECDC4" if diff >= 0 else "#FF6B6B"
         st.markdown(
             f"<div class='card'>"
@@ -432,7 +380,6 @@ def show_dreamxi_view(data):
             f"</div>",
             unsafe_allow_html=True,
         )
-
     st.markdown("---")
     st.markdown(
         "<div class='card'>"
