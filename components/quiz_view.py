@@ -115,7 +115,7 @@ def _build_questions(data):
     })
 
     # Q9: Best bowling economy (min 300 balls)
-    bowl_stats = data.groupby("bowler").agg(runs=("runs_bowler","sum"), balls=("valid_ball","sum"))
+    bowl_stats = data.groupby("bowler").agg(runs=("runs_total","sum"), balls=("valid_ball","sum"))
     bowl_stats = bowl_stats[bowl_stats["balls"] >= 300]
     bowl_stats["econ"] = (bowl_stats["runs"] / bowl_stats["balls"] * 6).round(2)
     best_econ = bowl_stats.sort_values("econ").iloc[0]
