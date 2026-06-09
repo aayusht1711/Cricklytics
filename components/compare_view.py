@@ -55,6 +55,29 @@ def show_compare_view(data):
     col1.markdown(get_player_avatar_html(batter, t_color_bat, size=80), unsafe_allow_html=True)
     col2.markdown(get_player_avatar_html(bowler, t_color_bowl, size=80), unsafe_allow_html=True)
 
+    # PHASE STATS CALCULATION
+    import pandas as pd
+    df_phase = df.copy()
+    df_phase["phase"] = pd.cut(df_phase["over"], bins=[-1, 5, 14, 20], labels=["Powerplay (1-6)", "Middle (7-15)", "Death (16-20)"])
+    
+    phase_rows_html = ""
+    for phase_name in ["Powerplay (1-6)", "Middle (7-15)", "Death (16-20)"]:
+        pdf = df_phase[df_phase["phase"] == phase_name]
+        p_runs = int(pdf["runs_batter"].sum()) if not pdf.empty else 0
+        p_balls = len(pdf)
+        p_outs = int(pdf["player_dismissed"].notna().sum()) if "player_dismissed" in pdf.columns and not pdf.empty else 0
+        p_sr = round((p_runs / p_balls * 100), 1) if p_balls > 0 else 0.0
+        
+        phase_rows_html += f"""
+        <tr style='border-bottom: 1px solid rgba(255,255,255,0.04);'>
+            <td style='padding:6px 0; font-weight:600; text-align:left;'>{phase_name}</td>
+            <td style='text-align:center;'>{p_runs}</td>
+            <td style='text-align:center;'>{p_balls}</td>
+            <td style='text-align:center; font-weight:700; color:#00FFFF;'>{p_sr}</td>
+            <td style='text-align:center; color:#FF6B6B; font-weight:700;'>{p_outs}</td>
+        </tr>
+        """
+
     # MAIN CARD
     avatar_bat_html = get_player_avatar_html(batter, t_color_bat, size=64, display_margin=False)
     avatar_bowl_html = get_player_avatar_html(bowler, t_color_bowl, size=64, display_margin=False)
@@ -88,21 +111,39 @@ def show_compare_view(data):
                 <td>🎯 Dismissals</td><td><b style='color:#FF6B6B;'>{dismissals}</b></td>
             </tr>
         </table>
+        
+        <div style='margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;'>
+            <h4 style='color:#FFE66D; margin: 0 0 10px 0; font-family:"Rajdhani", sans-serif; font-size: 16px; font-weight: 700;'>Matchup by Game Phase</h4>
+            <table style='width:100%; color:white; font-size:13px; border-collapse: collapse;'>
+                <thead>
+                    <tr style='border-bottom: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-weight: 600;'>
+                        <th style='text-align:left; padding: 4px 0;'>Phase</th>
+                        <th style='text-align:center; padding: 4px 0;'>Runs</th>
+                        <th style='text-align:center; padding: 4px 0;'>Balls</th>
+                        <th style='text-align:center; padding: 4px 0;'>S/R</th>
+                        <th style='text-align:center; padding: 4px 0; color:#FF6B6B;'>Outs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {phase_rows_html}
+                </tbody>
+            </table>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
     # INSIGHT LOGIC
     if dismissals > 0 and avg < 20:
-        insight = f"🎯 {bowler} dominates this matchup"
+        insight = f"🎯 {bowler} dominates this matchup with {dismissals} dismissal{'s' if dismissals > 1 else ''} and keeping average under 20."
     elif sr > 140:
-        insight = f"🔥 {batter} attacks this bowler aggressively"
+        insight = f"🔥 {batter} attacks this bowler aggressively with an explosive strike rate of {round(sr,1)}."
     elif sr > 120:
-        insight = "⚖️ Balanced but batter slightly ahead"
+        insight = f"⚖️ Balanced contest, but {batter} scored at a healthy {round(sr,1)} strike rate."
     else:
-        insight = "⚔️ Tight contest"
+        insight = "⚔️ Tight contest, bowler keeping the scoring rate under control."
 
     st.markdown(f"""
-    <div class='card'>
-    💡 Insight: {insight}
+    <div class='card' style='border-left: 3px solid #FFE66D;'>
+    💡 <b>Insight:</b> {insight}
     </div>
     """, unsafe_allow_html=True)

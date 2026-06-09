@@ -2,6 +2,17 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 import random
+from utils.photo_helper import get_player_avatar_html, get_player_info, load_profiles
+
+TEAM_COLORS = {
+    "Mumbai Indians":"#005DA0","Chennai Super Kings":"#F7C010",
+    "Royal Challengers Bengaluru":"#EC1C24","Royal Challengers Bangalore":"#EC1C24",
+    "Kolkata Knight Riders":"#3A225D","Rajasthan Royals":"#EA1A85",
+    "Sunrisers Hyderabad":"#F7700E","Delhi Capitals":"#0078BC",
+    "Delhi Daredevils":"#0078BC","Punjab Kings":"#ED1B24",
+    "Kings XI Punjab":"#ED1B24","Deccan Chargers":"#FDB933",
+    "Gujarat Titans":"#1C4966","Lucknow Super Giants":"#A72056",
+}
 
 # ── Season award data (precomputed) ─────────────────────────────
 SEASON_CHAMPIONS = {
@@ -214,6 +225,76 @@ def show_home(data):
         <p class="hero-byline">Built by Aayush Tripathi — Cricketer turned Developer</p>
     </div>
     """, unsafe_allow_html=True)
+
+    # ── player card showcase ──────────────────────────────────────
+    st.markdown("<div class='home-section-title'>🔍 IPL Player Card Showcase</div>", unsafe_allow_html=True)
+    profiles = load_profiles()
+    if not profiles.empty:
+        all_players = sorted(profiles["name"].tolist())
+        default_idx = all_players.index("Virat Kohli") if "Virat Kohli" in all_players else 0
+        
+        selected_player = st.selectbox(
+            "Search and preview any player card:",
+            all_players,
+            index=default_idx,
+            label_visibility="collapsed"
+        )
+        
+        info = get_player_info(selected_player)
+        team = info["team"] if info is not None else "Unknown Team"
+        role = info["role"] if info is not None else "Player"
+        t_color = TEAM_COLORS.get(team, "#00FFFF")
+        price = f"₹{info['auction_price_cr']} Cr" if info is not None and info['auction_price_cr'] > 0 else "Retained"
+        
+        # Calculate stats from dataset
+        bat_df = data[data["batter"] == selected_player]
+        bowl_df = data[data["bowler"] == selected_player]
+        
+        runs = int(bat_df["runs_batter"].sum()) if len(bat_df) > 0 else 0
+        balls_faced = int(bat_df["balls_faced"].sum()) if len(bat_df) > 0 else 0
+        sr = round((runs / balls_faced) * 100, 1) if balls_faced > 0 else 0
+        
+        wickets = int(bowl_df["bowler_wicket"].sum()) if len(bowl_df) > 0 else 0
+        balls_bowled = int(bowl_df["valid_ball"].sum()) if len(bowl_df) > 0 else 0
+        runs_c = int(bowl_df["runs_total"].sum()) if len(bowl_df) > 0 else 0
+        econ = round((runs_c / balls_bowled) * 6, 2) if balls_bowled > 0 else 0
+        
+        avatar_html = get_player_avatar_html(selected_player, t_color, size=100, display_margin=False)
+        
+        st.markdown(f"""
+        <div class="today-card" style="border-left: 5px solid {t_color}; display: flex; align-items: center; gap: 24px; padding: 24px; max-width: 600px; margin: 10px auto 30px; background: rgba(255,255,255,0.06); border-radius: 16px;">
+            <div>
+                {avatar_html}
+            </div>
+            <div style="flex-grow: 1;">
+                <span style="background:{t_color}22; color:{t_color}; border-radius:4px; padding:2px 8px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
+                    {role}
+                </span>
+                <h3 style="color:white; margin: 6px 0 2px 0; font-size: 24px; font-weight:800;">{selected_player}</h3>
+                <p style="margin: 0 0 16px 0; font-size: 13px; color: rgba(255,255,255,0.6);">
+                    {team} &nbsp;·&nbsp; <span style="color:#FFE66D; font-weight:700;">{price}</span>
+                </p>
+                <div style="display: flex; gap: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px;">
+                    <div>
+                        <div style="font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing:0.5px; font-weight:700;">Runs</div>
+                        <div style="font-size: 18px; font-weight: 800; color: white;">{runs:,}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing:0.5px; font-weight:700;">S/R</div>
+                        <div style="font-size: 18px; font-weight: 800; color: white;">{sr}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing:0.5px; font-weight:700;">Wickets</div>
+                        <div style="font-size: 18px; font-weight: 800; color: white;">{wickets}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing:0.5px; font-weight:700;">Econ</div>
+                        <div style="font-size: 18px; font-weight: 800; color: white;">{econ}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # ── today in IPL history ──────────────────────────────────────
     today_display = datetime.now().strftime("%d %B")

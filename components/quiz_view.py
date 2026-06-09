@@ -167,11 +167,12 @@ def show_quiz_view(data):
     # Start screen
     if not st.session_state.quiz_started:
         st.markdown(
-            "<div class='card'>"
-            "<h3 style='color:#FFE66D;'>Ready to test your IPL knowledge?</h3>"
-            "<p>10 questions | All answers from real data | No time limit</p>"
-            "<p style='margin-top:10px;color:rgba(255,255,255,0.5);'>"
-            "Questions cover: records, stats, champions, players</p>"
+            "<div class='card' style='border-left: 5px solid #00e5ff; padding: 24px; text-align: center;'>"
+            "<div style='font-size: 48px; margin-bottom: 12px;'>🏆</div>"
+            "<h3 style='color:#00e5ff; font-size: 26px; font-weight:800; margin-bottom:10px;'>Ready to test your IPL knowledge?</h3>"
+            "<p style='font-size: 16px; color:white;'>10 questions generated dynamically from real IPL data</p>"
+            "<p style='color:rgba(255,255,255,0.6); font-size: 13px; margin-top: 5px;'>"
+            "Questions cover all-time records, Orange/Purple Caps, most sixes, dot ball statistics, and team matches.</p>"
             "</div>",
             unsafe_allow_html=True,
         )
@@ -194,36 +195,41 @@ def show_quiz_view(data):
         total = len(st.session_state.quiz_questions)
         pct   = round(score / total * 100)
 
-        if pct == 100:   grade, color, msg = "Perfect!", "#FFE66D", "You are an IPL encyclopedia!"
-        elif pct >= 80:  grade, color, msg = "Excellent!", "#4ECDC4", "You really know your cricket."
-        elif pct >= 60:  grade, color, msg = "Good job!", "#00FFFF", "Solid cricket knowledge."
-        elif pct >= 40:  grade, color, msg = "Not bad!", "#F7700E", "Room to improve though."
-        else:            grade, color, msg = "Keep learning!", "#FF6B6B", "Brush up on your IPL history."
+        if pct == 100:   grade, color, msg = "Perfect Score!", "#FFE66D", "You are an IPL encyclopedia!"
+        elif pct >= 80:  grade, color, msg = "Excellent Job!", "#4ECDC4", "You really know your cricket inside out."
+        elif pct >= 60:  grade, color, msg = "Good Effort!", "#00FFFF", "Solid cricket knowledge. Well played!"
+        elif pct >= 40:  grade, color, msg = "Not Bad!", "#F7700E", "Room to improve. Try another run!"
+        else:            grade, color, msg = "Keep Learning!", "#FF6B6B", "Brush up on your IPL history and try again."
 
         st.markdown(
-            f"<div class='card'>"
-            f"<h3 style='color:{color};font-size:28px;'>{grade}</h3>"
-            f"<p style='font-size:20px;'>You scored <b style='color:{color};'>{score} / {total}</b> ({pct}%)</p>"
-            f"<p style='color:rgba(255,255,255,0.6);margin-top:8px;'>{msg}</p>"
+            f"<div class='card' style='border-left: 5px solid {color}; text-align: center; padding: 30px 20px; margin-bottom: 24px;'>"
+            f"  <div style='font-size: 56px; margin-bottom: 10px;'>🏆</div>"
+            f"  <h3 style='color:{color}; font-size: 30px; font-weight:800; margin-bottom:4px;'>{grade}</h3>"
+            f"  <div style='font-size: 40px; font-weight: 800; color: white; margin: 10px 0;'>{score} / {total}</div>"
+            f"  <div style='background:rgba(255,255,255,0.06); display:inline-block; padding: 4px 16px; border-radius:99px; font-weight: 700; color:{color}; margin-bottom: 12px;'>{pct}% Accuracy</div>"
+            f"  <p style='color:rgba(255,255,255,0.8); font-size: 15px; max-width: 500px; margin: 0 auto;'>{msg}</p>"
             f"</div>",
             unsafe_allow_html=True,
         )
 
         # Answer review
-        st.markdown("<h3>Answer Review</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='margin: 30px 0 16px; font-family:\"Rajdhani\", sans-serif; font-weight:700;'>Answer Review</h3>", unsafe_allow_html=True)
         for i, q in enumerate(st.session_state.quiz_questions):
             user_ans = st.session_state.quiz_answers.get(i, "Not answered")
             correct  = q["answer"]
             is_right = user_ans == correct
             icon     = "✅" if is_right else "❌"
-            color2   = "#4ECDC4" if is_right else "#FF6B6B"
+            card_border = "#4ECDC4" if is_right else "#FF6B6B"
             st.markdown(
-                f"<div class='card'>"
-                f"<p>{icon} <b>Q{i+1}:</b> {q['question']}</p>"
-                f"<p style='color:{color2};'>Your answer: {user_ans}</p>"
-                + (f"<p style='color:#4ECDC4;'>Correct: {correct}</p>" if not is_right else "")
-                + f"<p style='color:rgba(255,255,255,0.5);font-size:12px;margin-top:6px;'>"
-                  f"{q['emoji']} {q['fact']}</p>"
+                f"<div class='card' style='border-left: 5px solid {card_border};'>"
+                f"  <p style='font-size:16px; font-weight:700; color:white;'>{icon} Q{i+1}: {q['question']}</p>"
+                f"  <div style='display:flex; gap:20px; font-size:13px; margin: 6px 0;'>"
+                f"     <div><span style='color:rgba(255,255,255,0.5);'>Your answer:</span> <b style='color:{card_border};'>{user_ans}</b></div>"
+                + (f"     <div><span style='color:rgba(255,255,255,0.5);'>Correct:</span> <b style='color:#4ECDC4;'>{correct}</b></div>" if not is_right else "")
+                + f"  </div>"
+                f"  <p style='color:rgba(255,255,255,0.65); font-size:12px; margin-top:8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;'>"
+                f"     {q['emoji']} &nbsp;{q['fact']}"
+                f"  </p>"
                 f"</div>",
                 unsafe_allow_html=True,
             )
@@ -246,20 +252,20 @@ def show_quiz_view(data):
 
     # Progress bar
     progress = idx / total
+    
     st.markdown(
-        f"<p style='color:rgba(255,255,255,0.5);font-size:13px;'>"
-        f"Question {idx+1} of {total} &nbsp;|&nbsp; "
-        f"Score: {st.session_state.quiz_score}</p>",
+        f"<div style='display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;'>"
+        f"  <div style='background:rgba(0,229,255,0.08); color:#00e5ff; border:1px solid rgba(0,229,255,0.25); border-radius:99px; padding:3px 14px; font-size:12px; font-weight:700;'>Question {idx+1} of {total}</div>"
+        f"  <div style='background:rgba(255,255,255,0.05); color:white; border-radius:99px; padding:3px 14px; font-size:12px; font-weight:700;'>Score: <span style='color:#FFE66D;'>{st.session_state.quiz_score}</span></div>"
+        f"</div>",
         unsafe_allow_html=True,
     )
     st.progress(progress)
 
     # Question card
     st.markdown(
-        f"<div class='card'>"
-        f"<p style='font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:8px;'>"
-        f"QUESTION {idx+1}</p>"
-        f"<h3 style='color:white;font-size:18px;'>{q['emoji']} &nbsp; {q['question']}</h3>"
+        f"<div class='card' style='border-left: 5px solid #00e5ff; padding: 24px; margin-top:14px;'>"
+        f"  <h3 style='color:white; font-size:20px; font-weight:700; margin:0; line-height:1.4;'>{q['emoji']} &nbsp; {q['question']}</h3>"
         f"</div>",
         unsafe_allow_html=True,
     )
@@ -272,29 +278,33 @@ def show_quiz_view(data):
 
         if is_right:
             st.markdown(
-                f"<div class='card'>"
-                f"<p style='color:#4ECDC4;font-weight:700;'>✅ Correct! +1 point</p>"
-                f"<p style='color:rgba(255,255,255,0.6);font-size:13px;'>"
-                f"{questions[idx-1]['emoji']} {questions[idx-1]['fact']}</p>"
+                f"<div class='card' style='border-left: 5px solid #4ECDC4; background:rgba(78,205,196,0.05);'>"
+                f"  <p style='color:#4ECDC4; font-weight:700; margin:0 0 4px 0;'>✅ Correct! +1 Point</p>"
+                f"  <p style='color:rgba(255,255,255,0.75); font-size:13px; margin:0;'>"
+                f"    {questions[idx-1]['emoji']} {questions[idx-1]['fact']}"
+                f"  </p>"
                 f"</div>",
                 unsafe_allow_html=True,
             )
         else:
             st.markdown(
-                f"<div class='card'>"
-                f"<p style='color:#FF6B6B;font-weight:700;'>❌ Wrong! Correct answer: {correct}</p>"
-                f"<p style='color:rgba(255,255,255,0.6);font-size:13px;'>"
-                f"{questions[idx-1]['emoji']} {questions[idx-1]['fact']}</p>"
+                f"<div class='card' style='border-left: 5px solid #FF6B6B; background:rgba(255,107,107,0.05);'>"
+                f"  <p style='color:#FF6B6B; font-weight:700; margin:0 0 4px 0;'>❌ Wrong! Correct answer: {correct}</p>"
+                f"  <p style='color:rgba(255,255,255,0.75); font-size:13px; margin:0;'>"
+                f"    {questions[idx-1]['emoji']} {questions[idx-1]['fact']}"
+                f"  </p>"
                 f"</div>",
                 unsafe_allow_html=True,
             )
 
     # Answer buttons
-    st.markdown("<p style='color:rgba(255,255,255,0.5);font-size:13px;margin-top:12px;'>Choose your answer:</p>",
+    st.markdown("<p style='color:rgba(255,255,255,0.5); font-size:13px; margin:20px 0 10px;'>Select your answer:</p>",
                 unsafe_allow_html=True)
 
-    for option in q["options"]:
-        if st.button(str(option), key=f"q{idx}_{option}", use_container_width=True):
+    cols = st.columns(2)
+    for i, option in enumerate(q["options"]):
+        col = cols[i % 2]
+        if col.button(str(option), key=f"q{idx}_{option}", use_container_width=True):
             is_correct = str(option) == str(q["answer"])
             st.session_state.quiz_answers[idx] = str(option)
             if is_correct:
