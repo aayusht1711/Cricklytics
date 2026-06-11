@@ -24,6 +24,9 @@ from components.squad_view import show_squad_view
 from components.home_view import DID_YOU_KNOW
 from components.quiz_view import show_quiz_view
 from components.season_view import show_season_view
+from components.story_view import show_story_view
+from components.dna_view import show_dna_view
+from components.clutch_view import show_clutch_view
 
 
 # ================================================================
@@ -115,7 +118,9 @@ PAGES = [
     "📅 Season Analytics", "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
     "🎙️ AI Commentator", "🔍 DRS Analytics",
-    "🧠 AI Scouting Report", "🔀 What If Simulator", "🏆 Dream XI", "🏆 Trivia Quiz", "👥 2026 Squads",
+    "🧠 AI Scouting Report", "🔀 What If Simulator", "🏆 Dream XI", "🏆 Trivia Quiz",
+    "🎬 Match Story", "🧬 Player DNA", "⚡ Clutch Factor",
+    "👥 2026 Squads",
 ]
 
 if st.session_state.page not in PAGES:
@@ -148,6 +153,9 @@ BG = {
     "🔀 What If Simulator":  "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
     "🏆 Dream XI":           "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
     "🏆 Trivia Quiz":        "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
+    "🎬 Match Story":        "https://images.unsplash.com/photo-1593341646782-e0b495cff86d",
+    "🧬 Player DNA":         "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    "⚡ Clutch Factor":      "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
     "👥 2026 Squads":        "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
 }
 set_bg(BG[menu])
@@ -172,4 +180,7 @@ elif menu == "🧠 AI Scouting Report": show_scouting_view(data)
 elif menu == "🔀 What If Simulator":  show_whatif_view(data)
 elif menu == "🏆 Dream XI":           show_dreamxi_view(data)
 elif menu == "🏆 Trivia Quiz":        show_quiz_view(data)
+elif menu == "🎬 Match Story":        show_story_view(data)
+elif menu == "🧬 Player DNA":         show_dna_view(data)
+elif menu == "⚡ Clutch Factor":      show_clutch_view(data)
 elif menu == "👥 2026 Squads":        show_squad_view(data)
