@@ -26,80 +26,80 @@ AVG_FIRST_INNINGS_TOTAL = 155
 # ── Styling ──────────────────────────────────────────────────────
 def _inject_story_css():
     st.markdown("""
-    <style>
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 8px rgba(0,229,255,0.15); }
-        50%      { box-shadow: 0 0 20px rgba(0,229,255,0.35); }
-    }
-    .story-header {
-        background: linear-gradient(135deg, rgba(0,93,160,0.35), rgba(236,28,36,0.25));
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 20px; padding: 32px 28px;
-        text-align: center; margin-bottom: 28px;
-        animation: fadeInUp 0.6s ease-out;
-    }
-    .story-header h2 {
-        font-size: 28px; font-weight: 800; color: white; margin: 0 0 6px;
-        font-family: "Rajdhani", sans-serif; letter-spacing: 0.5px;
-    }
-    .story-header .sub {
-        font-size: 14px; color: rgba(255,255,255,0.55); margin: 0;
-    }
-    .story-header .result-badge {
-        display: inline-block; margin-top: 12px;
-        background: rgba(0,229,255,0.12); border: 1px solid rgba(0,229,255,0.3);
-        border-radius: 8px; padding: 6px 18px;
-        font-size: 13px; font-weight: 700; color: #00FFFF;
-    }
-    .moment-card {
-        background: rgba(255,255,255,0.04);
-        border-radius: 12px; padding: 16px 18px;
-        margin-bottom: 12px;
-        animation: fadeInUp 0.5s ease-out;
-        backdrop-filter: blur(10px);
-        transition: transform 0.2s;
-    }
-    .moment-card:hover { transform: translateX(4px); }
-    .moment-title { font-size: 14px; font-weight: 700; color: white; margin: 0 0 4px; }
-    .moment-detail { font-size: 12px; color: rgba(255,255,255,0.55); margin: 0; }
-    .moment-prob { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
-    .verdict-card {
-        background: linear-gradient(135deg, rgba(255,230,109,0.08), rgba(0,229,255,0.06));
-        border: 1px solid rgba(255,255,255,0.1);
-        border-left: 5px solid #FFE66D;
-        border-radius: 16px; padding: 28px 24px;
-        margin-top: 24px;
-        animation: fadeInUp 0.7s ease-out, pulseGlow 3s infinite;
-    }
-    .verdict-card h3 {
-        color: #FFE66D; margin: 0 0 12px; font-size: 20px; font-weight: 800;
-    }
-    .verdict-card p {
-        color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.8; margin: 0;
-    }
-    .scorecard-container {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 14px; padding: 20px;
-        margin-bottom: 10px;
-    }
-    .scorecard-title {
-        font-size: 15px; font-weight: 700; margin: 0 0 14px;
-        padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .sc-row {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .sc-name { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 600; }
-    .sc-stat  { font-size: 13px; color: rgba(255,255,255,0.6); }
-    .sc-stat b { color: white; }
-    </style>
-    """, unsafe_allow_html=True)
+<style>
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(20px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseGlow {
+0%, 100% { box-shadow: 0 0 8px rgba(0,229,255,0.15); }
+50%      { box-shadow: 0 0 20px rgba(0,229,255,0.35); }
+}
+.story-header {
+background: linear-gradient(135deg, rgba(0,93,160,0.35), rgba(236,28,36,0.25));
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 20px; padding: 32px 28px;
+text-align: center; margin-bottom: 28px;
+animation: fadeInUp 0.6s ease-out;
+}
+.story-header h2 {
+font-size: 28px; font-weight: 800; color: white; margin: 0 0 6px;
+font-family: "Rajdhani", sans-serif; letter-spacing: 0.5px;
+}
+.story-header .sub {
+font-size: 14px; color: rgba(255,255,255,0.55); margin: 0;
+}
+.story-header .result-badge {
+display: inline-block; margin-top: 12px;
+background: rgba(0,229,255,0.12); border: 1px solid rgba(0,229,255,0.3);
+border-radius: 8px; padding: 6px 18px;
+font-size: 13px; font-weight: 700; color: #00FFFF;
+}
+.moment-card {
+background: rgba(255,255,255,0.04);
+border-radius: 12px; padding: 16px 18px;
+margin-bottom: 12px;
+animation: fadeInUp 0.5s ease-out;
+backdrop-filter: blur(10px);
+transition: transform 0.2s;
+}
+.moment-card:hover { transform: translateX(4px); }
+.moment-title { font-size: 14px; font-weight: 700; color: white; margin: 0 0 4px; }
+.moment-detail { font-size: 12px; color: rgba(255,255,255,0.55); margin: 0; }
+.moment-prob { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+.verdict-card {
+background: linear-gradient(135deg, rgba(255,230,109,0.08), rgba(0,229,255,0.06));
+border: 1px solid rgba(255,255,255,0.1);
+border-left: 5px solid #FFE66D;
+border-radius: 16px; padding: 28px 24px;
+margin-top: 24px;
+animation: fadeInUp 0.7s ease-out, pulseGlow 3s infinite;
+}
+.verdict-card h3 {
+color: #FFE66D; margin: 0 0 12px; font-size: 20px; font-weight: 800;
+}
+.verdict-card p {
+color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.8; margin: 0;
+}
+.scorecard-container {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 14px; padding: 20px;
+margin-bottom: 10px;
+}
+.scorecard-title {
+font-size: 15px; font-weight: 700; margin: 0 0 14px;
+padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sc-row {
+display: flex; justify-content: space-between; align-items: center;
+padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sc-name { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 600; }
+.sc-stat  { font-size: 13px; color: rgba(255,255,255,0.6); }
+.sc-stat b { color: white; }
+</style>
+""", unsafe_allow_html=True)
 
 
 # ── Win Probability Engine ───────────────────────────────────────
@@ -114,10 +114,10 @@ def _sigmoid(x):
 
 def _calc_win_prob_innings1(runs_scored, balls_bowled, wickets_lost):
     """
-    Innings-1 win probability for the batting team.
-    Estimates projected total via current run rate, adjusts for wickets,
-    then uses sigmoid to compare against average T20 first-innings score.
-    """
+Innings-1 win probability for the batting team.
+Estimates projected total via current run rate, adjusts for wickets,
+then uses sigmoid to compare against average T20 first-innings score.
+"""
     if balls_bowled <= 0:
         return 0.50
     crr = runs_scored / (balls_bowled / 6)
@@ -130,9 +130,9 @@ def _calc_win_prob_innings1(runs_scored, balls_bowled, wickets_lost):
 
 def _calc_win_prob_innings2(runs_scored, target, balls_remaining, wickets_lost):
     """
-    Innings-2 chase win probability for the batting team.
-    Uses required run rate and wickets in hand in a logistic model.
-    """
+Innings-2 chase win probability for the batting team.
+Uses required run rate and wickets in hand in a logistic model.
+"""
     if runs_scored >= target:
         return 1.0
     if balls_remaining <= 0 or wickets_lost >= 10:
@@ -147,12 +147,12 @@ def _calc_win_prob_innings2(runs_scored, target, balls_remaining, wickets_lost):
 @st.cache_data
 def _compute_win_probability(match_df):
     """
-    Compute ball-by-ball win probability for the batting team in innings 1.
-    Returns a DataFrame with columns: ball_num, over, ball, innings,
-    runs_scored, wickets_lost, win_prob_batting, batter, bowler,
-    runs_this_ball, wicket_this_ball, batting_team.
-    Win prob is from the perspective of the team batting first.
-    """
+Compute ball-by-ball win probability for the batting team in innings 1.
+Returns a DataFrame with columns: ball_num, over, ball, innings,
+runs_scored, wickets_lost, win_prob_batting, batter, bowler,
+runs_this_ball, wicket_this_ball, batting_team.
+Win prob is from the perspective of the team batting first.
+"""
     match_df = match_df.sort_values(["innings", "over", "ball"]).reset_index(drop=True)
 
     innings1 = match_df[match_df["innings"] == 1]
@@ -244,13 +244,13 @@ def _compute_win_probability(match_df):
 # ── Key Moment Detection ────────────────────────────────────────
 def _detect_key_moments(wp_df):
     """
-    Identify key moments based on:
-    - Wickets (especially in death overs 16-20)
-    - Win probability shift > 5% on a single ball
-    - Over yielding 15+ runs
-    - Six in the final 2 overs
-    Returns a list of dicts with moment details.
-    """
+Identify key moments based on:
+- Wickets (especially in death overs 16-20)
+- Win probability shift > 5% on a single ball
+- Over yielding 15+ runs
+- Six in the final 2 overs
+Returns a list of dicts with moment details.
+"""
     moments = []
     seen_overs = set()
 
@@ -630,20 +630,20 @@ def _render_header(match_info, bat_team1, bat_team2):
         location = f"{venue}, {location}" if location else venue
 
     st.markdown(f"""
-    <div class="story-header">
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">
-            🎬 Match Story Mode {stage_badge}
-        </div>
-        <h2>
-            <span style="color:{color1};">{bat_team1}</span>
-            <span style="color:rgba(255,255,255,0.3);font-size:18px;"> vs </span>
-            <span style="color:{color2};">{bat_team2}</span>
-        </h2>
-        <p class="sub">📍 {location} &nbsp;·&nbsp; 📅 {date_str}</p>
-        {f'<div class="result-badge">{result_text}</div>' if result_text else ''}
-        {potm_html}
-    </div>
-    """, unsafe_allow_html=True)
+<div class="story-header">
+<div style="font-size:12px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">
+🎬 Match Story Mode {stage_badge}
+</div>
+<h2>
+<span style="color:{color1};">{bat_team1}</span>
+<span style="color:rgba(255,255,255,0.3);font-size:18px;"> vs </span>
+<span style="color:{color2};">{bat_team2}</span>
+</h2>
+<p class="sub">📍 {location} &nbsp;·&nbsp; 📅 {date_str}</p>
+{f'<div class="result-badge">{result_text}</div>' if result_text else ''}
+{potm_html}
+</div>
+""", unsafe_allow_html=True)
 
 
 def _render_key_moments(moments):
@@ -653,14 +653,14 @@ def _render_key_moments(moments):
         return
 
     st.markdown("""
-    <div style='background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;
-                border-left:4px solid #00e5ff;backdrop-filter:blur(10px);margin-bottom:16px;'>
-        <h3 style='color:#FFE66D;margin:0 0 4px;font-size:18px;'>⚡ Key Moments</h3>
-        <p style='color:rgba(255,255,255,0.45);margin:0;font-size:12px;'>
-            Pivotal deliveries that shaped the match outcome
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+<div style='background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;
+border-left:4px solid #00e5ff;backdrop-filter:blur(10px);margin-bottom:16px;'>
+<h3 style='color:#FFE66D;margin:0 0 4px;font-size:18px;'>⚡ Key Moments</h3>
+<p style='color:rgba(255,255,255,0.45);margin:0;font-size:12px;'>
+Pivotal deliveries that shaped the match outcome
+</p>
+</div>
+""", unsafe_allow_html=True)
 
     for m in moments:
         severity_border = "4px" if m["severity"] == "high" else "3px"
@@ -668,32 +668,32 @@ def _render_key_moments(moments):
         shift_text = f"±{m['wp_shift']:.1f}% swing" if m["wp_shift"] > 0 else ""
 
         st.markdown(f"""
-        <div class="moment-card" style="border-left:{severity_border} solid {m['color']};">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div>
-                    <p class="moment-title">{m['emoji']} {m['title']}</p>
-                    <p class="moment-detail">{m['detail']}</p>
-                </div>
-                <div style="text-align:right;min-width:80px;">
-                    <div style="font-size:16px;font-weight:800;color:{m['color']};">{wp_display}</div>
-                    <div style="font-size:10px;color:rgba(255,255,255,0.35);">{shift_text}</div>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+<div class="moment-card" style="border-left:{severity_border} solid {m['color']};">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<p class="moment-title">{m['emoji']} {m['title']}</p>
+<p class="moment-detail">{m['detail']}</p>
+</div>
+<div style="text-align:right;min-width:80px;">
+<div style="font-size:16px;font-weight:800;color:{m['color']};">{wp_display}</div>
+<div style="font-size:10px;color:rgba(255,255,255,0.35);">{shift_text}</div>
+</div>
+</div>
+</div>
+""", unsafe_allow_html=True)
 
 
 def _render_scorecard(scorecards, bat_team1, bat_team2):
     """Render the two-column scorecard with top 3 batters and bowlers."""
     st.markdown("""
-    <div style='background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;
-                border-left:4px solid #00e5ff;backdrop-filter:blur(10px);margin-bottom:16px;'>
-        <h3 style='color:#FFE66D;margin:0 0 4px;font-size:18px;'>📋 Match Scorecard</h3>
-        <p style='color:rgba(255,255,255,0.45);margin:0;font-size:12px;'>
-            Top performers from each innings
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+<div style='background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;
+border-left:4px solid #00e5ff;backdrop-filter:blur(10px);margin-bottom:16px;'>
+<h3 style='color:#FFE66D;margin:0 0 4px;font-size:18px;'>📋 Match Scorecard</h3>
+<p style='color:rgba(255,255,255,0.45);margin:0;font-size:12px;'>
+Top performers from each innings
+</p>
+</div>
+""", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
 
@@ -710,38 +710,38 @@ def _render_scorecard(scorecards, bat_team1, bat_team2):
 
             # Team header
             st.markdown(f"""
-            <div class="scorecard-container" style="border-top:3px solid {t_color};">
-                <div class="scorecard-title" style="color:{t_color};">
-                    {team} &nbsp;
-                    <span style="color:white;font-size:18px;font-weight:800;">
-                        {sc['total_runs']}/{sc['total_wickets']}
-                    </span>
-                    <span style="color:rgba(255,255,255,0.4);font-size:12px;">
-                        ({total_overs} ov)
-                    </span>
-                </div>
-            """, unsafe_allow_html=True)
+<div class="scorecard-container" style="border-top:3px solid {t_color};">
+<div class="scorecard-title" style="color:{t_color};">
+{team} &nbsp;
+<span style="color:white;font-size:18px;font-weight:800;">
+{sc['total_runs']}/{sc['total_wickets']}
+</span>
+<span style="color:rgba(255,255,255,0.4);font-size:12px;">
+({total_overs} ov)
+</span>
+</div>
+""", unsafe_allow_html=True)
 
             # Top batters
             st.markdown("<div style='font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:700;'>🏏 Top Batters</div>", unsafe_allow_html=True)
             for _, b in sc["top_batters"].iterrows():
                 sr_val = b["sr"] if pd.notna(b["sr"]) else 0
                 st.markdown(f"""
-                <div class="sc-row">
-                    <span class="sc-name">{b['batter']}</span>
-                    <span class="sc-stat"><b>{int(b['runs'])}</b> ({int(b['balls'])}) &nbsp; SR: {sr_val} &nbsp; 4s:{int(b['fours'])} 6s:{int(b['sixes'])}</span>
-                </div>
-                """, unsafe_allow_html=True)
+<div class="sc-row">
+<span class="sc-name">{b['batter']}</span>
+<span class="sc-stat"><b>{int(b['runs'])}</b> ({int(b['balls'])}) &nbsp; SR: {sr_val} &nbsp; 4s:{int(b['fours'])} 6s:{int(b['sixes'])}</span>
+</div>
+""", unsafe_allow_html=True)
 
             # Top bowlers
             st.markdown("<div style='font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px;font-weight:700;'>🎯 Top Bowlers</div>", unsafe_allow_html=True)
             for _, b in sc["top_bowlers"].iterrows():
                 st.markdown(f"""
-                <div class="sc-row">
-                    <span class="sc-name">{b['bowler']}</span>
-                    <span class="sc-stat"><b>{int(b['wickets'])}</b>/{int(b['runs_conceded'])} &nbsp; ({b['overs_str']} ov) &nbsp; Econ: {b['econ']}</span>
-                </div>
-                """, unsafe_allow_html=True)
+<div class="sc-row">
+<span class="sc-name">{b['bowler']}</span>
+<span class="sc-stat"><b>{int(b['wickets'])}</b>/{int(b['runs_conceded'])} &nbsp; ({b['overs_str']} ov) &nbsp; Econ: {b['econ']}</span>
+</div>
+""", unsafe_allow_html=True)
 
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -749,33 +749,33 @@ def _render_scorecard(scorecards, bat_team1, bat_team2):
 def _render_verdict(verdict_text):
     """Render the match verdict card."""
     st.markdown(f"""
-    <div class="verdict-card">
-        <h3>🏆 Match Verdict</h3>
-        <p>{verdict_text}</p>
-    </div>
-    """, unsafe_allow_html=True)
+<div class="verdict-card">
+<h3>🏆 Match Verdict</h3>
+<p>{verdict_text}</p>
+</div>
+""", unsafe_allow_html=True)
 
 
 # ── Main Entry Point ─────────────────────────────────────────────
 def show_story_view(data):
     """Match Story Mode — cinematic match replay with win probability,
-    key moments, scorecard, and AI-generated verdict."""
+key moments, scorecard, and AI-generated verdict."""
 
     _inject_story_css()
 
     st.markdown("""
-    <div style="text-align:center;margin-bottom:6px;">
-        <span style="font-size:32px;">🎬</span>
-        <h2 style="color:white;margin:4px 0 2px;font-family:'Rajdhani',sans-serif;font-weight:800;
-                   background:linear-gradient(90deg,#00FFFF,#FFE66D);-webkit-background-clip:text;
-                   -webkit-text-fill-color:transparent;font-size:30px;">
-            Match Story Mode
-        </h2>
-        <p style="color:rgba(255,255,255,0.45);font-size:13px;margin:0;">
-            Relive every twist and turn — ball by ball
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+<div style="text-align:center;margin-bottom:6px;">
+<span style="font-size:32px;">🎬</span>
+<h2 style="color:white;margin:4px 0 2px;font-family:'Rajdhani',sans-serif;font-weight:800;
+background:linear-gradient(90deg,#00FFFF,#FFE66D);-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;font-size:30px;">
+Match Story Mode
+</h2>
+<p style="color:rgba(255,255,255,0.45);font-size:13px;margin:0;">
+Relive every twist and turn — ball by ball
+</p>
+</div>
+""", unsafe_allow_html=True)
 
     try:
         # ── Season & Match Selection ─────────────────────────────
@@ -866,11 +866,11 @@ def show_story_view(data):
 
         # ── Footer ───────────────────────────────────────────────
         st.markdown("""
-        <div style='text-align:center;margin-top:28px;font-size:11px;color:rgba(255,255,255,0.25);'>
-            Win probability is a simplified model based on run rate, wickets, and required rate.
-            Not intended as a predictive tool — purely for storytelling.
-        </div>
-        """, unsafe_allow_html=True)
+<div style='text-align:center;margin-top:28px;font-size:11px;color:rgba(255,255,255,0.25);'>
+Win probability is a simplified model based on run rate, wickets, and required rate.
+Not intended as a predictive tool — purely for storytelling.
+</div>
+""", unsafe_allow_html=True)
 
     except Exception as e:
         st.error(f"⚠️ Something went wrong rendering the match story: {str(e)}")

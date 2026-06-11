@@ -162,116 +162,116 @@ def _percentile_normalize(df, dims):
 # ── UI Helpers ───────────────────────────────────────────────────
 def _inject_css():
     st.markdown("""
-    <style>
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50%      { transform: scale(1.05); }
-    }
-    .dna-header {
-        background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(255,230,109,0.10));
-        border-radius: 16px;
-        padding: 28px 32px;
-        margin-bottom: 24px;
-        border: 1px solid rgba(0,229,255,0.15);
-        animation: fadeInUp 0.6s ease-out;
-    }
-    .dna-header h2 {
-        margin: 0; font-size: 32px; color: #ffffff;
-        background: linear-gradient(90deg, #00e5ff, #FFE66D);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .dna-header p { color: rgba(255,255,255,0.55); margin: 6px 0 0 0; font-size: 15px; }
+<style>
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(20px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+0%, 100% { transform: scale(1); }
+50%      { transform: scale(1.05); }
+}
+.dna-header {
+background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(255,230,109,0.10));
+border-radius: 16px;
+padding: 28px 32px;
+margin-bottom: 24px;
+border: 1px solid rgba(0,229,255,0.15);
+animation: fadeInUp 0.6s ease-out;
+}
+.dna-header h2 {
+margin: 0; font-size: 32px; color: #ffffff;
+background: linear-gradient(90deg, #00e5ff, #FFE66D);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.dna-header p { color: rgba(255,255,255,0.55); margin: 6px 0 0 0; font-size: 15px; }
 
-    .dna-card {
-        background: rgba(255,255,255,0.04);
-        border-radius: 12px;
-        padding: 22px 26px;
-        margin-bottom: 18px;
-        border: 1px solid rgba(255,255,255,0.06);
-        animation: fadeInUp 0.5s ease-out;
-    }
-    .dna-card-accent {
-        border-left: 4px solid var(--accent-color, #00e5ff);
-    }
-    .dna-card h3 { margin: 0 0 6px 0; font-size: 22px; }
-    .dna-card .subtitle { color: rgba(255,255,255,0.55); font-size: 13px; margin: 0; }
+.dna-card {
+background: rgba(255,255,255,0.04);
+border-radius: 12px;
+padding: 22px 26px;
+margin-bottom: 18px;
+border: 1px solid rgba(255,255,255,0.06);
+animation: fadeInUp 0.5s ease-out;
+}
+.dna-card-accent {
+border-left: 4px solid var(--accent-color, #00e5ff);
+}
+.dna-card h3 { margin: 0 0 6px 0; font-size: 22px; }
+.dna-card .subtitle { color: rgba(255,255,255,0.55); font-size: 13px; margin: 0; }
 
-    .rating-circle {
-        width: 90px; height: 90px;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 28px; font-weight: 800; color: #fff;
-        position: relative;
-        animation: pulse 2s infinite;
-    }
-    .rating-circle::before {
-        content: '';
-        position: absolute; inset: 0;
-        border-radius: 50%;
-        padding: 4px;
-        background: conic-gradient(var(--ring-color, #00e5ff) calc(var(--pct, 0) * 3.6deg),
-                                    rgba(255,255,255,0.08) 0deg);
-        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 4px));
-        mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 4px));
-    }
+.rating-circle {
+width: 90px; height: 90px;
+border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+font-size: 28px; font-weight: 800; color: #fff;
+position: relative;
+animation: pulse 2s infinite;
+}
+.rating-circle::before {
+content: '';
+position: absolute; inset: 0;
+border-radius: 50%;
+padding: 4px;
+background: conic-gradient(var(--ring-color, #00e5ff) calc(var(--pct, 0) * 3.6deg),
+rgba(255,255,255,0.08) 0deg);
+-webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 4px));
+mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 4px));
+}
 
-    .badge-strength {
-        display: inline-block; padding: 5px 14px; border-radius: 20px;
-        font-size: 12px; font-weight: 700; margin: 3px 4px;
-        background: rgba(78,205,196,0.15); color: #4ECDC4;
-        border: 1px solid rgba(78,205,196,0.3);
-    }
-    .badge-weakness {
-        display: inline-block; padding: 5px 14px; border-radius: 20px;
-        font-size: 12px; font-weight: 700; margin: 3px 4px;
-        background: rgba(255,107,107,0.15); color: #FF6B6B;
-        border: 1px solid rgba(255,107,107,0.3);
-    }
+.badge-strength {
+display: inline-block; padding: 5px 14px; border-radius: 20px;
+font-size: 12px; font-weight: 700; margin: 3px 4px;
+background: rgba(78,205,196,0.15); color: #4ECDC4;
+border: 1px solid rgba(78,205,196,0.3);
+}
+.badge-weakness {
+display: inline-block; padding: 5px 14px; border-radius: 20px;
+font-size: 12px; font-weight: 700; margin: 3px 4px;
+background: rgba(255,107,107,0.15); color: #FF6B6B;
+border: 1px solid rgba(255,107,107,0.3);
+}
 
-    .stat-row {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.05);
-        font-size: 14px;
-    }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-label { color: rgba(255,255,255,0.6); flex: 1; }
-    .stat-val-a { color: #00e5ff; font-weight: 700; text-align: center; flex: 0.6; }
-    .stat-val-b { color: #FFE66D; font-weight: 700; text-align: center; flex: 0.6; }
-    .stat-bar-wrap { flex: 1.2; display: flex; gap: 4px; align-items: center; }
-    .stat-bar {
-        height: 6px; border-radius: 3px;
-        transition: width 0.8s ease;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+.stat-row {
+display: flex; justify-content: space-between; align-items: center;
+padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.05);
+font-size: 14px;
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { color: rgba(255,255,255,0.6); flex: 1; }
+.stat-val-a { color: #00e5ff; font-weight: 700; text-align: center; flex: 0.6; }
+.stat-val-b { color: #FFE66D; font-weight: 700; text-align: center; flex: 0.6; }
+.stat-bar-wrap { flex: 1.2; display: flex; gap: 4px; align-items: center; }
+.stat-bar {
+height: 6px; border-radius: 3px;
+transition: width 0.8s ease;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 def _player_card(name, team, overall, accent_color):
     """Glassmorphism player card with circular rating."""
     r_color = "#4ECDC4" if overall >= 65 else ("#FFE66D" if overall >= 40 else "#FF6B6B")
     st.markdown(f"""
-    <div class="dna-card dna-card-accent" style="--accent-color:{accent_color};
-         display:flex; align-items:center; gap:24px;">
-        <div>
-            <div class="rating-circle" style="--pct:{overall}; --ring-color:{r_color};
-                 background: rgba(255,255,255,0.06);">
-                {int(overall)}
-            </div>
-            <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin:6px 0 0;">
-                Overall
-            </p>
-        </div>
-        <div>
-            <h3 style="color:{accent_color};">{name}</h3>
-            <p class="subtitle">Team: {team}</p>
-            <p class="subtitle">DNA Rating: <b style="color:{r_color};">{overall:.1f} / 100</b></p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+<div class="dna-card dna-card-accent" style="--accent-color:{accent_color};
+display:flex; align-items:center; gap:24px;">
+<div>
+<div class="rating-circle" style="--pct:{overall}; --ring-color:{r_color};
+background: rgba(255,255,255,0.06);">
+{int(overall)}
+</div>
+<p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin:6px 0 0;">
+Overall
+</p>
+</div>
+<div>
+<h3 style="color:{accent_color};">{name}</h3>
+<p class="subtitle">Team: {team}</p>
+<p class="subtitle">DNA Rating: <b style="color:{r_color};">{overall:.1f} / 100</b></p>
+</div>
+</div>
+""", unsafe_allow_html=True)
 
 
 def _strengths_weaknesses(values, dims, label_color_a="#00e5ff"):
@@ -289,15 +289,15 @@ def _strengths_weaknesses(values, dims, label_color_a="#00e5ff"):
     )
 
     st.markdown(f"""
-    <div class="dna-card" style="margin-top: 8px;">
-        <p style="color:rgba(255,255,255,0.5);font-size:12px;margin:0 0 8px;text-transform:uppercase;
-           letter-spacing:1px;">Strengths</p>
-        {s_badges}
-        <p style="color:rgba(255,255,255,0.5);font-size:12px;margin:14px 0 8px;text-transform:uppercase;
-           letter-spacing:1px;">Weaknesses</p>
-        {w_badges}
-    </div>
-    """, unsafe_allow_html=True)
+<div class="dna-card" style="margin-top: 8px;">
+<p style="color:rgba(255,255,255,0.5);font-size:12px;margin:0 0 8px;text-transform:uppercase;
+letter-spacing:1px;">Strengths</p>
+{s_badges}
+<p style="color:rgba(255,255,255,0.5);font-size:12px;margin:14px 0 8px;text-transform:uppercase;
+letter-spacing:1px;">Weaknesses</p>
+{w_badges}
+</div>
+""", unsafe_allow_html=True)
 
 
 def _comparison_table(dims, vals_a, vals_b, name_a, name_b):
@@ -305,29 +305,29 @@ def _comparison_table(dims, vals_a, vals_b, name_a, name_b):
     rows_html = ""
     for dim, va, vb in zip(dims, vals_a, vals_b):
         rows_html += f"""
-        <div class="stat-row">
-            <span class="stat-val-a">{va:.0f}</span>
-            <div class="stat-bar-wrap">
-                <div class="stat-bar" style="width:{va}%;background:#00e5ff;"></div>
-            </div>
-            <span class="stat-label" style="text-align:center;">{dim}</span>
-            <div class="stat-bar-wrap" style="justify-content:flex-end;">
-                <div class="stat-bar" style="width:{vb}%;background:#FFE66D;"></div>
-            </div>
-            <span class="stat-val-b">{vb:.0f}</span>
-        </div>"""
+<div class="stat-row">
+<span class="stat-val-a">{va:.0f}</span>
+<div class="stat-bar-wrap">
+<div class="stat-bar" style="width:{va}%;background:#00e5ff;"></div>
+</div>
+<span class="stat-label" style="text-align:center;">{dim}</span>
+<div class="stat-bar-wrap" style="justify-content:flex-end;">
+<div class="stat-bar" style="width:{vb}%;background:#FFE66D;"></div>
+</div>
+<span class="stat-val-b">{vb:.0f}</span>
+</div>"""
 
     st.markdown(f"""
-    <div class="dna-card">
-        <div class="stat-row" style="border-bottom:2px solid rgba(255,255,255,0.1);padding-bottom:12px;">
-            <span class="stat-val-a" style="font-size:15px;">{name_a}</span>
-            <span class="stat-label" style="text-align:center;color:rgba(255,255,255,0.35);
-                   font-size:12px;text-transform:uppercase;letter-spacing:1px;">Dimension</span>
-            <span class="stat-val-b" style="font-size:15px;">{name_b}</span>
-        </div>
-        {rows_html}
-    </div>
-    """, unsafe_allow_html=True)
+<div class="dna-card">
+<div class="stat-row" style="border-bottom:2px solid rgba(255,255,255,0.1);padding-bottom:12px;">
+<span class="stat-val-a" style="font-size:15px;">{name_a}</span>
+<span class="stat-label" style="text-align:center;color:rgba(255,255,255,0.35);
+font-size:12px;text-transform:uppercase;letter-spacing:1px;">Dimension</span>
+<span class="stat-val-b" style="font-size:15px;">{name_b}</span>
+</div>
+{rows_html}
+</div>
+""", unsafe_allow_html=True)
 
 
 def _single_table(dims, vals, name):
@@ -336,21 +336,21 @@ def _single_table(dims, vals, name):
     for dim, v in zip(dims, vals):
         bar_color = "#4ECDC4" if v >= 65 else ("#FFE66D" if v >= 40 else "#FF6B6B")
         rows_html += f"""
-        <div class="stat-row">
-            <span class="stat-label">{dim}</span>
-            <div class="stat-bar-wrap">
-                <div class="stat-bar" style="width:{v}%;background:{bar_color};"></div>
-            </div>
-            <span class="stat-val-a">{v:.0f}</span>
-        </div>"""
+<div class="stat-row">
+<span class="stat-label">{dim}</span>
+<div class="stat-bar-wrap">
+<div class="stat-bar" style="width:{v}%;background:{bar_color};"></div>
+</div>
+<span class="stat-val-a">{v:.0f}</span>
+</div>"""
 
     st.markdown(f"""
-    <div class="dna-card">
-        <p style="color:rgba(255,255,255,0.5);font-size:12px;margin:0 0 10px;text-transform:uppercase;
-           letter-spacing:1px;">📊 {name} — Dimension Breakdown</p>
-        {rows_html}
-    </div>
-    """, unsafe_allow_html=True)
+<div class="dna-card">
+<p style="color:rgba(255,255,255,0.5);font-size:12px;margin:0 0 10px;text-transform:uppercase;
+letter-spacing:1px;">📊 {name} — Dimension Breakdown</p>
+{rows_html}
+</div>
+""", unsafe_allow_html=True)
 
 
 # ── Radar Chart ──────────────────────────────────────────────────
@@ -417,11 +417,11 @@ def show_dna_view(data):
 
     # ── Header ───────────────────────────────────────────────────
     st.markdown("""
-    <div class="dna-header">
-        <h2>🧬 Player DNA Radar</h2>
-        <p>A unique visual fingerprint for any player — compare batting or bowling DNA side by side</p>
-    </div>
-    """, unsafe_allow_html=True)
+<div class="dna-header">
+<h2>🧬 Player DNA Radar</h2>
+<p>A unique visual fingerprint for any player — compare batting or bowling DNA side by side</p>
+</div>
+""", unsafe_allow_html=True)
 
     # ── Controls ─────────────────────────────────────────────────
     col_mode, col_a, col_b = st.columns([1, 1.5, 1.5])
@@ -501,9 +501,9 @@ def show_dna_view(data):
 
     # ── Comparison Table / Single Table ──────────────────────────
     st.markdown("""
-    <p style="color:rgba(255,255,255,0.4);font-size:12px;text-transform:uppercase;
-       letter-spacing:1.5px;margin:10px 0 4px;">📐 Dimension Breakdown</p>
-    """, unsafe_allow_html=True)
+<p style="color:rgba(255,255,255,0.4);font-size:12px;text-transform:uppercase;
+letter-spacing:1.5px;margin:10px 0 4px;">📐 Dimension Breakdown</p>
+""", unsafe_allow_html=True)
 
     if player_b and vals_b is not None:
         _comparison_table(dims, vals_a, vals_b, player_a, player_b)
@@ -512,9 +512,9 @@ def show_dna_view(data):
 
     # ── Strengths & Weaknesses ───────────────────────────────────
     st.markdown("""
-    <p style="color:rgba(255,255,255,0.4);font-size:12px;text-transform:uppercase;
-       letter-spacing:1.5px;margin:18px 0 4px;">🎯 Strengths & Weaknesses</p>
-    """, unsafe_allow_html=True)
+<p style="color:rgba(255,255,255,0.4);font-size:12px;text-transform:uppercase;
+letter-spacing:1.5px;margin:18px 0 4px;">🎯 Strengths & Weaknesses</p>
+""", unsafe_allow_html=True)
 
     if player_b and vals_b is not None:
         sw_a, sw_b = st.columns(2)
@@ -541,12 +541,12 @@ def show_dna_view(data):
 
     # ── Methodology Note ─────────────────────────────────────────
     st.markdown("""
-    <div class="dna-card" style="margin-top:16px;">
-        <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;">
-            <b>📖 Methodology:</b> Each dimension is computed from ball-by-ball data, then
-            converted to a <b>percentile rank</b> across all qualified players
-            (min """ + str(MIN_BALLS_BAT) + """ balls for batters, """ + str(MIN_BALLS_BOWL) + """ for bowlers).
-            A score of 80 means the player is better than 80% of peers in that dimension.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+<div class="dna-card" style="margin-top:16px;">
+<p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;">
+<b>📖 Methodology:</b> Each dimension is computed from ball-by-ball data, then
+converted to a <b>percentile rank</b> across all qualified players
+(min """ + str(MIN_BALLS_BAT) + """ balls for batters, """ + str(MIN_BALLS_BOWL) + """ for bowlers).
+A score of 80 means the player is better than 80% of peers in that dimension.
+</p>
+</div>
+""", unsafe_allow_html=True)

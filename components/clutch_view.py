@@ -340,64 +340,64 @@ def _plotly_dark_layout(fig, title="", xaxis_title="", yaxis_title="", height=50
 # ── CARD HELPERS ─────────────────────────────────────────────────
 def _glass_card(content, border_color=ACCENT, extra_style=""):
     return f"""
-    <div style='background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;
-                border-left:4px solid {border_color};backdrop-filter:blur(10px);
-                margin-bottom:12px;{extra_style}'>
-        {content}
-    </div>
-    """
+<div style='background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;
+border-left:4px solid {border_color};backdrop-filter:blur(10px);
+margin-bottom:12px;{extra_style}'>
+{content}
+</div>
+"""
 
 
 def _metric_mini(label, value, color=ACCENT):
     return f"""
-    <div style='text-align:center;'>
-        <div style='color:rgba(255,255,255,0.5);font-size:11px;text-transform:uppercase;
-                    letter-spacing:1px;margin-bottom:4px;'>{label}</div>
-        <div style='color:{color};font-size:22px;font-weight:700;'>{value}</div>
-    </div>
-    """
+<div style='text-align:center;'>
+<div style='color:rgba(255,255,255,0.5);font-size:11px;text-transform:uppercase;
+letter-spacing:1px;margin-bottom:4px;'>{label}</div>
+<div style='color:{color};font-size:22px;font-weight:700;'>{value}</div>
+</div>
+"""
 
 
 # ── MAIN VIEW ────────────────────────────────────────────────────
 def show_clutch_view(data):
     # Inject CSS animations
     st.markdown("""
-    <style>
-    @keyframes fadeInUp {
-        from { opacity:0; transform:translateY(20px); }
-        to   { opacity:1; transform:translateY(0); }
-    }
-    .clutch-header {
-        background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(0,255,255,0.10));
-        border-radius: 16px; padding: 28px 32px; margin-bottom: 24px;
-        border: 1px solid rgba(255,255,255,0.06);
-        animation: fadeInUp 0.6s ease;
-    }
-    .clutch-header h2 { margin:0; font-size:28px; }
-    .clutch-header p  { color:rgba(255,255,255,0.6); margin:6px 0 0; font-size:14px; }
-    .moment-card {
-        background:rgba(255,255,255,0.04); border-radius:12px; padding:18px 20px;
-        border-left:4px solid #FF6B6B; margin-bottom:10px;
-        backdrop-filter:blur(10px);
-        animation: fadeInUp 0.5s ease;
-    }
-    .rank-badge {
-        display:inline-block; width:28px; height:28px; line-height:28px;
-        text-align:center; border-radius:50%; font-weight:700; font-size:13px;
-        margin-right:10px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+<style>
+@keyframes fadeInUp {
+from { opacity:0; transform:translateY(20px); }
+to   { opacity:1; transform:translateY(0); }
+}
+.clutch-header {
+background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(0,255,255,0.10));
+border-radius: 16px; padding: 28px 32px; margin-bottom: 24px;
+border: 1px solid rgba(255,255,255,0.06);
+animation: fadeInUp 0.6s ease;
+}
+.clutch-header h2 { margin:0; font-size:28px; }
+.clutch-header p  { color:rgba(255,255,255,0.6); margin:6px 0 0; font-size:14px; }
+.moment-card {
+background:rgba(255,255,255,0.04); border-radius:12px; padding:18px 20px;
+border-left:4px solid #FF6B6B; margin-bottom:10px;
+backdrop-filter:blur(10px);
+animation: fadeInUp 0.5s ease;
+}
+.rank-badge {
+display:inline-block; width:28px; height:28px; line-height:28px;
+text-align:center; border-radius:50%; font-weight:700; font-size:13px;
+margin-right:10px;
+}
+</style>
+""", unsafe_allow_html=True)
 
     # ── Header ──
     st.markdown("""
-    <div class='clutch-header'>
-        <h2>⚡ Clutch Factor &amp; Pressure Index</h2>
-        <p>Ranking players by performance under pressure — every delivery gets a
-        dynamic pressure score based on match situation, required rate, wickets fallen,
-        and game phase.</p>
-    </div>
-    """, unsafe_allow_html=True)
+<div class='clutch-header'>
+<h2>⚡ Clutch Factor &amp; Pressure Index</h2>
+<p>Ranking players by performance under pressure — every delivery gets a
+dynamic pressure score based on match situation, required rate, wickets fallen,
+and game phase.</p>
+</div>
+""", unsafe_allow_html=True)
 
     # ── Compute pressure for all deliveries ──
     df_p = _compute_pressure_index(data)
@@ -426,11 +426,11 @@ def show_clutch_view(data):
             max_cs = top["clutch_score"].max()
 
             st.markdown(f"""
-            <div style='margin:16px 0 8px;color:rgba(255,255,255,0.5);font-size:12px;'>
-                Showing top {len(top)} batters · Min 500 balls faced · Clutch Score =
-                (HP Strike Rate / 100) × 0.6 + (HP Boundary%) × 0.4
-            </div>
-            """, unsafe_allow_html=True)
+<div style='margin:16px 0 8px;color:rgba(255,255,255,0.5);font-size:12px;'>
+Showing top {len(top)} batters · Min 500 balls faced · Clutch Score =
+(HP Strike Rate / 100) × 0.6 + (HP Boundary%) × 0.4
+</div>
+""", unsafe_allow_html=True)
 
             # Build HTML table
             rows_html = ""
@@ -445,47 +445,47 @@ def show_clutch_view(data):
                     badge = f"<span class='rank-badge' style='background:rgba(255,255,255,0.08);color:{TEXT_COLOR};'>{i}</span>"
 
                 rows_html += f"""
-                <div style='display:flex;align-items:center;padding:10px 16px;
-                            border-bottom:1px solid rgba(255,255,255,0.04);'>
-                    <div style='width:40px;flex-shrink:0;'>{badge}</div>
-                    <div style='flex:1;'>
-                        <span style='font-weight:600;color:white;'>{r.batter}</span>
-                        <span style='color:{t_color};font-size:11px;margin-left:8px;'>{r.team}</span>
-                    </div>
-                    <div style='width:200px;margin:0 16px;'>
-                        <div style='background:rgba(255,255,255,0.06);border-radius:6px;height:10px;overflow:hidden;'>
-                            <div style='width:{bar_width}%;height:100%;border-radius:6px;
-                                        background:linear-gradient(90deg,{ACCENT},{ACCENT3});'></div>
-                        </div>
-                    </div>
-                    <div style='width:60px;text-align:right;font-weight:700;color:{ACCENT};font-size:15px;'>
-                        {r.clutch_score}
-                    </div>
-                    <div style='width:80px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
-                        SR {r.hp_sr}
-                    </div>
-                    <div style='width:60px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
-                        {r.hp_balls} HP
-                    </div>
-                    <div style='width:60px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
-                        {r.matches} M
-                    </div>
-                </div>
-                """
+<div style='display:flex;align-items:center;padding:10px 16px;
+border-bottom:1px solid rgba(255,255,255,0.04);'>
+<div style='width:40px;flex-shrink:0;'>{badge}</div>
+<div style='flex:1;'>
+<span style='font-weight:600;color:white;'>{r.batter}</span>
+<span style='color:{t_color};font-size:11px;margin-left:8px;'>{r.team}</span>
+</div>
+<div style='width:200px;margin:0 16px;'>
+<div style='background:rgba(255,255,255,0.06);border-radius:6px;height:10px;overflow:hidden;'>
+<div style='width:{bar_width}%;height:100%;border-radius:6px;
+background:linear-gradient(90deg,{ACCENT},{ACCENT3});'></div>
+</div>
+</div>
+<div style='width:60px;text-align:right;font-weight:700;color:{ACCENT};font-size:15px;'>
+{r.clutch_score}
+</div>
+<div style='width:80px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
+SR {r.hp_sr}
+</div>
+<div style='width:60px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
+{r.hp_balls} HP
+</div>
+<div style='width:60px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
+{r.matches} M
+</div>
+</div>
+"""
 
             st.markdown(_glass_card(f"""
-                <div style='font-size:12px;display:flex;padding:6px 16px;color:rgba(255,255,255,0.35);
-                            border-bottom:1px solid rgba(255,255,255,0.06);font-weight:600;'>
-                    <div style='width:40px;'>#</div>
-                    <div style='flex:1;'>Player</div>
-                    <div style='width:200px;text-align:center;'>Clutch Bar</div>
-                    <div style='width:60px;text-align:right;'>Score</div>
-                    <div style='width:80px;text-align:center;'>HP SR</div>
-                    <div style='width:60px;text-align:center;'>HP Balls</div>
-                    <div style='width:60px;text-align:center;'>Matches</div>
-                </div>
-                {rows_html}
-            """, border_color=ACCENT), unsafe_allow_html=True)
+<div style='font-size:12px;display:flex;padding:6px 16px;color:rgba(255,255,255,0.35);
+border-bottom:1px solid rgba(255,255,255,0.06);font-weight:600;'>
+<div style='width:40px;'>#</div>
+<div style='flex:1;'>Player</div>
+<div style='width:200px;text-align:center;'>Clutch Bar</div>
+<div style='width:60px;text-align:right;'>Score</div>
+<div style='width:80px;text-align:center;'>HP SR</div>
+<div style='width:60px;text-align:center;'>HP Balls</div>
+<div style='width:60px;text-align:center;'>Matches</div>
+</div>
+{rows_html}
+""", border_color=ACCENT), unsafe_allow_html=True)
 
         else:  # Bowlers
             lb = _bowler_clutch_leaderboard(df_p)
@@ -497,11 +497,11 @@ def show_clutch_view(data):
             max_cs = top["clutch_score"].max()
 
             st.markdown(f"""
-            <div style='margin:16px 0 8px;color:rgba(255,255,255,0.5);font-size:12px;'>
-                Showing top {len(top)} bowlers · Min 300 balls bowled · Clutch Score =
-                (HP Dot%) × 0.5 + (15 − HP Economy) × 0.5
-            </div>
-            """, unsafe_allow_html=True)
+<div style='margin:16px 0 8px;color:rgba(255,255,255,0.5);font-size:12px;'>
+Showing top {len(top)} bowlers · Min 300 balls bowled · Clutch Score =
+(HP Dot%) × 0.5 + (15 − HP Economy) × 0.5
+</div>
+""", unsafe_allow_html=True)
 
             rows_html = ""
             for i, r in enumerate(top.itertuples(), 1):
@@ -515,47 +515,47 @@ def show_clutch_view(data):
                     badge = f"<span class='rank-badge' style='background:rgba(255,255,255,0.08);color:{TEXT_COLOR};'>{i}</span>"
 
                 rows_html += f"""
-                <div style='display:flex;align-items:center;padding:10px 16px;
-                            border-bottom:1px solid rgba(255,255,255,0.04);'>
-                    <div style='width:40px;flex-shrink:0;'>{badge}</div>
-                    <div style='flex:1;'>
-                        <span style='font-weight:600;color:white;'>{r.bowler}</span>
-                        <span style='color:{t_color};font-size:11px;margin-left:8px;'>{r.team}</span>
-                    </div>
-                    <div style='width:200px;margin:0 16px;'>
-                        <div style='background:rgba(255,255,255,0.06);border-radius:6px;height:10px;overflow:hidden;'>
-                            <div style='width:{bar_width}%;height:100%;border-radius:6px;
-                                        background:linear-gradient(90deg,{ACCENT2},{ACCENT3});'></div>
-                        </div>
-                    </div>
-                    <div style='width:60px;text-align:right;font-weight:700;color:{ACCENT2};font-size:15px;'>
-                        {r.clutch_score}
-                    </div>
-                    <div style='width:80px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
-                        Econ {r.hp_economy}
-                    </div>
-                    <div style='width:70px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
-                        Dot {r.hp_dot_pct}%
-                    </div>
-                    <div style='width:60px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
-                        {r.matches} M
-                    </div>
-                </div>
-                """
+<div style='display:flex;align-items:center;padding:10px 16px;
+border-bottom:1px solid rgba(255,255,255,0.04);'>
+<div style='width:40px;flex-shrink:0;'>{badge}</div>
+<div style='flex:1;'>
+<span style='font-weight:600;color:white;'>{r.bowler}</span>
+<span style='color:{t_color};font-size:11px;margin-left:8px;'>{r.team}</span>
+</div>
+<div style='width:200px;margin:0 16px;'>
+<div style='background:rgba(255,255,255,0.06);border-radius:6px;height:10px;overflow:hidden;'>
+<div style='width:{bar_width}%;height:100%;border-radius:6px;
+background:linear-gradient(90deg,{ACCENT2},{ACCENT3});'></div>
+</div>
+</div>
+<div style='width:60px;text-align:right;font-weight:700;color:{ACCENT2};font-size:15px;'>
+{r.clutch_score}
+</div>
+<div style='width:80px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
+Econ {r.hp_economy}
+</div>
+<div style='width:70px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
+Dot {r.hp_dot_pct}%
+</div>
+<div style='width:60px;text-align:center;color:rgba(255,255,255,0.5);font-size:12px;'>
+{r.matches} M
+</div>
+</div>
+"""
 
             st.markdown(_glass_card(f"""
-                <div style='font-size:12px;display:flex;padding:6px 16px;color:rgba(255,255,255,0.35);
-                            border-bottom:1px solid rgba(255,255,255,0.06);font-weight:600;'>
-                    <div style='width:40px;'>#</div>
-                    <div style='flex:1;'>Bowler</div>
-                    <div style='width:200px;text-align:center;'>Clutch Bar</div>
-                    <div style='width:60px;text-align:right;'>Score</div>
-                    <div style='width:80px;text-align:center;'>HP Econ</div>
-                    <div style='width:70px;text-align:center;'>HP Dot%</div>
-                    <div style='width:60px;text-align:center;'>Matches</div>
-                </div>
-                {rows_html}
-            """, border_color=ACCENT2), unsafe_allow_html=True)
+<div style='font-size:12px;display:flex;padding:6px 16px;color:rgba(255,255,255,0.35);
+border-bottom:1px solid rgba(255,255,255,0.06);font-weight:600;'>
+<div style='width:40px;'>#</div>
+<div style='flex:1;'>Bowler</div>
+<div style='width:200px;text-align:center;'>Clutch Bar</div>
+<div style='width:60px;text-align:right;'>Score</div>
+<div style='width:80px;text-align:center;'>HP Econ</div>
+<div style='width:70px;text-align:center;'>HP Dot%</div>
+<div style='width:60px;text-align:center;'>Matches</div>
+</div>
+{rows_html}
+""", border_color=ACCENT2), unsafe_allow_html=True)
 
     # ================================================================
     # TAB 2 — PLAYER PRESSURE PROFILE
@@ -573,11 +573,11 @@ def show_clutch_view(data):
             p_color = TEAM_COLORS.get(p_team, ACCENT)
 
             st.markdown(f"""
-            <div style='margin:8px 0 16px;'>
-                <span style='font-size:20px;font-weight:700;color:white;'>{selected}</span>
-                <span style='color:{p_color};font-size:13px;margin-left:10px;'>{p_team}</span>
-            </div>
-            """, unsafe_allow_html=True)
+<div style='margin:8px 0 16px;'>
+<span style='font-size:20px;font-weight:700;color:white;'>{selected}</span>
+<span style='color:{p_color};font-size:13px;margin-left:10px;'>{p_team}</span>
+</div>
+""", unsafe_allow_html=True)
 
             # Three pressure cards side-by-side
             cols = st.columns(3)
@@ -587,21 +587,21 @@ def show_clutch_view(data):
                 color = PRESSURE_COLORS[cat]
                 with cols[idx]:
                     st.markdown(_glass_card(f"""
-                        <div style='text-align:center;'>
-                            <div style='font-size:18px;font-weight:700;color:{color};margin-bottom:8px;'>
-                                {emoji} {cat} Pressure
-                            </div>
-                            <div style='color:rgba(255,255,255,0.4);font-size:11px;margin-bottom:12px;'>
-                                {s['balls']} balls · {s['runs']} runs
-                            </div>
-                            <div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;'>
-                                {_metric_mini("Strike Rate", s['sr'], color)}
-                                {_metric_mini("Average", s['avg'], color)}
-                                {_metric_mini("Boundary %", f"{s['boundary_pct']}%", color)}
-                                {_metric_mini("Dot Ball %", f"{s['dot_pct']}%", color)}
-                            </div>
-                        </div>
-                    """, border_color=color), unsafe_allow_html=True)
+<div style='text-align:center;'>
+<div style='font-size:18px;font-weight:700;color:{color};margin-bottom:8px;'>
+{emoji} {cat} Pressure
+</div>
+<div style='color:rgba(255,255,255,0.4);font-size:11px;margin-bottom:12px;'>
+{s['balls']} balls · {s['runs']} runs
+</div>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;'>
+{_metric_mini("Strike Rate", s['sr'], color)}
+{_metric_mini("Average", s['avg'], color)}
+{_metric_mini("Boundary %", f"{s['boundary_pct']}%", color)}
+{_metric_mini("Dot Ball %", f"{s['dot_pct']}%", color)}
+</div>
+</div>
+""", border_color=color), unsafe_allow_html=True)
 
             # Bar chart comparing SR across pressure levels
             st.markdown("<div style='height:16px;'></div>", unsafe_allow_html=True)
@@ -663,11 +663,11 @@ def show_clutch_view(data):
     # ================================================================
     with tab3:
         st.markdown("""
-        <div style='color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:16px;'>
-            Top individual match performances where a batter scored 20+ runs on deliveries
-            with pressure ≥ 60. These are the moments that define legends.
-        </div>
-        """, unsafe_allow_html=True)
+<div style='color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:16px;'>
+Top individual match performances where a batter scored 20+ runs on deliveries
+with pressure ≥ 60. These are the moments that define legends.
+</div>
+""", unsafe_allow_html=True)
 
         moments = _clutch_moments(df_p)
 
@@ -692,61 +692,61 @@ def show_clutch_view(data):
                 t_color = TEAM_COLORS.get(r.batting_team, ACCENT)
 
                 st.markdown(f"""
-                <div class='moment-card' style='border-left-color:{border_col};'>
-                    <div style='display:flex;align-items:center;gap:14px;'>
-                        <span class='rank-badge' style='background:{rank_bg};
-                              color:{"#000" if i <= 3 else TEXT_COLOR};font-size:14px;'>
-                            {i}
-                        </span>
-                        <div style='flex:1;'>
-                            <div style='font-weight:700;font-size:16px;color:white;'>
-                                {r.batter}
-                                <span style='color:{t_color};font-size:12px;margin-left:8px;'>
-                                    {r.batting_team}
-                                </span>
-                            </div>
-                            <div style='color:rgba(255,255,255,0.5);font-size:12px;margin-top:2px;'>
-                                vs {r.bowling_team} · Season {r.season}
-                            </div>
-                        </div>
-                        <div style='text-align:right;'>
-                            <div style='font-size:24px;font-weight:700;color:{ACCENT3};'>
-                                {r.hp_runs}*
-                            </div>
-                            <div style='color:rgba(255,255,255,0.4);font-size:11px;'>
-                                off {r.hp_balls} HP balls
-                            </div>
-                        </div>
-                        <div style='text-align:center;padding:0 10px;'>
-                            <div style='font-size:16px;font-weight:600;color:{ACCENT};'>{r.hp_sr}</div>
-                            <div style='color:rgba(255,255,255,0.4);font-size:10px;'>SR</div>
-                        </div>
-                        <div style='text-align:center;'>
-                            <div style='font-size:13px;color:{ACCENT2};'>
-                                {r.hp_fours}×4 &nbsp; {r.hp_sixes}×6
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+<div class='moment-card' style='border-left-color:{border_col};'>
+<div style='display:flex;align-items:center;gap:14px;'>
+<span class='rank-badge' style='background:{rank_bg};
+color:{"#000" if i <= 3 else TEXT_COLOR};font-size:14px;'>
+{i}
+</span>
+<div style='flex:1;'>
+<div style='font-weight:700;font-size:16px;color:white;'>
+{r.batter}
+<span style='color:{t_color};font-size:12px;margin-left:8px;'>
+{r.batting_team}
+</span>
+</div>
+<div style='color:rgba(255,255,255,0.5);font-size:12px;margin-top:2px;'>
+vs {r.bowling_team} · Season {r.season}
+</div>
+</div>
+<div style='text-align:right;'>
+<div style='font-size:24px;font-weight:700;color:{ACCENT3};'>
+{r.hp_runs}*
+</div>
+<div style='color:rgba(255,255,255,0.4);font-size:11px;'>
+off {r.hp_balls} HP balls
+</div>
+</div>
+<div style='text-align:center;padding:0 10px;'>
+<div style='font-size:16px;font-weight:600;color:{ACCENT};'>{r.hp_sr}</div>
+<div style='color:rgba(255,255,255,0.4);font-size:10px;'>SR</div>
+</div>
+<div style='text-align:center;'>
+<div style='font-size:13px;color:{ACCENT2};'>
+{r.hp_fours}×4 &nbsp; {r.hp_sixes}×6
+</div>
+</div>
+</div>
+</div>
+""", unsafe_allow_html=True)
 
             st.markdown(f"""
-            <div style='color:rgba(255,255,255,0.3);font-size:11px;margin-top:8px;'>
-                * Runs scored only on high-pressure deliveries (pressure ≥ 60) in that match.
-            </div>
-            """, unsafe_allow_html=True)
+<div style='color:rgba(255,255,255,0.3);font-size:11px;margin-top:8px;'>
+* Runs scored only on high-pressure deliveries (pressure ≥ 60) in that match.
+</div>
+""", unsafe_allow_html=True)
 
     # ================================================================
     # TAB 4 — PRESSURE VS PERFORMANCE SCATTER
     # ================================================================
     with tab4:
         st.markdown("""
-        <div style='color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:16px;'>
-            Each bubble is a batter. X-axis = average pressure they face, Y-axis = their
-            strike rate under high pressure. Bubble size = total balls faced. Top-right
-            quadrant = true clutch performers.
-        </div>
-        """, unsafe_allow_html=True)
+<div style='color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:16px;'>
+Each bubble is a batter. X-axis = average pressure they face, Y-axis = their
+strike rate under high pressure. Bubble size = total balls faced. Top-right
+quadrant = true clutch performers.
+</div>
+""", unsafe_allow_html=True)
 
         scat = _scatter_data(df_p)
 
@@ -854,10 +854,10 @@ def show_clutch_view(data):
                 if not top_clutch.empty:
                     names = ", ".join(top_clutch["batter"].tolist())
                     st.markdown(_glass_card(f"""
-                        <div style='font-size:13px;'>
-                            <span style='color:{ACCENT};font-weight:700;'>⚡ Top Clutch Performers:</span>
-                            <span style='color:rgba(255,255,255,0.7);'> {names}</span>
-                            <br><span style='color:rgba(255,255,255,0.4);font-size:11px;'>
-                            These batters face above-average pressure AND maintain elite strike rates.</span>
-                        </div>
-                    """, border_color=ACCENT), unsafe_allow_html=True)
+<div style='font-size:13px;'>
+<span style='color:{ACCENT};font-weight:700;'>⚡ Top Clutch Performers:</span>
+<span style='color:rgba(255,255,255,0.7);'> {names}</span>
+<br><span style='color:rgba(255,255,255,0.4);font-size:11px;'>
+These batters face above-average pressure AND maintain elite strike rates.</span>
+</div>
+""", border_color=ACCENT), unsafe_allow_html=True)

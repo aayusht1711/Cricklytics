@@ -34,27 +34,27 @@ from components.clutch_view import show_clutch_view
 # ================================================================
 def cricket_loader():
     loader_html = """
-    <style>
-    .loader-container { text-align:center; margin-top:120px; }
-    .bat { font-size:70px; display:inline-block;
-           animation:swing 1s infinite ease-in-out; }
-    @keyframes swing {
-        0%   { transform:rotate(0deg); }
-        50%  { transform:rotate(-35deg); }
-        100% { transform:rotate(0deg); }
-    }
-    .ball { width:35px; height:35px; background:red; border-radius:50%;
-            display:inline-block; margin-left:20px; position:relative; }
-    .ball::before { content:''; position:absolute; left:50%;
-                    width:2px; height:100%; background:white;
-                    transform:translateX(-50%); }
-    .text { font-size:20px; margin-top:20px; font-weight:bold; }
-    </style>
-    <div class="loader-container">
-        <div class="bat">🏏</div><div class="ball"></div>
-        <div class="text">Loading the crease...</div>
-    </div>
-    """
+<style>
+.loader-container { text-align:center; margin-top:120px; }
+.bat { font-size:70px; display:inline-block;
+animation:swing 1s infinite ease-in-out; }
+@keyframes swing {
+0%   { transform:rotate(0deg); }
+50%  { transform:rotate(-35deg); }
+100% { transform:rotate(0deg); }
+}
+.ball { width:35px; height:35px; background:red; border-radius:50%;
+display:inline-block; margin-left:20px; position:relative; }
+.ball::before { content:''; position:absolute; left:50%;
+width:2px; height:100%; background:white;
+transform:translateX(-50%); }
+.text { font-size:20px; margin-top:20px; font-weight:bold; }
+</style>
+<div class="loader-container">
+<div class="bat">🏏</div><div class="ball"></div>
+<div class="text">Loading the crease...</div>
+</div>
+"""
     ph = st.empty()
     ph.markdown(loader_html, unsafe_allow_html=True)
     bar = st.progress(0)
@@ -101,11 +101,11 @@ random.seed(int(time.time()) // 300)
 fact_icon, fact_text = random.choice(DID_YOU_KNOW)
 st.sidebar.markdown(f"""
 <div style='background:rgba(0,255,255,0.06);border-left:3px solid #00FFFF;
-     border-radius:0 10px 10px 0;padding:10px 12px;margin:4px 0 12px;'>
-    <div style='font-size:16px;margin-bottom:4px;'>{fact_icon}</div>
-    <div style='font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;'>
-        {fact_text}
-    </div>
+border-radius:0 10px 10px 0;padding:10px 12px;margin:4px 0 12px;'>
+<div style='font-size:16px;margin-bottom:4px;'>{fact_icon}</div>
+<div style='font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;'>
+{fact_text}
+</div>
 </div>
 """, unsafe_allow_html=True)
 st.sidebar.markdown("---")
