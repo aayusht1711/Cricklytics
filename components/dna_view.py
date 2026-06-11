@@ -537,7 +537,7 @@ def show_dna_view(data):
             raw_display = norm_stats[norm_stats["player"].isin(show_players)][["player"] + raw_cols].copy()
             raw_display.columns = ["Player"] + dims
             raw_display = raw_display.set_index("Player")
-            st.dataframe(raw_display.style.format("{:.2f}"), use_container_width=True)
+            st.dataframe(raw_display.round(2), use_container_width=True)
 
     # ── Methodology Note ─────────────────────────────────────────
     st.markdown("""
