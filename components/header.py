@@ -226,20 +226,35 @@ def show_header():
             ball.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
             parentDoc.body.appendChild(ball);
             
-            const scrollContainer = parentDoc.querySelector('[data-testid="stAppViewContainer"]');
-            if (scrollContainer) {{
-                scrollContainer.addEventListener('scroll', () => {{
-                    const y = scrollContainer.scrollTop;
-                    const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-                    const scrollPct = maxScroll > 0 ? (y / maxScroll) : 0;
-                    
-                    const drop = scrollPct * (scrollContainer.clientHeight * 0.7);
-                    const swing = Math.sin(y * 0.003) * 350; 
-                    const rot = y * 0.8;
-                    
-                    ball.style.transform = `translate(${{swing}}px, ${{drop}}px) rotate(${{rot}}deg)`;
-                }});
+            function updateBall() {{
+                let y = window.parent.scrollY || parentDoc.documentElement.scrollTop || 0;
+                let maxScroll = parentDoc.documentElement.scrollHeight - window.parent.innerHeight;
+                let clientHeight = window.parent.innerHeight;
+                
+                const appContainer = parentDoc.querySelector('[data-testid="stAppViewContainer"]');
+                const main = parentDoc.querySelector('.stMain');
+                
+                if (appContainer && appContainer.scrollTop > 0) {{
+                    y = appContainer.scrollTop;
+                    maxScroll = appContainer.scrollHeight - appContainer.clientHeight;
+                    clientHeight = appContainer.clientHeight;
+                }} else if (main && main.scrollTop > 0) {{
+                    y = main.scrollTop;
+                    maxScroll = main.scrollHeight - main.clientHeight;
+                    clientHeight = main.clientHeight;
+                }}
+                
+                const scrollPct = maxScroll > 0 ? (y / maxScroll) : 0;
+                
+                const drop = scrollPct * (clientHeight * 0.7);
+                const swing = Math.sin(y * 0.003) * 350; 
+                const rot = y * 0.8;
+                
+                ball.style.transform = `translate(${{swing}}px, ${{drop}}px) rotate(${{rot}}deg)`;
+                
+                requestAnimationFrame(updateBall);
             }}
+            requestAnimationFrame(updateBall);
         }}
     </script>
     """, height=0, width=0)
