@@ -211,7 +211,7 @@ def show_header():
             ball = parentDoc.createElement('div');
             ball.id = 'scroll-ball';
             ball.style.position = 'fixed';
-            ball.style.top = '15%';
+            ball.style.top = '10%';
             ball.style.left = '50%';
             ball.style.width = '100px';
             ball.style.height = '100px';
@@ -230,10 +230,14 @@ def show_header():
             if (scrollContainer) {{
                 scrollContainer.addEventListener('scroll', () => {{
                     const y = scrollContainer.scrollTop;
+                    const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                    const scrollPct = maxScroll > 0 ? (y / maxScroll) : 0;
+                    
+                    const drop = scrollPct * (scrollContainer.clientHeight * 0.7);
                     const swing = Math.sin(y * 0.003) * 350; 
-                    const bob = Math.cos(y * 0.005) * 80;
-                    const rot = y * 0.6;
-                    ball.style.transform = `translate(${{swing}}px, ${{bob}}px) rotate(${{rot}}deg)`;
+                    const rot = y * 0.8;
+                    
+                    ball.style.transform = `translate(${{swing}}px, ${{drop}}px) rotate(${{rot}}deg)`;
                 }});
             }}
         }}
