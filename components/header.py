@@ -1,4 +1,6 @@
 import streamlit as st
+import streamlit.components.v1 as components
+from utils.assets import CRICKET_BALL_B64
 
 
 def show_header():
@@ -200,6 +202,43 @@ def show_header():
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+    components.html(f"""
+    <script>
+        const parentDoc = window.parent.document;
+        let ball = parentDoc.getElementById('scroll-ball');
+        if (!ball) {{
+            ball = parentDoc.createElement('div');
+            ball.id = 'scroll-ball';
+            ball.style.position = 'fixed';
+            ball.style.top = '15%';
+            ball.style.left = '50%';
+            ball.style.width = '100px';
+            ball.style.height = '100px';
+            ball.style.marginLeft = '-50px';
+            ball.style.backgroundImage = "url('data:image/png;base64,{CRICKET_BALL_B64}')";
+            ball.style.backgroundSize = 'cover';
+            ball.style.backgroundPosition = 'center';
+            ball.style.borderRadius = '50%';
+            ball.style.pointerEvents = 'none';
+            ball.style.zIndex = '9999';
+            ball.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.8)';
+            ball.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            parentDoc.body.appendChild(ball);
+            
+            const scrollContainer = parentDoc.querySelector('[data-testid="stAppViewContainer"]');
+            if (scrollContainer) {{
+                scrollContainer.addEventListener('scroll', () => {{
+                    const y = scrollContainer.scrollTop;
+                    const swing = Math.sin(y * 0.003) * 350; 
+                    const bob = Math.cos(y * 0.005) * 80;
+                    const rot = y * 0.6;
+                    ball.style.transform = `translate(${{swing}}px, ${{bob}}px) rotate(${{rot}}deg)`;
+                }});
+            }}
+        }}
+    </script>
+    """, height=0, width=0)
 
 
 def set_bg(image_url):
