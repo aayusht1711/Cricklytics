@@ -1,6 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
-from utils.assets import CRICKET_BALL_B64
 
 
 def show_header():
@@ -202,63 +200,6 @@ def show_header():
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-    components.html(f"""
-    <script>
-        const parentDoc = window.parent.document;
-        let ball = parentDoc.getElementById('scroll-ball');
-        if (!ball) {{
-            ball = parentDoc.createElement('div');
-            ball.id = 'scroll-ball';
-            ball.style.position = 'fixed';
-            ball.style.top = '10%';
-            ball.style.left = '50%';
-            ball.style.width = '100px';
-            ball.style.height = '100px';
-            ball.style.marginLeft = '-50px';
-            ball.style.backgroundImage = "url('data:image/png;base64,{CRICKET_BALL_B64}')";
-            ball.style.backgroundSize = 'cover';
-            ball.style.backgroundPosition = 'center';
-            ball.style.borderRadius = '50%';
-            ball.style.pointerEvents = 'none';
-            ball.style.zIndex = '9999';
-            ball.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.8)';
-            ball.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
-            parentDoc.body.appendChild(ball);
-            
-            function updateBall() {{
-                let y = window.parent.scrollY || parentDoc.documentElement.scrollTop || 0;
-                let maxScroll = parentDoc.documentElement.scrollHeight - window.parent.innerHeight;
-                let clientHeight = window.parent.innerHeight;
-                
-                const appContainer = parentDoc.querySelector('[data-testid="stAppViewContainer"]');
-                const main = parentDoc.querySelector('.stMain');
-                
-                if (appContainer && appContainer.scrollTop > 0) {{
-                    y = appContainer.scrollTop;
-                    maxScroll = appContainer.scrollHeight - appContainer.clientHeight;
-                    clientHeight = appContainer.clientHeight;
-                }} else if (main && main.scrollTop > 0) {{
-                    y = main.scrollTop;
-                    maxScroll = main.scrollHeight - main.clientHeight;
-                    clientHeight = main.clientHeight;
-                }}
-                
-                const scrollPct = maxScroll > 0 ? (y / maxScroll) : 0;
-                
-                const drop = scrollPct * (clientHeight * 0.7);
-                const swing = Math.sin(y * 0.003) * 350; 
-                const rot = y * 0.8;
-                
-                ball.style.transform = `translate(${{swing}}px, ${{drop}}px) rotate(${{rot}}deg)`;
-                
-                requestAnimationFrame(updateBall);
-            }}
-            requestAnimationFrame(updateBall);
-        }}
-    </script>
-    """, height=0, width=0)
-
 
 def set_bg(image_url):
     st.markdown(f"""
