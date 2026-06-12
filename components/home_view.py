@@ -152,9 +152,16 @@ def show_home(data):
         background: rgba(255,255,255,0.05);
         border: 1px solid rgba(255,255,255,0.1);
         border-radius: 16px; padding: 18px 20px;
-        margin-bottom: 12px; transition: 0.2s;
+        margin-bottom: 12px; 
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s, border-color 0.4s;
+        transform-style: preserve-3d;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1);
     }
-    .today-card:hover { transform: translateY(-3px); }
+    .today-card:hover { 
+        transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-8px) scale(1.02);
+        border-color: rgba(0,229,255,0.4);
+        box-shadow: -10px 15px 40px rgba(0,229,255,0.15), 0 15px 30px rgba(0,0,0,0.6);
+    }
     .today-icon { font-size: 28px; margin-bottom: 6px; }
     .today-headline { font-size: 16px; font-weight: 700; color: #00FFFF; margin: 4px 0; }
     .today-detail   { font-size: 12px; color: rgba(255,255,255,0.5); }
@@ -187,11 +194,29 @@ def show_home(data):
         background: linear-gradient(135deg, rgba(0,93,160,0.4), rgba(236,28,36,0.3));
         border: 1px solid rgba(255,255,255,0.12);
         border-radius: 20px; padding: 40px 30px;
-        text-align: center; margin-bottom: 28px;
+        text-align: left; margin-bottom: 28px; position: relative; overflow: visible;
     }
     .hero-banner h1 { font-size: 44px; font-weight: 800; color: white; margin: 0 0 8px; }
     .hero-tagline    { font-size: 16px; color: rgba(255,255,255,0.65); margin: 0 0 6px; }
     .hero-byline     { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+    @keyframes spin3d {
+        from { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+        to { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+    }
+    .core-3d {
+        width: 100px; height: 100px; position: absolute; right: 50px; top: 50%; margin-top: -50px;
+        transform-style: preserve-3d; animation: spin3d 10s linear infinite;
+    }
+    .core-3d-face {
+        position: absolute; width: 100%; height: 100%; border-radius: 50%;
+        background: rgba(0,229,255,0.1); border: 2px solid #00e5ff;
+        box-shadow: 0 0 30px rgba(0,229,255,0.3), inset 0 0 20px rgba(0,229,255,0.3);
+    }
+    .core-3d-face:nth-child(1) { transform: rotateY(0deg); }
+    .core-3d-face:nth-child(2) { transform: rotateY(60deg); }
+    .core-3d-face:nth-child(3) { transform: rotateY(120deg); }
+    .core-3d-face:nth-child(4) { transform: rotateX(90deg); }
 
     .ticker-bar {
         background: rgba(255,230,109,0.08);
@@ -220,6 +245,12 @@ def show_home(data):
     # ── hero banner ───────────────────────────────────────────────
     st.markdown("""
     <div class="hero-banner">
+        <div class="core-3d">
+            <div class="core-3d-face"></div>
+            <div class="core-3d-face"></div>
+            <div class="core-3d-face"></div>
+            <div class="core-3d-face"></div>
+        </div>
         <h1>🏏 Cricket Analytics</h1>
         <p class="hero-tagline">Smart Insights &nbsp;·&nbsp; Performance Analytics &nbsp;·&nbsp; Data Driven</p>
         <p class="hero-byline">Built by Aayush Tripathi — Cricketer turned Developer</p>

@@ -77,13 +77,15 @@ def show_header():
         margin: 10px 0;
         border: 1px solid rgba(255,255,255,0.1);
         box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-        transition: 0.25s;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s, border-color 0.4s;
         color: white;
+        transform-style: preserve-3d;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1);
     }
     .card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(255,255,255,0.18);
-        box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+        transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-8px) scale(1.02);
+        border-color: rgba(0,229,255,0.4);
+        box-shadow: -10px 15px 40px rgba(0,229,255,0.15), 0 15px 30px rgba(0,0,0,0.6);
     }
     .card h3 { color: #00e5ff !important; margin-bottom: 8px; }
     .card p  { color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.6; margin: 3px 0; }
