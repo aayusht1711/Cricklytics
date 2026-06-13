@@ -27,6 +27,7 @@ from components.season_view import show_season_view
 from components.story_view import show_story_view
 from components.dna_view import show_dna_view
 from components.clutch_view import show_clutch_view
+from components.three_background import show_3d_background
 
 
 # ================================================================
@@ -92,6 +93,7 @@ data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_d
 # HEADER
 # ================================================================
 show_header()
+show_3d_background()
 
 # ================================================================
 # SIDEBAR DID YOU KNOW

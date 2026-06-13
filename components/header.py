@@ -13,6 +13,11 @@ def show_header():
         color: white;
     }
 
+    /* Make main app background transparent so 3D background is visible behind glassmorphism cards */
+    .stApp, [data-testid="stApp"], .main {
+        background: transparent !important;
+    }
+
     #MainMenu, footer { visibility: hidden; }
     .stDeployButton { display: none; }
 
