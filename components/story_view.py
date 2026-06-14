@@ -211,7 +211,7 @@ Win prob is from the perspective of the team batting first.
         is_valid = int(row.get("valid_ball", 1))
         cum_balls_2 += is_valid
         wicket_fell = 1 if pd.notna(row.get("wicket_kind")) and str(row.get("wicket_kind")) != "" and str(row.get("wicket_kind")).lower() != "nan" else 0
-        bowler_wkt = int(row.get("bowler_wicket", 0)) if pd.notna(row.get("bowler_wicket")) else 0
+        # bowler_wkt = int(row.get("bowler_wicket", 0)) if pd.notna(row.get("bowler_wicket")) else 0
         cum_wickets_2 += wicket_fell
         ball_num += 1
 

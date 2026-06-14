@@ -47,7 +47,7 @@ def show_player_view(data):
     sixes        = int((df["runs_batter"]==6).sum())
     dots         = int((df["runs_batter"]==0).sum())
     dot_pct      = round(dots/balls*100,1) if balls>0 else 0
-    boundary_pct = round((fours+sixes)/balls*100,1) if balls>0 else 0
+    # boundary_pct = round((fours+sixes)/balls*100,1) if balls>0 else 0
     dismissals   = int(df["player_dismissed"].notna().sum()) if "player_dismissed" in df.columns else 0
     avg          = round(runs/dismissals,2) if dismissals>0 else int(runs)
     role         = _role(df)

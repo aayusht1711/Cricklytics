@@ -122,8 +122,8 @@ def show_knockout_view(data):
 
         x = range(len(big_lift))
         w = 0.35
-        b1 = ax.bar([i - w / 2 for i in x], big_lift["ko_sr"], w, label="Knockout SR", color="#FFE66D")
-        b2 = ax.bar([i + w / 2 for i in x], big_lift["lg_sr"], w, label="League SR", color="#4ECDC4")
+        ax.bar([i - w / 2 for i in x], big_lift["ko_sr"], w, label="Knockout SR", color="#FFE66D")
+        ax.bar([i + w / 2 for i in x], big_lift["lg_sr"], w, label="League SR", color="#4ECDC4")
 
         ax.set_xticks(list(x))
         ax.set_xticklabels(big_lift["batter"], rotation=30, ha="right", color="white", fontsize=9)

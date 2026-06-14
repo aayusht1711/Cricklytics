@@ -44,15 +44,10 @@ animation:swing 1s infinite ease-in-out; }
 50%  { transform:rotate(-35deg); }
 100% { transform:rotate(0deg); }
 }
-.ball { width:35px; height:35px; background:red; border-radius:50%;
-display:inline-block; margin-left:20px; position:relative; }
-.ball::before { content:''; position:absolute; left:50%;
-width:2px; height:100%; background:white;
-transform:translateX(-50%); }
 .text { font-size:20px; margin-top:20px; font-weight:bold; }
 </style>
 <div class="loader-container">
-<div class="bat">🏏</div><div class="ball"></div>
+<div class="bat">🏏</div>
 <div class="text">Loading the crease...</div>
 </div>
 """

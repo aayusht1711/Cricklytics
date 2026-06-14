@@ -327,7 +327,7 @@ def show_dreamxi_view(data):
                 else "Some quality players but team balance needs work." if rating >= 35
                 else "Heavy rebuilding needed — missing key role players."
             )
-            + f"</p></div>",
+            + "</p></div>",
             unsafe_allow_html=True,
         )
         # Radar chart

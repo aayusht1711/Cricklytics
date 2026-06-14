@@ -367,7 +367,7 @@ def _over_runs_chart(data, match_id, innings, team_name):
                      title=f"Innings {innings} — runs per over ({team_name[:20]})",
                      xlabel="Over", ylabel="Runs")
 
-    bars = ax.bar(over_runs.index + 1, over_runs.values, color=colors, width=0.7)
+    ax.bar(over_runs.index + 1, over_runs.values, color=colors, width=0.7)
 
     # Wicket markers
     for ov, wkt in over_wkts.items():

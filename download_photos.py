@@ -55,4 +55,4 @@ for _, row in df.iterrows():
         fail += 1
 
 print(f"\nDone: {ok} saved, {fail} failed")
-print(f"Photos in: static/player_photos/")
+print("Photos in: static/player_photos/")

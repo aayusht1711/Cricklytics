@@ -20,8 +20,7 @@ def _get_model(shape):
     try:
         from sklearn.ensemble import RandomForestClassifier
         from sklearn.preprocessing import LabelEncoder
-        import pandas as pd
-        from collections import defaultdict
+        # imports already handled
 
         import os
         df = None
@@ -84,7 +83,7 @@ def _get_model(shape):
                 "h2h_total": dict(h2h_total), "team1_wr": team1_wr,
                 "team2_wr": team2_wr, "venue_wr": venue_wr,
                 "teams": sorted(le_team.classes_), "venues": sorted(le_venue.classes_)}
-    except Exception as e:
+    except Exception:
         return None
 
 
@@ -116,7 +115,7 @@ def _predict_prob(bundle, team1, team2, venue, toss_winner, toss_decision):
         "team2_winrate":  bundle["team2_wr"].get(team2, 0.5),
         "venue_team1_wr": bundle["venue_wr"].get(venue, 0.5),
     }
-    import pandas as pd
+    # import pandas as pd
     X = pd.DataFrame([row])[FEATURES]
     prob = model.predict_proba(X)[0]
     return round(prob[1] * 100, 1), round(prob[0] * 100, 1)
@@ -178,7 +177,7 @@ def show_whatif_view(data):
         from sklearn.ensemble import RandomForestClassifier
         SKLEARN_OK = True
     except ImportError:
-        SKLEARN_OK = False
+        # SKLEARN_OK = False
         st.error("Run: pip install scikit-learn")
         return
 
@@ -211,7 +210,7 @@ def show_whatif_view(data):
     winner  = row["match_won_by"]
     result  = row["win_outcome"]
     pom     = row["player_of_match"]
-    mid     = int(row["match_id"])
+    # mid     = int(row["match_id"])
 
     t1c = TEAM_COLORS.get(team1, "#00FFFF")
     t2c = TEAM_COLORS.get(team2, "#FF6B6B")

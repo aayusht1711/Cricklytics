@@ -306,7 +306,7 @@ def show_squad_view(data):
                 bat  = data[data["batter"]==p["name"]]
                 runs = int(bat["runs_batter"].sum()) if len(bat)>0 else 0
                 bls  = int(bat["valid_ball"].sum())  if len(bat)>0 else 0
-                sr   = round(runs/bls*100,1) if bls>0 else 0
+                # sr   = round(runs/bls*100,1) if bls>0 else 0
                 wkts = int(data[data["bowler"]==p["name"]]["bowler_wicket"].sum())
                 price= f"₹{p['auction_price_cr']} Cr" \
                        if p["auction_price_cr"]>0 else "Retained"

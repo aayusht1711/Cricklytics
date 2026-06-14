@@ -79,7 +79,7 @@ def show_drs_view(data):
     total      = len(drs)
     upheld     = int((drs["review_decision"] == "upheld").sum())
     struck     = total - upheld
-    best_team  = team_stats.sort_values("success_pct", ascending=False).iloc[0]
+    # best_team  = team_stats.sort_values("success_pct", ascending=False).iloc[0]
     most_lucky = bat_stats.sort_values("upheld", ascending=False).iloc[0]
 
     c1, c2, c3, c4 = st.columns(4)

@@ -33,11 +33,7 @@ def train_model(data_hash: int):
     """
     import pandas as pd
     import numpy as np
-    from collections import defaultdict
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.preprocessing import LabelEncoder
-    from sklearn.model_selection import train_test_split, cross_val_score
-    from sklearn.metrics import accuracy_score, confusion_matrix
+    pass
 
     # ── load fresh inside cache fn (data passed via hash only) ──
     import os
@@ -273,7 +269,7 @@ def _confusion_matrix_chart(cm):
     fig.patch.set_facecolor(DARK_BG)
     ax.set_facecolor(DARK_BG)
 
-    im = ax.imshow(cm, cmap="Blues")
+    ax.imshow(cm, cmap="Blues")
     ax.set_xticks([0, 1]); ax.set_yticks([0, 1])
     ax.set_xticklabels(["Pred: Team2", "Pred: Team1"], color=TEXT_COLOR, fontsize=9)
     ax.set_yticklabels(["Actual: Team2", "Actual: Team1"], color=TEXT_COLOR, fontsize=9)
@@ -384,7 +380,7 @@ def show_predictor_view(data):
             <div class="metric-label">Training matches</div>
         </div>""", unsafe_allow_html=True)
     with m4:
-        st.markdown(f"""
+        st.markdown("""
         <div class="metric-box">
             <div class="metric-val">9</div>
             <div class="metric-label">Features engineered</div>
