@@ -38,6 +38,8 @@ def show_compare_view(data):
 
     fours = (df['runs_batter'] == 4).sum()
     sixes = (df['runs_batter'] == 6).sum()
+    dots = (df['runs_batter'] == 0).sum()
+    dot_pct = (dots / balls * 100) if balls > 0 else 0
 
     sr = (runs / balls * 100) if balls > 0 else 0
     avg = (runs / dismissals) if dismissals > 0 else runs
@@ -82,6 +84,19 @@ def show_compare_view(data):
     avatar_bat_html = get_player_avatar_html(batter, t_color_bat, size=64, display_margin=False)
     avatar_bowl_html = get_player_avatar_html(bowler, t_color_bowl, size=64, display_margin=False)
 
+    dismissal_html = ""
+    if dismissals > 0 and 'wicket_kind' in df.columns:
+        w_df = df[df['player_dismissed'].notna() & df['wicket_kind'].notna()]
+        if not w_df.empty:
+            w_counts = w_df['wicket_kind'].value_counts()
+            d_list = "".join([f"<span style='background:rgba(255,107,107,0.1);color:#FF6B6B;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:12px;'>{k.title()}: {v}</span>" for k, v in w_counts.items()])
+            dismissal_html = f"""
+            <div style='margin-top: 15px;'>
+                <div style='font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:5px; font-weight:700;'>DISMISSAL BREAKDOWN</div>
+                {d_list}
+            </div>
+            """
+
     st.markdown(f"""
     <div class='card'>
         <div style='display:flex; align-items:center; justify-content:space-around; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px;'>
@@ -110,7 +125,12 @@ def show_compare_view(data):
                 <td>Four / Sixes</td><td><b>{fours} / {sixes}</b></td>
                 <td>🎯 Dismissals</td><td><b style='color:#FF6B6B;'>{dismissals}</b></td>
             </tr>
+            <tr>
+                <td>⭕ Dot Balls</td><td><b>{dots}</b></td>
+                <td>📉 Dot Ball %</td><td><b>{round(dot_pct,1)}%</b></td>
+            </tr>
         </table>
+        {dismissal_html}
         
         <div style='margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;'>
             <h4 style='color:#FFE66D; margin: 0 0 10px 0; font-family:"Rajdhani", sans-serif; font-size: 16px; font-weight: 700;'>Matchup by Game Phase</h4>

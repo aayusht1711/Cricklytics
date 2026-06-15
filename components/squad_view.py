@@ -145,8 +145,8 @@ def show_squad_view(data):
             unsafe_allow_html=True,
         )
 
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "Team Squads","Auction Analysis","Overseas Players","Player Search"
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "Team Squads","Auction Analysis","Overseas Players","Player Search","Gap Analyzer"
     ])
 
     # ── TAB 1 ─────────────────────────────────────────────────────
@@ -339,3 +339,48 @@ def show_squad_view(data):
                         f"{career}</div>",
                         unsafe_allow_html=True,
                     )
+
+    # ── TAB 5 ─────────────────────────────────────────────────────
+    with tab5:
+        st.markdown("<h3>Franchise Gap & Trade Analyzer</h3>", unsafe_allow_html=True)
+        analyze_team = st.selectbox("Select Franchise to Analyze", sorted(profiles["team"].unique()), key="gap_team")
+        
+        team_squad = profiles[profiles["team"] == analyze_team]
+        
+        os_bowlers = team_squad[(team_squad["is_overseas"] == 1) & (team_squad["role"].isin(["Bowler", "All-Rounder"]))]
+        ind_batters = team_squad[(team_squad["is_overseas"] == 0) & (team_squad["role"].isin(["Batter", "Wicket-Keeper"]))]
+        
+        gaps = []
+        if len(os_bowlers) < 3:
+            gaps.append({"title": "Need Overseas Pace/Quality Bowler", "query": ("is_overseas", 1, ["Bowler"])})
+        if len(ind_batters) < 6:
+            gaps.append({"title": "Need Domestic Batting Depth", "query": ("is_overseas", 0, ["Batter", "Wicket-Keeper"])})
+        if len(team_squad[team_squad["role"] == "All-Rounder"]) < 3:
+            gaps.append({"title": "Need All-Rounders", "query": ("is_overseas", None, ["All-Rounder"])})
+        if len(team_squad[(team_squad["is_overseas"] == 0) & (team_squad["role"] == "Bowler")]) < 4:
+            gaps.append({"title": "Need Domestic Bowling Depth", "query": ("is_overseas", 0, ["Bowler"])})
+            
+        if not gaps:
+            gaps.append({"title": "Looking for X-Factor Players (All-Rounders)", "query": ("is_overseas", None, ["All-Rounder"])})
+            
+        st.markdown(f"<p>Analyzing <b>{analyze_team}</b> squad balance...</p>", unsafe_allow_html=True)
+        
+        for gap in gaps:
+            st.markdown(f"<div class='card' style='margin-bottom:20px;'>"
+                        f"<h4 style='color:#FF6B6B; margin-top:0;'>⚠️ Weakness Detected: {gap['title']}</h4>"
+                        f"<p style='color:rgba(255,255,255,0.6); font-size:13px;'>The algorithm has queried the entire league to find the best 3 players that perfectly fit this missing role profile.</p>", 
+                        unsafe_allow_html=True)
+            
+            targets = profiles[profiles["team"] != analyze_team]
+            if gap["query"][0] is not None:
+                targets = targets[targets[gap["query"][0]] == gap["query"][1]]
+            targets = targets[targets["role"].isin(gap["query"][2])]
+            
+            targets = targets.sort_values("auction_price_cr", ascending=False).head(3)
+            
+            cols = st.columns(3)
+            for i, (_, p) in enumerate(targets.iterrows()):
+                tc = TEAM_COLORS.get(p["team"], "#00FFFF")
+                with cols[i]:
+                    st.markdown(_player_card(p, tc), unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)

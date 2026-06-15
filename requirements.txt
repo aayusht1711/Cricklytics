@@ -6,3 +6,5 @@ gdown
 requests
 pyyaml
 scikit-learn
+
+pulp

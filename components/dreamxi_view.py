@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import pulp
 from utils.photo_helper import get_player_avatar_html, get_player_info
 TEAM_COLORS = {
     "Mumbai Indians": "#005DA0", "Chennai Super Kings": "#F7C010",
@@ -154,6 +155,55 @@ def _compute_team_rating(selected_players, bat_df, bowl_df, ar_df):
         "avg_econ":       avg_econ,
         "ar_count":       ar_count,
     }
+def _optimize_team(bat_df, bowl_df, ar_df, keep_df):
+    """Uses PuLP to find the mathematically optimal XI."""
+    players = {}
+    
+    for _, r in keep_df.iterrows():
+        p = r["batter"]
+        if p not in players:
+            players[p] = {"name": p, "rating": float(r["bat_rating"]), "role": "WK", "team": r["team"]}
+            
+    for _, r in ar_df.iterrows():
+        p = r["batter"]
+        if p not in players:
+            team = bat_df[bat_df["batter"] == p]["team"].iloc[0] if len(bat_df[bat_df["batter"] == p]) > 0 else "Unknown"
+            players[p] = {"name": p, "rating": float(r["ar_rating"]), "role": "AR", "team": team}
+            
+    for _, r in bat_df.iterrows():
+        p = r["batter"]
+        if p not in players:
+            players[p] = {"name": p, "rating": float(r["bat_rating"]), "role": "BAT", "team": r["team"]}
+            
+    for _, r in bowl_df.iterrows():
+        p = r["bowler"]
+        if p not in players:
+            players[p] = {"name": p, "rating": float(r["bowl_rating"]), "role": "BOWL", "team": r["team"]}
+
+    prob = pulp.LpProblem("DreamXI_Optimizer", pulp.LpMaximize)
+    player_vars = pulp.LpVariable.dicts("Players", list(players.keys()), cat='Binary')
+    
+    prob += pulp.lpSum([players[p]["rating"] * player_vars[p] for p in players])
+    prob += pulp.lpSum([player_vars[p] for p in players]) == 11
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "WK"]) == 1
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "BAT"]) >= 3
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "BAT"]) <= 5
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "AR"]) >= 1
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "AR"]) <= 3
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "BOWL"]) >= 3
+    prob += pulp.lpSum([player_vars[p] for p in players if players[p]["role"] == "BOWL"]) <= 5
+    
+    teams = list(set([players[p]["team"] for p in players]))
+    for t in teams:
+        prob += pulp.lpSum([player_vars[p] for p in players if players[p]["team"] == t]) <= 4
+        
+    prob.solve(pulp.PULP_CBC_CMD(msg=0))
+    
+    if prob.status == pulp.LpStatusOptimal:
+        selected = [p for p in players if player_vars[p].varValue == 1.0]
+        return selected, {p: players[p]["role"] for p in selected}
+    return [], {}
+
 def show_dreamxi_view(data):
     st.markdown("<h2>Build Your Dream XI</h2>", unsafe_allow_html=True)
     st.markdown(
@@ -164,16 +214,36 @@ def show_dreamxi_view(data):
     )
     bat_df, bowl_df, ar_df, keep_df = _build_player_pool(data)
     # ── ROLE-BASED SELECTION ──────────────────────────────────────
-    st.markdown("<h3>Step 1 — Pick Your Playing XI</h3>", unsafe_allow_html=True)
+    col_hdr1, col_hdr2 = st.columns([3, 1])
+    col_hdr1.markdown("<h3>Step 1 — Pick Your Playing XI</h3>", unsafe_allow_html=True)
+    
+    if col_hdr2.button("✨ AI Smart Optimize", use_container_width=True):
+        best_xi, best_roles = _optimize_team(bat_df, bowl_df, ar_df, keep_df)
+        if best_xi:
+            st.session_state["opt_wk"] = [p for p in best_xi if best_roles[p] == "WK"][0] if [p for p in best_xi if best_roles[p] == "WK"] else None
+            st.session_state["opt_bat"] = [p for p in best_xi if best_roles[p] == "BAT"]
+            st.session_state["opt_ar"] = [p for p in best_xi if best_roles[p] == "AR"]
+            st.session_state["opt_bowl"] = [p for p in best_xi if best_roles[p] == "BOWL"]
+            st.session_state["opt_team_name"] = "AI Optimal XI"
+
+    opt_wk = st.session_state.get("opt_wk", None)
+    opt_bat = st.session_state.get("opt_bat", None)
+    opt_ar = st.session_state.get("opt_ar", None)
+    opt_bowl = st.session_state.get("opt_bowl", None)
+    opt_team_name = st.session_state.get("opt_team_name", "My Dream XI")
+
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
             "<p style='color:#FFE66D;font-weight:700;margin-bottom:4px;'>Wicket Keeper (pick 1)</p>",
             unsafe_allow_html=True,
         )
+        k_list = keep_df.sort_values("bat_rating", ascending=False)["batter"].tolist()
+        k_idx = k_list.index(opt_wk) if opt_wk in k_list else 0
         keeper = st.selectbox(
             "Keeper",
-            keep_df.sort_values("bat_rating", ascending=False)["batter"].tolist(),
+            k_list,
+            index=k_idx,
             label_visibility="collapsed",
         )
         st.markdown(
@@ -183,11 +253,13 @@ def show_dreamxi_view(data):
         pure_bat = bat_df[~bat_df["batter"].isin(
             ar_df["batter"].tolist() + keep_df["batter"].tolist()
         )].sort_values("bat_rating", ascending=False)
+        pure_bat_list = pure_bat["batter"].tolist()
+        b_default = opt_bat if opt_bat and all(x in pure_bat_list for x in opt_bat) else pure_bat_list[:4]
         batters = st.multiselect(
             "Batters",
-            pure_bat["batter"].tolist(),
-            default=pure_bat["batter"].tolist()[:4],
-            max_selections=4,
+            pure_bat_list,
+            default=b_default,
+            max_selections=5,
             label_visibility="collapsed",
         )
         st.markdown(
@@ -195,11 +267,13 @@ def show_dreamxi_view(data):
             unsafe_allow_html=True,
         )
         ar_sorted = ar_df.sort_values("ar_rating", ascending=False)
+        ar_list = ar_sorted["batter"].tolist()
+        ar_default = opt_ar if opt_ar and all(x in ar_list for x in opt_ar) else ar_list[:2]
         allrounders = st.multiselect(
             "All Rounders",
-            ar_sorted["batter"].tolist(),
-            default=ar_sorted["batter"].tolist()[:2],
-            max_selections=2,
+            ar_list,
+            default=ar_default,
+            max_selections=3,
             label_visibility="collapsed",
         )
     with col2:
@@ -210,18 +284,20 @@ def show_dreamxi_view(data):
         pure_bowl = bowl_df[~bowl_df["bowler"].isin(
             ar_df["batter"].tolist()
         )].sort_values("bowl_rating", ascending=False)
+        pure_bowl_list = pure_bowl["bowler"].tolist()
+        bowl_default = opt_bowl if opt_bowl and all(x in pure_bowl_list for x in opt_bowl) else pure_bowl_list[:4]
         bowlers = st.multiselect(
             "Bowlers",
-            pure_bowl["bowler"].tolist(),
-            default=pure_bowl["bowler"].tolist()[:4],
-            max_selections=4,
+            pure_bowl_list,
+            default=bowl_default,
+            max_selections=5,
             label_visibility="collapsed",
         )
         st.markdown(
             "<p style='color:rgba(255,255,255,0.5);font-weight:700;margin:12px 0 4px;'>Team Name</p>",
             unsafe_allow_html=True,
         )
-        team_name = st.text_input("Team Name", value="My Dream XI",
+        team_name = st.text_input("Team Name", value=opt_team_name,
                                    label_visibility="collapsed")
         st.markdown(
             "<p style='color:rgba(255,255,255,0.5);font-weight:700;margin:12px 0 4px;'>Team Color</p>",

@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import math
 
 # ── Constants ────────────────────────────────────────────────────
@@ -478,7 +479,7 @@ def _plot_win_prob(wp_df, bat_team1, bat_team2, key_moments):
     color1 = TEAM_COLORS.get(bat_team1, ACCENT)
     color2 = TEAM_COLORS.get(bat_team2, ACCENT3)
 
-    fig = go.Figure()
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     # Innings 1 data
     inn1 = wp_df[wp_df["innings"] == 1]
@@ -500,7 +501,29 @@ def _plot_win_prob(wp_df, bat_team1, bat_team2, key_moments):
             "<extra></extra>"
         ),
         customdata=[(1 - wp) * 100 for wp in wp_df["win_prob_bat1"]],
-    ))
+    ), secondary_y=False)
+
+    # Worm for innings 1
+    if len(inn1) > 0:
+        fig.add_trace(go.Scatter(
+            x=inn1["ball_num"],
+            y=inn1["cum_runs"],
+            mode="lines",
+            line=dict(color=color1, width=3, dash="solid"),
+            name=f"{bat_team1} Runs (Worm)",
+            hovertemplate="<b>Ball %{x}</b><br>Runs: %{y}<extra></extra>",
+        ), secondary_y=True)
+
+    # Worm for innings 2
+    if len(inn2) > 0:
+        fig.add_trace(go.Scatter(
+            x=inn2["ball_num"],
+            y=inn2["cum_runs"],
+            mode="lines",
+            line=dict(color=color2, width=3, dash="solid"),
+            name=f"{bat_team2} Runs (Worm)",
+            hovertemplate="<b>Ball %{x}</b><br>Runs: %{y}<extra></extra>",
+        ), secondary_y=True)
 
     # 50% baseline
     fig.add_hline(
@@ -583,6 +606,12 @@ def _plot_win_prob(wp_df, bat_team1, bat_team2, key_moments):
             zeroline=False,
             showline=False,
             ticksuffix="%",
+        ),
+        yaxis2=dict(
+            title="Cumulative Runs (Worm)",
+            range=[0, max(wp_df["cum_runs"].max() + 10 if not wp_df.empty else 200, 200)],
+            showgrid=False,
+            zeroline=False,
         ),
         legend=dict(
             orientation="h", yanchor="bottom", y=-0.18,

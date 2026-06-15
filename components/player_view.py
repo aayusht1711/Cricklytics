@@ -119,8 +119,13 @@ def show_player_view(data):
         df2 = df.copy()
         df2["phase"] = pd.cut(df2["over"], bins=[-1,5,14,19],
                                labels=["Powerplay","Middle","Death"])
+        if "player_dismissed" in df2.columns:
+            df2["is_out"] = df2["player_dismissed"].notna().astype(int)
+        else:
+            df2["is_out"] = 0
+            
         phase = df2.groupby("phase", observed=True).agg(
-            runs=("runs_batter","sum"), balls=("valid_ball","sum")
+            runs=("runs_batter","sum"), balls=("valid_ball","sum"), outs=("is_out","sum")
         ).reset_index()
         phase["sr"] = (phase["runs"]/phase["balls"]*100).fillna(0).round(1)
         fig2 = px.bar(phase, x="phase", y="sr",
@@ -131,6 +136,13 @@ def show_player_view(data):
         fig2.update_traces(textposition="outside")
         _fig(fig2, "SR by Over Phase", showlegend=False)
         st.plotly_chart(fig2, use_container_width=True)
+
+        phase_html = "<table style='width:100%; color:white; font-size:13px; border-collapse:collapse; margin-top:10px;'>"
+        phase_html += "<tr style='border-bottom:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.5);'><th style='text-align:left; padding-bottom:4px;'>Phase</th><th>Runs</th><th>Balls</th><th>S/R</th><th style='color:#FF6B6B;'>Outs</th></tr>"
+        for _, row in phase.iterrows():
+            phase_html += f"<tr style='border-bottom:1px solid rgba(255,255,255,0.04);'><td style='padding:6px 0; font-weight:600;'>{row['phase']}</td><td align='center'>{int(row['runs'])}</td><td align='center'>{int(row['balls'])}</td><td align='center' style='color:#00FFFF;font-weight:700;'>{row['sr']}</td><td align='center' style='color:#FF6B6B;font-weight:700;'>{int(row['outs'])}</td></tr>"
+        phase_html += "</table>"
+        st.markdown(f"<div class='card' style='padding: 15px;'>{phase_html}</div>", unsafe_allow_html=True)
     with col_b:
         st.markdown("<h3>Ball Outcome Distribution</h3>", unsafe_allow_html=True)
         buckets = {"Dots":dots,"Singles":int((df["runs_batter"]==1).sum()),
