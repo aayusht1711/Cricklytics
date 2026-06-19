@@ -19,7 +19,7 @@ ROLE_COLORS = {
 BASE   = dict(template="plotly_dark")
 LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(14,17,23,0.8)",
+    plot_bgcolor="rgba(0,0,0,0)",
     font=dict(family="DM Sans, sans-serif", color="white"),
     margin=dict(l=20, r=20, t=50, b=20),
 )
