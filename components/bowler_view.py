@@ -22,6 +22,9 @@ def _bowler_stats(data):
         bins=[-1, 5, 14, 19],
         labels=["Powerplay (0–5)", "Middle (6–14)", "Death (15–19)"],
     )
+    match_wkts = df.groupby(["bowler", "match_id"])["bowler_wicket"].sum().reset_index()
+    four_fers = match_wkts[match_wkts["bowler_wicket"] >= 4].groupby("bowler").size().reset_index(name="four_fers")
+    
     # Overall stats
     overall = (
         df.groupby("bowler")
@@ -32,6 +35,8 @@ def _bowler_stats(data):
         )
         .reset_index()
     )
+    overall = overall.merge(four_fers, on="bowler", how="left")
+    overall["four_fers"] = overall["four_fers"].fillna(0).astype(int)
     overall = overall[overall["balls"] >= 120]
     overall["economy"] = (overall["runs"] / overall["balls"] * 6).round(2)
     overall["bowling_sr"] = (
@@ -93,7 +98,7 @@ def show_bowler_view(data):
                 </tr>
                 <tr>
                     <td style='padding: 2px 0;'>⚾ Balls Bowled</td><td style='padding: 2px 0;'><b>{int(row['balls'])}</b></td>
-                    <td style='padding: 2px 0;'>💣 Runs Conceded</td><td style='padding: 2px 0;'><b>{int(row['runs'])}</b></td>
+                    <td style='padding: 2px 0;'>🏅 4+ Wicket Hauls</td><td style='padding: 2px 0;'><b style='color:#FFE66D;'>{int(row['four_fers'])}</b></td>
                 </tr>
             </table>
         </div>
