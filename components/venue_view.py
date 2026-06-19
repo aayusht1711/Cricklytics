@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
+import plotly.graph_objects as go
 
 
 @st.cache_data
@@ -56,15 +55,29 @@ def _toss_stats(data):
     match_df["toss_match_winner"] = (
         match_df["toss_winner"] == match_df["match_won_by"]
     )
+    match_df["toss_bat"] = match_df["toss_decision"] == "bat"
+    match_df["toss_field"] = match_df["toss_decision"] == "field"
+    
+    match_df["toss_bat_win"] = match_df["toss_match_winner"] & match_df["toss_bat"]
+    match_df["toss_field_win"] = match_df["toss_match_winner"] & match_df["toss_field"]
+
     toss = (
         match_df.groupby("venue")
         .agg(
             toss_wins_match=("toss_match_winner", "sum"),
+            toss_bat_total=("toss_bat", "sum"),
+            toss_field_total=("toss_field", "sum"),
+            toss_bat_wins=("toss_bat_win", "sum"),
+            toss_field_wins=("toss_field_win", "sum"),
             total=("match_id", "count"),
         )
         .reset_index()
     )
     toss["toss_win_pct"] = (toss["toss_wins_match"] / toss["total"] * 100).round(1)
+    
+    toss["toss_bat_win_pct"] = (toss["toss_bat_wins"] / toss["toss_bat_total"].replace(0, 1) * 100).round(1)
+    toss["toss_field_win_pct"] = (toss["toss_field_wins"] / toss["toss_field_total"].replace(0, 1) * 100).round(1)
+    
     return toss[toss["total"] >= 5]
 
 
@@ -100,6 +113,12 @@ def show_venue_view(data):
                 <td><b>{int(row['total_matches'])}</b></td>
                 <td>🪙 Toss → Match Win %</td>
                 <td><b>{toss_pct}%</b></td>
+            </tr>
+            <tr>
+                <td>☀️ Toss & Bat First Win %</td>
+                <td><b style='color:#FFE66D;'>{toss_row["toss_bat_win_pct"].values[0] if not toss_row.empty else "N/A"}%</b></td>
+                <td>🌙 Toss & Bowl First Win %</td>
+                <td><b style='color:#4ECDC4;'>{toss_row["toss_field_win_pct"].values[0] if not toss_row.empty else "N/A"}%</b></td>
             </tr>
             <tr>
                 <td colspan='4' style='padding-top:10px;'>Ground Type: <b>{row['ground_type']}</b></td>
@@ -143,58 +162,45 @@ def show_venue_view(data):
 
     # --- Global leaderboard charts ---
     st.markdown("<h3>📊 All Venues — Avg 1st Innings Score</h3>", unsafe_allow_html=True)
-    top_venues = venue_df.sort_values("avg_first_innings", ascending=False).head(12)
-
-    fig, ax = plt.subplots(figsize=(10, 5))
-    fig.patch.set_facecolor("#0e1117")
-    ax.set_facecolor("#0e1117")
-
-    colors = [
-        "#00FFFF" if v == selected_venue else "#1f77b4"
-        for v in top_venues["venue"]
-    ]
-    short_names = [v.split(",")[0][:28] for v in top_venues["venue"]]
-
-    bars = ax.barh(short_names, top_venues["avg_first_innings"], color=colors)
-    ax.set_xlabel("Avg 1st Innings Score", color="white")
-    ax.tick_params(colors="white")
-    ax.spines[:].set_color("#444")
-    for bar in bars:
-        ax.text(
-            bar.get_width() + 1,
-            bar.get_y() + bar.get_height() / 2,
-            f"{bar.get_width():.0f}",
-            va="center",
-            color="white",
-            fontsize=8,
-        )
-
-    highlight = mpatches.Patch(color="#00FFFF", label="Selected Venue")
-    ax.legend(handles=[highlight], facecolor="#0e1117", labelcolor="white")
-    plt.tight_layout()
-    st.pyplot(fig)
+    top_venues = venue_df.sort_values("avg_first_innings", ascending=False).head(12).copy()
+    top_venues["short_name"] = top_venues["venue"].apply(lambda v: v.split(",")[0][:28])
+    top_venues["color"] = top_venues["venue"].apply(lambda v: "#00FFFF" if v == selected_venue else "#1f77b4")
+    
+    fig = go.Figure(go.Bar(
+        x=top_venues["avg_first_innings"], y=top_venues["short_name"],
+        orientation="h", marker_color=top_venues["color"],
+        text=top_venues["avg_first_innings"],
+        textposition="outside",
+    ))
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="DM Sans, sans-serif", color="white"),
+        margin=dict(l=20, r=20, t=20, b=20),
+        yaxis=dict(autorange="reversed"),
+        xaxis_title="Avg 1st Innings Score"
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
     # --- Chase win % chart ---
     st.markdown("<h3>🏃 Chasing Win % by Venue (min 5 matches)</h3>", unsafe_allow_html=True)
-    chase_sorted = venue_df.sort_values("chase_win_pct", ascending=False).head(12)
-
-    fig2, ax2 = plt.subplots(figsize=(10, 5))
-    fig2.patch.set_facecolor("#0e1117")
-    ax2.set_facecolor("#0e1117")
-
-    colors2 = [
-        "#FF6B6B" if p >= 50 else "#4ECDC4" for p in chase_sorted["chase_win_pct"]
-    ]
-    short_names2 = [v.split(",")[0][:28] for v in chase_sorted["venue"]]
-
-    ax2.barh(short_names2, chase_sorted["chase_win_pct"], color=colors2)
-    ax2.axvline(50, color="white", linestyle="--", alpha=0.5, label="50% line")
-    ax2.set_xlabel("Chasing Win %", color="white")
-    ax2.tick_params(colors="white")
-    ax2.spines[:].set_color("#444")
-
-    bat_patch = mpatches.Patch(color="#FF6B6B", label="Batting Paradise (>50%)")
-    bowl_patch = mpatches.Patch(color="#4ECDC4", label="Bowler's Ground (<50%)")
-    ax2.legend(handles=[bat_patch, bowl_patch], facecolor="#0e1117", labelcolor="white")
-    plt.tight_layout()
-    st.pyplot(fig2)
+    chase_sorted = venue_df.sort_values("chase_win_pct", ascending=False).head(12).copy()
+    chase_sorted["short_name"] = chase_sorted["venue"].apply(lambda v: v.split(",")[0][:28])
+    chase_sorted["color"] = chase_sorted["chase_win_pct"].apply(lambda p: "#FF6B6B" if p >= 50 else "#4ECDC4")
+    
+    fig2 = go.Figure(go.Bar(
+        x=chase_sorted["chase_win_pct"], y=chase_sorted["short_name"],
+        orientation="h", marker_color=chase_sorted["color"],
+        text=chase_sorted["chase_win_pct"].apply(lambda x: f"{x}%"),
+        textposition="outside",
+    ))
+    fig2.add_vline(x=50, line_dash="dash", line_color="rgba(255,255,255,0.5)")
+    fig2.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="DM Sans, sans-serif", color="white"),
+        margin=dict(l=20, r=20, t=20, b=20),
+        yaxis=dict(autorange="reversed"),
+        xaxis_title="Chasing Win %"
+    )
+    st.plotly_chart(fig2, use_container_width=True)
