@@ -18,7 +18,7 @@ TEAM_COLORS = {
 BASE = dict(template="plotly_dark")
 LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(14,17,23,0.8)",
+    plot_bgcolor="rgba(0,0,0,0)",
     font=dict(family="DM Sans, sans-serif", color="white"),
     margin=dict(l=20, r=20, t=50, b=20),
 )
@@ -67,7 +67,7 @@ def show_team_view(data):
     c7.metric("Boundary %",   f"{boundary_pct}%")
     c8.metric("Dot Ball %",   f"{dot_pct}%")
 
-    tab1,tab2,tab3,tab4 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend"])
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend","Rivalry Mode"])
 
     with tab1:
         col_a, col_b = st.columns(2)
@@ -160,9 +160,65 @@ def show_team_view(data):
                        secondary_y=False)
         fig6.add_trace(go.Scatter(x=by_season["season"].astype(str), y=by_season["sr"],
                                   name="SR", mode="lines+markers",
-                                  line=dict(color="#FFE66D",width=2), marker=dict(size=7)),
+                                  line=dict(color="#FFE66D",width=3), marker=dict(size=8, line=dict(color='white', width=1))),
                        secondary_y=True)
         _fig(fig6, f"{team} — Season Trend")
         fig6.update_yaxes(title_text="Runs/Match", secondary_y=False)
         fig6.update_yaxes(title_text="Strike Rate", secondary_y=True)
         st.plotly_chart(fig6, use_container_width=True)
+
+    with tab5:
+        st.markdown("<h3>Head-to-Head Rivalry</h3>", unsafe_allow_html=True)
+        opp_list = [t for t in sorted(data["batting_team"].unique()) if t != team]
+        opp_team = st.selectbox("Select Opponent", opp_list)
+        
+        if opp_team:
+            match_df = data.drop_duplicates("match_id")
+            rivalry_matches = match_df[
+                ((match_df["batting_team"] == team) & (match_df["bowling_team"] == opp_team)) |
+                ((match_df["batting_team"] == opp_team) & (match_df["bowling_team"] == team))
+            ]
+            
+            total_matches = len(rivalry_matches)
+            team_wins = len(rivalry_matches[rivalry_matches["match_won_by"] == team])
+            opp_wins = len(rivalry_matches[rivalry_matches["match_won_by"] == opp_team])
+            
+            if total_matches > 0:
+                win_pct = round(team_wins / total_matches * 100, 1)
+                team_bat = data[(data["batting_team"] == team) & (data["bowling_team"] == opp_team)]
+                opp_bat = data[(data["batting_team"] == opp_team) & (data["bowling_team"] == team)]
+                
+                team_avg = round(team_bat.groupby("match_id")["runs_total"].sum().mean(), 1) if not team_bat.empty else 0
+                opp_avg = round(opp_bat.groupby("match_id")["runs_total"].sum().mean(), 1) if not opp_bat.empty else 0
+                
+                if not team_bat.empty:
+                    top_scorer = team_bat.groupby("batter")["runs_batter"].sum().sort_values(ascending=False).head(1)
+                    top_scorer_str = f"{top_scorer.index[0]} ({top_scorer.values[0]})"
+                else:
+                    top_scorer_str = "N/A"
+                    
+                st.markdown(f"""
+                <div class='card' style='margin-top: 10px;'>
+                    <div style='display:flex; justify-content:space-around; text-align:center;'>
+                        <div style='width:33%;'>
+                            <h4 style='color:{t_color}; margin-bottom:5px; font-size:14px;'>{team.upper()}</h4>
+                            <h2 style='margin:0; font-size:36px; text-shadow: 0 0 10px {t_color}88;'>{team_wins}</h2>
+                        </div>
+                        <div style='width:33%; border-left:1px solid rgba(255,255,255,0.1); border-right:1px solid rgba(255,255,255,0.1);'>
+                            <h4 style='color:rgba(255,255,255,0.5); margin-bottom:5px; font-size:12px;'>MATCHES</h4>
+                            <h2 style='margin:0; font-size:28px; color:#FFE66D;'>{total_matches}</h2>
+                        </div>
+                        <div style='width:33%;'>
+                            <h4 style='color:{TEAM_COLORS.get(opp_team, "#FFF")}; margin-bottom:5px; font-size:14px;'>{opp_team.upper()}</h4>
+                            <h2 style='margin:0; font-size:36px; text-shadow: 0 0 10px {TEAM_COLORS.get(opp_team, "#FFF")}88;'>{opp_wins}</h2>
+                        </div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                c1, c2, c3 = st.columns(3)
+                c1.metric(f"{team} Avg Score", team_avg)
+                c2.metric(f"{opp_team} Avg Score", opp_avg)
+                c3.metric(f"Top Scorer", top_scorer_str)
+            else:
+                st.info("No matches found between these two teams.")
