@@ -539,6 +539,35 @@ letter-spacing:1.5px;margin:18px 0 4px;">🎯 Strengths & Weaknesses</p>
             raw_display = raw_display.set_index("Player")
             st.dataframe(raw_display.round(2), use_container_width=True)
 
+    # ── Player Similarity Engine (ML) ─────────────────────────
+    if not player_b:
+        st.markdown("""
+<p style="color:rgba(255,255,255,0.4);font-size:12px;text-transform:uppercase;
+letter-spacing:1.5px;margin:18px 0 4px;">🧬 ML Similarity Engine (Closest Matches)</p>
+""", unsafe_allow_html=True)
+        
+        from sklearn.metrics.pairwise import cosine_similarity
+        features = norm_stats[dims].fillna(0).values
+        # Get integer index of player_a
+        row_idx = norm_stats.index.get_loc(norm_stats[norm_stats["player"] == player_a].index[0])
+        sims = cosine_similarity(features[row_idx:row_idx+1], features).flatten()
+        
+        norm_stats_sim = norm_stats.copy()
+        norm_stats_sim["similarity"] = sims * 100
+        top_sims = norm_stats_sim[norm_stats_sim["player"] != player_a].sort_values("similarity", ascending=False).head(4)
+        
+        sim_html = "<div class='dna-card' style='display:flex; gap:15px; overflow-x:auto;'>"
+        for _, srow in top_sims.iterrows():
+            sim_color = TEAM_COLORS.get(srow['team'], '#FFF')
+            sim_html += f"""
+            <div style='background:rgba(255,255,255,0.05); padding:10px 15px; border-radius:8px; border-left:3px solid {sim_color}; min-width: 140px; flex: 1;'>
+                <div style='font-size:11px; color:#4ECDC4; margin-bottom:2px; font-weight:bold;'>{srow['similarity']:.1f}% Match</div>
+                <div style='font-weight:bold; font-size:14px; color:{sim_color}; white-space:nowrap;'>{srow['player']}</div>
+            </div>
+            """
+        sim_html += "</div>"
+        st.markdown(sim_html, unsafe_allow_html=True)
+
     # ── Methodology Note ─────────────────────────────────────────
     st.markdown("""
 <div class="dna-card" style="margin-top:16px;">
