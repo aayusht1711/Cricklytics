@@ -403,11 +403,12 @@ and game phase.</p>
     df_p = _compute_pressure_index(data)
 
     # ── 4-Tab Layout ──
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "🏆 Clutch Leaderboard",
         "📊 Player Pressure Profile",
         "🔥 Most Clutch Moments",
-        "🎯 Pressure vs Performance",
+        "📈 Pressure vs Performance",
+        "🏅 Match Winner Index"
     ])
 
     # ================================================================
@@ -861,3 +862,33 @@ quadrant = true clutch performers.
 These batters face above-average pressure AND maintain elite strike rates.</span>
 </div>
 """, border_color=ACCENT), unsafe_allow_html=True)
+
+    with tab5:
+        st.markdown("<h3>🏅 Match Winner Index (MWI)</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: rgba(255,255,255,0.6);'>What percentage of a player's career runs actually resulted in a team victory?</p>", unsafe_allow_html=True)
+        
+        df_mw = data[data["innings"].isin([1, 2])].copy()
+        df_mw["match_won"] = df_mw["batting_team"] == df_mw["match_won_by"]
+        
+        total_runs = df_mw.groupby("batter")["runs_batter"].sum().rename("total_runs")
+        won_runs = df_mw[df_mw["match_won"]].groupby("batter")["runs_batter"].sum().rename("won_runs")
+        
+        mw_stats = pd.concat([total_runs, won_runs], axis=1).fillna(0).reset_index()
+        mw_stats = mw_stats[mw_stats["total_runs"] >= 500].copy()
+        
+        if not mw_stats.empty:
+            mw_stats["mwi"] = (mw_stats["won_runs"] / mw_stats["total_runs"] * 100).round(1)
+            mw_stats = mw_stats.sort_values("mwi", ascending=False).head(15)
+            
+            fig_mw = go.Figure(go.Bar(
+                x=mw_stats["mwi"], y=mw_stats["batter"],
+                orientation="h", marker_color=ACCENT2,
+                text=mw_stats["mwi"].apply(lambda x: f"{x}%"),
+                textposition="outside",
+                customdata=mw_stats[["won_runs", "total_runs"]].values,
+                hovertemplate="<b>%{y}</b><br>MWI: %{x}%<br>Winning Runs: %{customdata[0]:,}<br>Total Career Runs: %{customdata[1]:,}<extra></extra>"
+            ))
+            _plotly_dark_layout(fig_mw, title="Highest Match Winner Index (Min 500 Career Runs)", xaxis_title="% of Runs in Won Matches", yaxis=dict(autorange="reversed"))
+            st.plotly_chart(fig_mw, use_container_width=True)
+        else:
+            st.info("Not enough data to calculate MWI.")
