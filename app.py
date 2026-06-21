@@ -28,6 +28,7 @@ from components.story_view import show_story_view
 from components.dna_view import show_dna_view
 from components.clutch_view import show_clutch_view
 from components.three_background import show_3d_background
+from components.standings_view import show_standings_view
 
 
 # ================================================================
@@ -112,7 +113,7 @@ st.sidebar.markdown("---")
 # ================================================================
 PAGES = [
     "Home", "🔴 Live Scores", "Player Analysis", "Team Analysis",
-    "📅 Season Analytics", "Insights", "Player Battle", "Venue Intelligence",
+    "📅 Season Analytics", "🏆 Season Standings", "Insights", "Player Battle", "Venue Intelligence",
     "Bowler Analytics", "Knockout Filter", "🤖 ML Predictor",
     "🎙️ AI Commentator", "🔍 DRS Analytics",
     "🧠 AI Scouting Report", "🔀 What If Simulator", "🏆 Dream XI", "🏆 Trivia Quiz",
@@ -138,6 +139,7 @@ BG = {
     "Player Analysis":    "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
     "Team Analysis":      "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
     "📅 Season Analytics": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    "🏆 Season Standings": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
     "Insights":           "https://images.unsplash.com/photo-1593341646782-e0b495cff86d",
     "Player Battle":      "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff",
     "Venue Intelligence": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
@@ -165,6 +167,7 @@ elif menu == "🔴 Live Scores":     show_live_view()
 elif menu == "Player Analysis":    show_player_view(data)
 elif menu == "Team Analysis":      show_team_view(data)
 elif menu == "📅 Season Analytics": show_season_view(data)
+elif menu == "🏆 Season Standings": show_standings_view(data)
 elif menu == "Insights":           show_insights(data)
 elif menu == "Player Battle":      show_compare_view(data)
 elif menu == "Venue Intelligence": show_venue_view(data)
