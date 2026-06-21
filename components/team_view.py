@@ -68,7 +68,7 @@ def show_team_view(data):
     c7.metric("Boundary %",   f"{boundary_pct}%")
     c8.metric("Dot Ball %",   f"{dot_pct}%")
 
-    tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend","Rivalry Mode","Partnerships"])
+    tab1,tab2,tab3,tab4,tab5,tab6,tab7 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend","Rivalry Mode","Partnerships","Over Heatmaps"])
 
     with tab1:
         col_a, col_b = st.columns(2)
@@ -259,3 +259,39 @@ def show_team_view(data):
                 st.info("Not enough data to calculate partnerships.")
         else:
             st.info("Partnership data unavailable.")
+
+    with tab7:
+        st.markdown("<h3>🔥 1-to-20 Over Heatmap</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: rgba(255,255,255,0.7);'>Evolution of Team Strike Rate for every single over across seasons.</p>", unsafe_allow_html=True)
+        
+        hm_data = df.groupby(["season", "over"]).agg(
+            runs=("runs_total", "sum"),
+            balls=("valid_ball", "sum")
+        ).reset_index()
+        
+        if not hm_data.empty:
+            hm_data = hm_data[hm_data["balls"] > 0]
+            hm_data["sr"] = (hm_data["runs"] / hm_data["balls"] * 100).round(0)
+            
+            hm_pivot = hm_data.pivot(index="season", columns="over", values="sr").fillna(0)
+            
+            for o in range(20):
+                if o not in hm_pivot.columns:
+                    hm_pivot[o] = 0
+            hm_pivot = hm_pivot[sorted(hm_pivot.columns)]
+            hm_pivot.columns = [f"Ov {i+1}" for i in hm_pivot.columns]
+            
+            fig8 = go.Figure(data=go.Heatmap(
+                z=hm_pivot.values,
+                x=hm_pivot.columns,
+                y=hm_pivot.index.astype(str),
+                colorscale="Inferno",
+                text=hm_pivot.values,
+                texttemplate="%{text}",
+                hovertemplate="Season: %{y}<br>Over: %{x}<br>Strike Rate: %{z}<extra></extra>"
+            ))
+            _fig(fig8, "Strike Rate Heatmap by Over & Season")
+            fig8.update_layout(height=500)
+            st.plotly_chart(fig8, use_container_width=True)
+        else:
+            st.info("No over-by-over data available.")
