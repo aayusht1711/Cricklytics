@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import numpy as np
 
 TEAM_COLORS = {
     "Mumbai Indians":"#005DA0","Chennai Super Kings":"#F7C010",
@@ -67,7 +68,7 @@ def show_team_view(data):
     c7.metric("Boundary %",   f"{boundary_pct}%")
     c8.metric("Dot Ball %",   f"{dot_pct}%")
 
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend","Rivalry Mode"])
+    tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(["Run Breakdown","Top Players","Phase Analysis","Season Trend","Rivalry Mode","Partnerships"])
 
     with tab1:
         col_a, col_b = st.columns(2)
@@ -222,3 +223,39 @@ def show_team_view(data):
                 c3.metric(f"Top Scorer", top_scorer_str)
             else:
                 st.info("No matches found between these two teams.")
+
+    with tab6:
+        st.markdown("<h3>🤝 Best Batting Partnerships</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: rgba(255,255,255,0.7);'>Top run-scoring duos in team history.</p>", unsafe_allow_html=True)
+        
+        df_partner = df.copy()
+        
+        # Fast vectorized sorting to create order-independent pairs
+        if not df_partner.empty and "non_striker" in df_partner.columns:
+            pairs = np.sort(df_partner[['batter', 'non_striker']].fillna("Unknown").astype(str).values, axis=1)
+            df_partner["duo"] = pairs[:, 0] + " & " + pairs[:, 1]
+            
+            duos = df_partner.groupby("duo").agg(
+                runs=("runs_total", "sum"),
+                balls=("valid_ball", "sum")
+            ).reset_index()
+            
+            duos = duos[duos["balls"] >= 30].sort_values("runs", ascending=False).head(12)
+            
+            if not duos.empty:
+                duos["sr"] = (duos["runs"] / duos["balls"] * 100).round(1)
+                
+                fig7 = go.Figure(go.Bar(
+                    x=duos["runs"], y=duos["duo"],
+                    orientation="h", marker_color=t_color,
+                    text=duos["runs"].apply(lambda x: f"{int(x):,}"),
+                    textposition="outside",
+                    customdata=duos[["sr", "balls"]].values,
+                    hovertemplate="<b>%{y}</b><br>Runs: %{x:,}<br>SR: %{customdata[0]}<br>Balls: %{customdata[1]}<extra></extra>",
+                ))
+                _fig(fig7, "Most Prolific Batting Duos", xaxis_title="Total Runs", yaxis=dict(autorange="reversed"))
+                st.plotly_chart(fig7, use_container_width=True)
+            else:
+                st.info("Not enough data to calculate partnerships.")
+        else:
+            st.info("Partnership data unavailable.")
