@@ -4,6 +4,7 @@ import numpy as np
 
 # ── IPL TEAM COLOURS ────────────────────────────────────────────
 TEAM_COLORS = {
+    # IPL Teams
     "Mumbai Indians":                "#005DA0",
     "Chennai Super Kings":           "#F7C010",
     "Royal Challengers Bangalore":   "#EC1C24",
@@ -23,6 +24,20 @@ TEAM_COLORS = {
     "Gujarat Lions":                 "#E8461A",
     "Gujarat Titans":                "#1C4966",
     "Lucknow Super Giants":          "#A72056",
+    
+    # International Teams
+    "India":                         "#0000FF",
+    "Australia":                     "#FFD700",
+    "England":                       "#000080",
+    "New Zealand":                   "#000000",
+    "South Africa":                  "#006400",
+    "Pakistan":                      "#008000",
+    "Sri Lanka":                     "#00008B",
+    "West Indies":                   "#800000",
+    "Bangladesh":                    "#006A4E",
+    "Afghanistan":                   "#0000FF",
+    "Zimbabwe":                      "#FF0000",
+    "Ireland":                       "#00FF00"
 }
 
 DEFAULT_COLOR = "#00FFFF"
