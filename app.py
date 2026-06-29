@@ -79,16 +79,27 @@ if "loader_done" not in st.session_state:
     st.session_state.loader_done = True
 
 # ================================================================
+# DATA FORMAT SELECTOR
+# ================================================================
+st.sidebar.markdown("### 🌍 Select Format / League")
+format_options = [
+    "IPL", "BBL", "WBBL", "PSL", "CPL", "Hundred_Mens", "Hundred_Womens",
+    "Mens_T20I", "Mens_ODI", "Mens_Test",
+    "Womens_T20I", "Womens_ODI", "Womens_Test"
+]
+selected_format = st.sidebar.selectbox("Select Format", format_options, label_visibility="collapsed")
+
+# ================================================================
 # DATA
 # ================================================================
-st.sidebar.markdown("### 📂 Upload Data")
+st.sidebar.markdown("### 📂 Upload Custom CSV")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
-data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data()
+data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_data(selected_format)
 
 # ================================================================
 # HEADER
 # ================================================================
-show_header()
+show_header(data, selected_format)
 show_3d_background()
 
 # ================================================================
