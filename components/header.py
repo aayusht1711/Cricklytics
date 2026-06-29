@@ -1,7 +1,23 @@
 import streamlit as st
 
 
-def show_header():
+def show_header(data=None, selected_format="IPL"):
+    
+    num_deliveries = 0
+    num_seasons = 0
+    num_players = 0
+    
+    if data is not None and not data.empty:
+        num_deliveries = f"{len(data):,}"
+        if "season" in data.columns:
+            num_seasons = len(data["season"].unique())
+        if "striker" in data.columns and "non_striker" in data.columns and "bowler" in data.columns:
+            strikers = set(data["striker"].dropna().unique())
+            non_strikers = set(data["non_striker"].dropna().unique())
+            bowlers = set(data["bowler"].dropna().unique())
+            num_players = len(strikers | non_strikers | bowlers)
+            
+    title_text = selected_format.replace("_", " ")
 
     st.markdown("""
     <style>
@@ -168,9 +184,7 @@ def show_header():
     .ticker-text { font-size: 13px; color: rgba(255,255,255,0.65); }
 
     </style>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
+    """ + f"""
     <div style="display:flex;align-items:center;justify-content:space-between;
                 padding:0 0 1.2rem;border-bottom:1px solid rgba(255,255,255,0.07);
                 margin-bottom:1.5rem;">
@@ -185,22 +199,22 @@ def show_header():
                     Cricklytics
                 </div>
                 <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">
-                    IPL Analytics · AI Commentary · ML Predictions
+                    {title_text} Analytics · AI Commentary · ML Predictions
                 </div>
             </div>
         </div>
         <div style="display:flex;gap:8px;align-items:center;">
             <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
                         border-radius:99px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.45);">
-                278K <span style="color:#00e5ff;">deliveries</span>
+                {num_deliveries} <span style="color:#00e5ff;">deliveries</span>
             </div>
             <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
                         border-radius:99px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.45);">
-                18 <span style="color:#00e5ff;">seasons</span>
+                {num_seasons} <span style="color:#00e5ff;">seasons</span>
             </div>
             <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
                         border-radius:99px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.45);">
-                703 <span style="color:#00e5ff;">players</span>
+                {num_players} <span style="color:#00e5ff;">players</span>
             </div>
         </div>
     </div>
