@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="app_icon.png" width="128" height="128" alt="Cricklytics App Icon" style="border-radius: 20px; margin-bottom: 20px;">
   <h1>🏏 Cricklytics: The Next-Gen Cricket Analytics Engine</h1>
   <p><i>Smart Insights · AI Commentary · Data Driven · Premium UI</i></p>
   <p><b>Built by Aayush Tripathi — Cricketer turned Developer</b></p>
