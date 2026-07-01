@@ -102,7 +102,7 @@ data = pd.read_csv(uploaded_file, low_memory=False) if uploaded_file else load_d
 # HEADER
 # ================================================================
 show_header(data, selected_format)
-show_3d_background()
+# show_3d_background()
 
 # ================================================================
 # SIDEBAR DID YOU KNOW
