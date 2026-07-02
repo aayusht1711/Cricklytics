@@ -91,6 +91,11 @@ format_options = [
 ]
 selected_format = st.sidebar.selectbox("Select Format", format_options, label_visibility="collapsed")
 
+if selected_format in ["Mens_Test", "Womens_Test"]:
+    from components.test_view import show_test_view
+    show_test_view()
+    st.stop()
+
 # ================================================================
 # DATA
 # ================================================================
