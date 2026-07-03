@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Home, PlayCircle, Trophy, BarChart2, Video, Users } from "lucide-react";
+import { Home, PlayCircle, Trophy, BarChart2, Video, Users, Monitor, Star, Crosshair } from "lucide-react";
 
 const NAV_ITEMS = [
   { name: "Home", path: "/", icon: Home },
@@ -30,34 +30,56 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-2 bg-black/40 p-1.5 rounded-full border border-white/10">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.path;
-            const Icon = item.icon;
-            
-            return (
-              <Link key={item.path} href={item.path} className="relative">
-                <div
-                  className={`flex items-center gap-2 px-5 py-2 rounded-full cursor-pointer transition-colors z-10 relative ${
-                    isActive 
-                      ? "text-black font-bold" 
-                      : "text-gray-300 hover:text-white font-medium"
-                  }`}
-                >
-                  <Icon size={16} className={isActive ? "text-black" : "text-gray-400"} />
-                  <span className="text-sm">{item.name}</span>
-                </div>
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNavBubble"
-                    className="absolute inset-0 bg-gradient-to-r from-[#C9A227] to-[#e6ca6e] rounded-full shadow-[0_0_15px_rgba(201,162,39,0.5)] z-0"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="hidden lg:flex items-center gap-2 text-sm font-bold bg-white/5 p-1 rounded-full border border-white/10 backdrop-blur-md">
+          <Link 
+            href="/" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/" ? "bg-white text-black" : "text-gray-300 hover:text-white hover:bg-white/10"}`}
+          >
+            <Home size={16} /> Home
+          </Link>
+          <Link 
+            href="/test-cricket" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/test-cricket" ? "bg-white text-black" : "text-gray-300 hover:text-white hover:bg-white/10"}`}
+          >
+            <Monitor size={16} /> Test
+          </Link>
+          <Link 
+            href="/odi-cricket" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/odi-cricket" ? "bg-white text-black" : "text-gray-300 hover:text-white hover:bg-white/10"}`}
+          >
+            <BarChart2 size={16} /> ODI
+          </Link>
+          <Link 
+            href="/t20-cricket" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/t20-cricket" ? "bg-white text-black" : "text-gray-300 hover:text-white hover:bg-white/10"}`}
+          >
+            <Trophy size={16} /> T20
+          </Link>
+          <Link 
+            href="/players" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/players" ? "bg-yellow-500 text-black shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "text-yellow-500 hover:text-yellow-400 hover:bg-yellow-500/10"}`}
+          >
+            <Users size={16} /> Players
+          </Link>
+          <Link 
+            href="/biomechanics" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/biomechanics" ? "bg-cyan-500 text-black shadow-[0_0_15px_rgba(6,182,212,0.5)]" : "text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10"}`}
+          >
+            <Monitor size={16} /> Biomechanics
+          </Link>
+          <Link 
+            href="/fantasy" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/fantasy" ? "bg-purple-500 text-black shadow-[0_0_15px_rgba(168,85,247,0.5)]" : "text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"}`}
+          >
+            <Star size={16} /> Fantasy AI
+          </Link>
+          <Link 
+            href="/tactics" 
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/tactics" ? "bg-red-500 text-black shadow-[0_0_15px_rgba(239,68,68,0.5)]" : "text-red-500 hover:text-red-400 hover:bg-red-500/10"}`}
+          >
+            <Crosshair size={16} /> Tactics
+          </Link>
+        </div>
 
         {/* Right Action */}
         <div className="flex items-center gap-4">
