@@ -138,6 +138,60 @@ MOCK_PLAYERS = [
             "edge_percentage": 16,
             "strong_zone": "Pull Shot"
         }
+    },
+    {
+        "id": "rashid-khan",
+        "name": "Rashid Khan",
+        "role": "Leg Spin Bowler",
+        "team": "Afghanistan",
+        "image": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000",
+        "test_stats": {
+            "matches": 5, "runs": 34, "average": 31.55, "100s": 0, "50s": 0,
+            "defensive_solidity": 30, "home_average": 31.5, "away_average": 32.1,
+            "session_average": "Morning Dom (22 avg)", "partnership_value": "-15 runs/wkt"
+        },
+        "odi_stats": {
+            "matches": 103, "runs": 190, "average": 20.45, "100s": 0, "strike_rate": 85.0,
+            "strike_rotation": 40, "chase_average": 22.1, "phase_pacing": "Mid (80)", "conversion_rate": "0%"
+        },
+        "t20_stats": {
+            "matches": 92, "runs": 138, "average": 14.27, "strike_rate": 125.0,
+            "boundary_impact": 20, "entry_intent_sr": 90, "death_sr": 135,
+            "matchup_dominance": "Spin (140) Pace (110)"
+        },
+        "technique": {
+            "control_percentage": 95,
+            "middle_of_bat": 50,
+            "edge_percentage": 35,
+            "strong_zone": "Googly"
+        }
+    },
+    {
+        "id": "pat-cummins",
+        "name": "Pat Cummins",
+        "role": "Fast Bowler",
+        "team": "Australia",
+        "image": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000",
+        "test_stats": {
+            "matches": 62, "runs": 269, "average": 22.53, "100s": 0, "50s": 0,
+            "defensive_solidity": 45, "home_average": 20.1, "away_average": 25.5,
+            "session_average": "Evening Dom (18 avg)", "partnership_value": "-20 runs/wkt"
+        },
+        "odi_stats": {
+            "matches": 88, "runs": 141, "average": 28.66, "100s": 0, "strike_rate": 78.0,
+            "strike_rotation": 30, "chase_average": 25.1, "phase_pacing": "Powerplay (75)", "conversion_rate": "0%"
+        },
+        "t20_stats": {
+            "matches": 57, "runs": 66, "average": 24.55, "strike_rate": 115.0,
+            "boundary_impact": 25, "entry_intent_sr": 80, "death_sr": 120,
+            "matchup_dominance": "Pace (130) Spin (100)"
+        },
+        "technique": {
+            "control_percentage": 92,
+            "middle_of_bat": 45,
+            "edge_percentage": 40,
+            "strong_zone": "Top of Off Stump"
+        }
     }
 ]
 
@@ -157,3 +211,100 @@ def get_player(player_id: str):
     if not player:
         raise HTTPException(status_code=404, detail="Player not found")
     return player
+
+import random
+import os
+import joblib
+import pandas as pd
+import numpy as np
+
+# Load ML Model
+MODEL_PATH = "model.pkl"
+clf = None
+if os.path.exists(MODEL_PATH):
+    try:
+        clf = joblib.load(MODEL_PATH)
+    except Exception as e:
+        print(f"Error loading model: {e}")
+
+@router.get("/simulate/{batsman_id}/{bowler_id}")
+def simulate_matchup(batsman_id: str, bowler_id: str, phase: str = "Middle Overs"):
+    batsman = next((p for p in MOCK_PLAYERS if p["id"] == batsman_id), None)
+    bowler = next((p for p in MOCK_PLAYERS if p["id"] == bowler_id), None)
+    
+    if not batsman or not bowler:
+        raise HTTPException(status_code=404, detail="Batsman or Bowler not found")
+        
+    if clf:
+        # --- REAL MACHINE LEARNING INFERENCE ---
+        phase_map = {"Powerplay": 0, "Middle Overs": 1, "Death Overs": 2}
+        p_val = phase_map.get(phase, 1)
+        
+        bat_control = batsman["technique"]["control_percentage"]
+        bat_power = batsman["t20_stats"]["strike_rate"] / 2
+        bowl_economy = bowler["t20_stats"]["average"] / 3
+        bowl_sr = bowler["t20_stats"]["strike_rate"]
+        
+        # Simulate 1000 deliveries with realistic variance
+        features = pd.DataFrame({
+            'batsman_control': [bat_control] * 1000,
+            'batsman_power': [bat_power] * 1000,
+            'bowler_economy': [bowl_economy] * 1000,
+            'bowler_strike_rate': [bowl_sr] * 1000,
+            'match_phase': [p_val] * 1000
+        })
+        
+        # Add random noise to simulate match conditions
+        features['batsman_control'] += np.random.normal(0, 5, 1000)
+        features['batsman_power'] += np.random.normal(0, 3, 1000)
+        
+        # Run inference using the trained Random Forest
+        preds = clf.predict(features)
+        
+        # Count outcomes (0=Dot, 1=Single, 2=Boundary, 3=Wicket)
+        counts = pd.Series(preds).value_counts(normalize=True) * 100
+        
+        dot_prob = counts.get(0, 0.0)
+        single_prob = counts.get(1, 0.0)
+        adj_boundary = counts.get(2, 0.0)
+        adj_wicket = counts.get(3, 0.0)
+        
+        expected_rpo = (adj_boundary/100 * 4.5 * 6) + (single_prob/100 * 1.5 * 6)
+        sim_type = "Machine Learning (RandomForestClassifier)"
+    else:
+        # Fallback to Math
+        bat_control = batsman["technique"]["control_percentage"]
+        bowl_control = bowler["technique"]["control_percentage"]
+        control_delta = bat_control - bowl_control
+        
+        base_boundary_prob = batsman["t20_stats"]["boundary_impact"] / 2.5
+        base_wicket_prob = 100 - bat_control
+        
+        adj_boundary = max(5, base_boundary_prob + (control_delta * 0.2))
+        adj_wicket = max(2, base_wicket_prob - (control_delta * 0.3))
+        
+        if phase == "Death Overs":
+            adj_boundary *= 1.5
+            adj_wicket *= 1.5
+        elif phase == "Powerplay":
+            adj_boundary *= 1.2
+            adj_wicket *= 1.2
+            
+        dot_prob = max(10, 100 - adj_boundary - adj_wicket - 30)
+        expected_rpo = (adj_boundary/100 * 4.5 * 6) + (30/100 * 1.5 * 6)
+        sim_type = "Mathematical Model"
+
+    return {
+        "batsman": batsman["name"],
+        "bowler": bowler["name"],
+        "phase": phase,
+        "simulations": 1000,
+        "engine": sim_type,
+        "results": {
+            "wicket_probability": round(float(adj_wicket), 1),
+            "boundary_probability": round(float(adj_boundary), 1),
+            "dot_ball_probability": round(float(dot_prob), 1),
+            "expected_runs_per_over": round(float(expected_rpo), 2)
+        },
+        "insight": f"Analysis powered by {sim_type}. {batsman['name']}'s {batsman['technique']['strong_zone']} vs {bowler['name']}."
+    }
