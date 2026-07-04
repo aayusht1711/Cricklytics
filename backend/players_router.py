@@ -209,6 +209,13 @@ def get_all_players():
 def get_player(player_id: str):
     player = next((p for p in MOCK_PLAYERS if p["id"] == player_id), None)
     if not player:
+        # Try to scrape if not in mock DB
+        from player_scraper import get_player_stats
+        scraped_player = get_player_stats(player_id.replace("-", " "))
+        if "error" not in scraped_player:
+            # Dynamically add to MOCK_PLAYERS so it caches
+            MOCK_PLAYERS.append(scraped_player)
+            return scraped_player
         raise HTTPException(status_code=404, detail="Player not found")
     return player
 
@@ -232,6 +239,20 @@ def simulate_matchup(batsman_id: str, bowler_id: str, phase: str = "Middle Overs
     batsman = next((p for p in MOCK_PLAYERS if p["id"] == batsman_id), None)
     bowler = next((p for p in MOCK_PLAYERS if p["id"] == bowler_id), None)
     
+    # Try scraping if not found
+    from player_scraper import get_player_stats
+    if not batsman:
+        scraped_bat = get_player_stats(batsman_id.replace("-", " "))
+        if "error" not in scraped_bat:
+            MOCK_PLAYERS.append(scraped_bat)
+            batsman = scraped_bat
+            
+    if not bowler:
+        scraped_bowl = get_player_stats(bowler_id.replace("-", " "))
+        if "error" not in scraped_bowl:
+            MOCK_PLAYERS.append(scraped_bowl)
+            bowler = scraped_bowl
+            
     if not batsman or not bowler:
         raise HTTPException(status_code=404, detail="Batsman or Bowler not found")
         
