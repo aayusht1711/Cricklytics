@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Cpu, Zap, Activity, AlertTriangle, Target, TrendingUp, ShieldAlert, BarChart2 } from "lucide-react";
+import { Cpu, Zap, Activity, AlertTriangle, Target, TrendingUp, ShieldAlert, BarChart2, Crosshair } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function PremiumDashboard() {
   const [players, setPlayers] = useState<any[]>([]);
-  const [striker, setStriker] = useState("virat-kohli");
-  const [bowler, setBowler] = useState("rashid-khan");
+  const [striker, setStriker] = useState("Virat Kohli");
+  const [bowler, setBowler] = useState("Lasith Malinga");
   const [phase, setPhase] = useState("Middle Overs");
   const [simResult, setSimResult] = useState<any>(null);
   const [isSimulating, setIsSimulating] = useState(false);
@@ -92,15 +92,13 @@ export default function PremiumDashboard() {
               <div className="space-y-6">
                 <div>
                   <label className="text-[10px] text-gray-500 font-mono uppercase tracking-widest font-bold mb-2 block">Striker Node</label>
-                  <select 
+                  <input 
+                    type="text"
                     value={striker}
                     onChange={(e) => setStriker(e.target.value)}
+                    placeholder="E.g., Sachin Tendulkar"
                     className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors font-bold text-sm"
-                  >
-                    {players.filter(p => p.role.includes("Batter")).map(p => (
-                      <option key={p.id} value={p.id}>{p.name} ({p.team})</option>
-                    ))}
-                  </select>
+                  />
                 </div>
 
                 <div className="flex justify-center -my-3 relative z-10">
@@ -111,15 +109,13 @@ export default function PremiumDashboard() {
 
                 <div>
                   <label className="text-[10px] text-gray-500 font-mono uppercase tracking-widest font-bold mb-2 block">Bowler Node</label>
-                  <select 
+                  <input 
+                    type="text"
                     value={bowler}
                     onChange={(e) => setBowler(e.target.value)}
+                    placeholder="E.g., Shoaib Akhtar"
                     className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors font-bold text-sm"
-                  >
-                    {players.filter(p => p.role.includes("Bowler") || p.role.includes("All")).map(p => (
-                      <option key={p.id} value={p.id}>{p.name} ({p.team})</option>
-                    ))}
-                  </select>
+                  />
                 </div>
 
                 <div>
