@@ -107,7 +107,7 @@ def show_bowler_view(data):
         unsafe_allow_html=True,
     )
     col1, col2 = st.columns(2)
-    # --- Wicket type pie chart ---
+    
     with col1:
         st.markdown("<h3>🧩 Dismissal Types</h3>", unsafe_allow_html=True)
         wkt_row = wicket_types[wicket_types["bowler"] == bowler]
