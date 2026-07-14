@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import math
 
-# ── Constants ────────────────────────────────────────────────────
+
 TEAM_COLORS = {
     "Mumbai Indians": "#005DA0", "Chennai Super Kings": "#F7C010",
     "Royal Challengers Bengaluru": "#EC1C24", "Royal Challengers Bangalore": "#EC1C24",
