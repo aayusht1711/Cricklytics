@@ -31,7 +31,7 @@ def _compute_drs(data):
     bat_stats["success_pct"] = (bat_stats["upheld"] / bat_stats["total"] * 100).round(1)
     bat_stats   = bat_stats[bat_stats["total"] >= 3].sort_values("upheld", ascending=False)
 
-    # Bowler stats (min 3 reviews)
+    
     bow_total    = drs.groupby("bowler").size().reset_index(name="total")
     bow_overturn = drs[drs["review_decision"] == "upheld"].groupby("bowler").size().reset_index(name="overturned")
     bow_stats    = bow_total.merge(bow_overturn, on="bowler", how="left").fillna(0)
