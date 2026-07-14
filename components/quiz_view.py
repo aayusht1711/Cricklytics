@@ -8,7 +8,7 @@ def _build_questions(data):
     """Build 10 quiz questions from real dataset stats."""
     questions = []
 
-    # Q1: Most sixes all time
+   
     sixes = data[data["runs_batter"] == 6].groupby("batter").size().sort_values(ascending=False)
     correct = sixes.index[0]
     options = list(sixes.index[:4])
