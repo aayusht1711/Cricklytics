@@ -11,7 +11,7 @@ MODEL_PATH = "model.pkl"
 def generate_synthetic_data(num_rows=50000):
     print(f"Synthesizing {num_rows} historical delivery records...")
     
-    # Randomly generate features simulating different player stats
+  
     np.random.seed(42)
     
     # Batsman stats
