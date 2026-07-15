@@ -8,8 +8,7 @@ from database import SessionLocal, Match, TeamStats
 RSS_URL = 'http://static.cricinfo.com/rss/livescores.xml'
 
 def extract_team_and_score(raw_string):
-    # E.g., "Yorkshire Women 160/7" or "England"
-    # Look for the last space followed by numbers/slashes/asterisks
+    
     match = re.search(r'^(.*?) ([\d/& *]+)$', raw_string.strip())
     if match:
         return match.group(1).strip(), match.group(2).strip()
