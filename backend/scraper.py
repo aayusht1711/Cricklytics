@@ -75,7 +75,6 @@ def fetch_and_update():
             db.commit()
             print(f"Successfully scraped and updated database with {match1_data['title']} and {match2_data['title']}")
             
-            # Ping webhook for WebSocket zero-latency broadcast
             try:
                 urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:8001/api/internal/notify_update", method="POST"))
             except Exception as e:
