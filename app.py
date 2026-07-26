@@ -2,7 +2,6 @@ import streamlit as st
 import time
 import pandas as pd
 import random
-
 from utils.data_loader import load_data
 from components.header import show_header, set_bg
 from components.home_view import show_home
