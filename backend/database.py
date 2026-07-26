@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, JSON
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
-
 SQLALCHEMY_DATABASE_URL = "sqlite:///./cricklytics.db"
 
 engine = create_engine(
