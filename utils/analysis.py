@@ -4,7 +4,6 @@ def player_stats(data, player):
     balls = df['balls_faced'].sum()
     sr = (runs/balls)*100 if balls>0 else 0
     return runs, sr
-
 def player_trend(data, player):
     return data[data['batter']==player].groupby('match_id')['runs_batter'].sum()
 
