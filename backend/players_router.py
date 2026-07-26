@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
 router = APIRouter()
-
 MOCK_PLAYERS = [
     {
         "id": "virat-kohli",
