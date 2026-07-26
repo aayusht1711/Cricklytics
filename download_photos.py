@@ -38,7 +38,6 @@ for _, row in df.iterrows():
     if os.path.exists(dest):
         ok += 1
         continue
-
     try:
         r = requests.get(url, headers=HEADERS, timeout=8)
         if r.status_code == 200 and len(r.content) > 1000:
