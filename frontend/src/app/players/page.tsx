@@ -9,6 +9,8 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid 
 } from "recharts";
 
+import { getBackendUrl } from "@/utils/api";
+
 export default function PlayersPage() {
   const [players, setPlayers] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,7 +23,7 @@ export default function PlayersPage() {
   const [activeFormat, setActiveFormat] = useState<"Test" | "ODI" | "T20">("Test");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8001/api/players/")
+    fetch(getBackendUrl("/api/players/"))
       .then(res => res.json())
       .then(data => setPlayers(data.players))
       .catch(err => console.error(err));
@@ -29,7 +31,7 @@ export default function PlayersPage() {
 
   const fetchPlayerProfile = async (id: string, isCompare: boolean = false) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8001/api/players/${id}`);
+      const res = await fetch(getBackendUrl(`/api/players/${id}`));
       const data = await res.json();
       if (isCompare) {
         setComparisonPlayer(data);

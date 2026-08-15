@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
+import { getBackendUrl } from "@/utils/api";
+
 export default function SignInPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -21,7 +23,7 @@ export default function SignInPage() {
     
     try {
       const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
-      const response = await fetch(`http://127.0.0.1:8001${endpoint}`, {
+      const response = await fetch(getBackendUrl(endpoint), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })

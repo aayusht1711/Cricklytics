@@ -7,17 +7,17 @@ import Navbar from "@/components/Navbar";
 
 // Mock Perfect XI Data
 const FANTASY_XI = [
-  { id: "1", name: "Rishabh Pant", role: "WK", team: "IND", points: 84.5, isCaptain: false, isViceCaptain: false },
-  { id: "2", name: "Virat Kohli", role: "BAT", team: "IND", points: 112.0, isCaptain: false, isViceCaptain: true },
-  { id: "3", name: "Steve Smith", role: "BAT", team: "AUS", points: 94.0, isCaptain: false, isViceCaptain: false },
-  { id: "4", name: "Rohit Sharma", role: "BAT", team: "IND", points: 88.5, isCaptain: false, isViceCaptain: false },
-  { id: "5", name: "Travis Head", role: "BAT", team: "AUS", points: 76.0, isCaptain: false, isViceCaptain: false },
-  { id: "6", name: "Hardik Pandya", role: "AR", team: "IND", points: 145.5, isCaptain: true, isViceCaptain: false },
-  { id: "7", name: "Glenn Maxwell", role: "AR", team: "AUS", points: 92.0, isCaptain: false, isViceCaptain: false },
-  { id: "8", name: "Pat Cummins", role: "BOWL", team: "AUS", points: 81.5, isCaptain: false, isViceCaptain: false },
-  { id: "9", name: "Jasprit Bumrah", role: "BOWL", team: "IND", points: 104.0, isCaptain: false, isViceCaptain: false },
-  { id: "10", name: "Mitchell Starc", role: "BOWL", team: "AUS", points: 79.0, isCaptain: false, isViceCaptain: false },
-  { id: "11", name: "Kuldeep Yadav", role: "BOWL", team: "IND", points: 72.5, isCaptain: false, isViceCaptain: false },
+  { id: "1", name: "Rishabh Pant", role: "WK", team: "IND", points: 84.5, isCaptain: false, isViceCaptain: false, image: "/player_photos/18.png" },
+  { id: "2", name: "Virat Kohli", role: "BAT", team: "IND", points: 112.0, isCaptain: false, isViceCaptain: true, image: "/player_photos/2.png" },
+  { id: "3", name: "Steve Smith", role: "BAT", team: "AUS", points: 94.0, isCaptain: false, isViceCaptain: false, image: "/player_photos/steve-smith.png" },
+  { id: "4", name: "Rohit Sharma", role: "BAT", team: "IND", points: 88.5, isCaptain: false, isViceCaptain: false, image: "/player_photos/6.png" },
+  { id: "5", name: "Travis Head", role: "BAT", team: "AUS", points: 76.0, isCaptain: false, isViceCaptain: false, image: "/player_photos/37.png" },
+  { id: "6", name: "Hardik Pandya", role: "AR", team: "IND", points: 145.5, isCaptain: true, isViceCaptain: false, image: "/player_photos/3107.png" },
+  { id: "7", name: "Glenn Maxwell", role: "AR", team: "AUS", points: 92.0, isCaptain: false, isViceCaptain: false, image: "/player_photos/glenn-maxwell.png" },
+  { id: "8", name: "Pat Cummins", role: "BOWL", team: "AUS", points: 81.5, isCaptain: false, isViceCaptain: false, image: "/player_photos/3575.png" },
+  { id: "9", name: "Jasprit Bumrah", role: "BOWL", team: "IND", points: 104.0, isCaptain: false, isViceCaptain: false, image: "/player_photos/9.png" },
+  { id: "10", name: "Mitchell Starc", role: "BOWL", team: "AUS", points: 79.0, isCaptain: false, isViceCaptain: false, image: "/player_photos/31.png" },
+  { id: "11", name: "Kuldeep Yadav", role: "BOWL", team: "IND", points: 72.5, isCaptain: false, isViceCaptain: false, image: "/player_photos/14.png" },
 ];
 
 export default function FantasyOptimizer() {
@@ -48,18 +48,22 @@ export default function FantasyOptimizer() {
       animate={{ scale: 1, opacity: 1 }}
       className="flex flex-col items-center relative"
     >
-      <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-2 flex items-center justify-center font-bold text-xs md:text-sm bg-black/80 backdrop-blur-sm relative z-10
+      <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-2 flex items-center justify-center font-bold text-xs md:text-sm bg-black/80 backdrop-blur-sm relative z-10 overflow-hidden
         ${player.team === "IND" ? "border-blue-500 text-blue-400" : "border-yellow-500 text-yellow-400"}
       `}>
-        {player.name.split(" ").map((n: string) => n[0]).join("")}
+        {player.image ? (
+          <img src={player.image} alt={player.name} className="w-full h-full object-cover" />
+        ) : (
+          player.name.split(" ").map((n: string) => n[0]).join("")
+        )}
         
         {player.isCaptain && (
-          <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black border-2 border-black z-20 shadow-[0_0_10px_rgba(250,204,21,0.8)]">
+          <div className="absolute -top-1 -right-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-black w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black border-2 border-black z-20 shadow-[0_0_10px_rgba(250,204,21,0.8)]">
             C
           </div>
         )}
         {player.isViceCaptain && (
-          <div className="absolute -top-2 -right-2 bg-gradient-to-r from-gray-300 to-white text-black w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black border-2 border-black z-20 shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+          <div className="absolute -top-1 -right-1 bg-gradient-to-r from-gray-300 to-white text-black w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black border-2 border-black z-20 shadow-[0_0_10px_rgba(255,255,255,0.8)]">
             VC
           </div>
         )}

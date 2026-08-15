@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react";
 import { Zap, Crosshair, TrendingUp, AlertTriangle } from "lucide-react";
 
+import { getBackendUrl, getWsUrl } from "@/utils/api";
+
 export default function T20CricketPage() {
   const [matchData, setMatchData] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8001/api/matches/t20-center");
+        const response = await fetch(getBackendUrl("/api/matches/t20-center"));
         if (response.ok) {
           const data = await response.json();
           setMatchData(data);
@@ -22,7 +24,7 @@ export default function T20CricketPage() {
     fetchData();
 
     // WebSocket connection for true 0-latency updates
-    const ws = new WebSocket("ws://127.0.0.1:8001/ws/live");
+    const ws = new WebSocket(getWsUrl());
     
     ws.onmessage = (event) => {
       if (event.data === "UPDATE") {

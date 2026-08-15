@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { BookOpen, LogIn, Activity, Clock, Trophy, BarChart2, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
+import { getBackendUrl, getWsUrl } from "@/utils/api";
+
 export default function Home() {
   const [liveMatches, setLiveMatches] = useState<any[]>([]);
 
@@ -12,7 +14,7 @@ export default function Home() {
     // Initial fetch
     const fetchMatches = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8001/api/matches/live");
+        const response = await fetch(getBackendUrl("/api/matches/live"));
         if (response.ok) {
           const data = await response.json();
           setLiveMatches(data.matches);
@@ -25,7 +27,7 @@ export default function Home() {
     fetchMatches();
 
     // WebSocket connection for true 0-latency updates
-    const ws = new WebSocket("ws://127.0.0.1:8001/ws/live");
+    const ws = new WebSocket(getWsUrl());
     
     ws.onmessage = (event) => {
       if (event.data === "UPDATE") {

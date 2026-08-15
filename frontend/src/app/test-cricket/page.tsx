@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldAlert, Wind, TrendingUp, Thermometer, Clock } from "lucide-react";
 
+import { getBackendUrl, getWsUrl } from "@/utils/api";
+
 export default function TestCricketPage() {
   const [matchData, setMatchData] = useState<any>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
@@ -12,7 +14,7 @@ export default function TestCricketPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8001/api/matches/1/test-center");
+        const response = await fetch(getBackendUrl("/api/matches/1/test-center"));
         if (response.ok) {
           const data = await response.json();
           setMatchData(data);
@@ -25,7 +27,7 @@ export default function TestCricketPage() {
     fetchData();
 
     // WebSocket connection for true 0-latency updates
-    const ws = new WebSocket("ws://127.0.0.1:8001/ws/live");
+    const ws = new WebSocket(getWsUrl());
     
     ws.onmessage = (event) => {
       if (event.data === "UPDATE") {

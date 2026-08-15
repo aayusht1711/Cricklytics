@@ -37,6 +37,8 @@ const TACTICS_DB: Record<string, any> = {
   }
 };
 
+import { getBackendUrl } from "@/utils/api";
+
 export default function TacticalEngine() {
   const [players, setPlayers] = useState<any[]>([]);
   const [selectedPlayer, setSelectedPlayer] = useState("Virat Kohli");
@@ -45,7 +47,7 @@ export default function TacticalEngine() {
 
   // Fetch players just to populate dropdown
   useEffect(() => {
-    fetch("http://127.0.0.1:8001/api/players/")
+    fetch(getBackendUrl("/api/players/"))
       .then(res => res.json())
       .then(data => {
         setPlayers(data.players.filter((p: any) => p.role.includes("Batter")));

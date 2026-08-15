@@ -4,13 +4,15 @@ import { useState, useEffect } from "react";
 import { Activity, BarChart2, PieChart, FastForward } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { getBackendUrl, getWsUrl } from "@/utils/api";
+
 export default function ODICricketPage() {
   const [matchData, setMatchData] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8001/api/matches/odi-center");
+        const response = await fetch(getBackendUrl("/api/matches/odi-center"));
         if (response.ok) {
           const data = await response.json();
           setMatchData(data);
@@ -23,7 +25,7 @@ export default function ODICricketPage() {
     fetchData();
 
     // WebSocket connection for true 0-latency updates
-    const ws = new WebSocket("ws://127.0.0.1:8001/ws/live");
+    const ws = new WebSocket(getWsUrl());
     
     ws.onmessage = (event) => {
       if (event.data === "UPDATE") {

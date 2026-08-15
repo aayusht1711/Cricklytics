@@ -6,6 +6,8 @@ import { Cpu, Zap, Activity, AlertTriangle, Target, TrendingUp, ShieldAlert, Bar
 import Navbar from "@/components/Navbar";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+import { getBackendUrl } from "@/utils/api";
+
 export default function PremiumDashboard() {
   const [players, setPlayers] = useState<any[]>([]);
   const [striker, setStriker] = useState("Virat Kohli");
@@ -15,7 +17,7 @@ export default function PremiumDashboard() {
   const [isSimulating, setIsSimulating] = useState(false);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8001/api/players/")
+    fetch(getBackendUrl("/api/players/"))
       .then(res => res.json())
       .then(data => setPlayers(data.players))
       .catch(err => console.error(err));
@@ -23,7 +25,7 @@ export default function PremiumDashboard() {
 
   const runSimulation = () => {
     setIsSimulating(true);
-    fetch(`http://127.0.0.1:8001/api/players/simulate/${striker}/${bowler}?phase=${phase}`)
+    fetch(getBackendUrl(`/api/players/simulate/${striker}/${bowler}?phase=${phase}`))
       .then(res => res.json())
       .then(data => {
         setTimeout(() => {
@@ -330,7 +332,7 @@ export default function PremiumDashboard() {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#000', border: '1px solid #1e3a8a', borderRadius: '8px' }}
                           itemStyle={{ color: '#60a5fa', fontWeight: 'bold' }}
-                          formatter={(value: number) => [value.toFixed(2), "runs"]}
+                          formatter={(value: any) => [typeof value === 'number' ? value.toFixed(2) : value, "runs"]}
                         />
                         <Area type="monotone" dataKey="runs" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorRuns2)" />
                       </AreaChart>

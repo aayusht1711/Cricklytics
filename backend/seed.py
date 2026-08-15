@@ -75,4 +75,4 @@ db.add(TeamStats(match_id=t20_match.id, team_name="WI", score_string="165/6"))
 db.commit()
 db.close()
 
-print("✅ Successfully seeded the database with mock cricket matches!")
+print("Successfully seeded the database with mock cricket matches!")
