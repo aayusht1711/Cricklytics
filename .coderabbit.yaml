@@ -1,0 +1,50 @@
+# CodeRabbit Configuration for Cricklytics (Antigravity Integration)
+# Schema version: 2
+
+version: 2
+language: "en-US"
+tone_instructions: "Be precise, constructive, and concise. Focus on security, performance, type safety, and clean code."
+
+reviews:
+  profile: "chill"
+  request_tools:
+    enabled: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+      - "master"
+      - "dev"
+
+  # Path filtering to exclude generated files and vendor packages
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/.next/**"
+    - "!**/__pycache__/**"
+    - "!**/*.db"
+    - "!**/*.pkl"
+
+  # Review guidelines for Python backend and Next.js frontend
+  path_instructions:
+    - path: "backend/**/*.py"
+      instructions: |
+        Review FastAPI code for:
+        - Strict type annotations (Pydantic models / SQLAlchemy types).
+        - Exception handling without masking underlying root causes.
+        - Efficient database queries (avoid N+1 queries).
+        - Memory safety when dealing with MediaPipe and OpenCV video streams.
+    - path: "frontend/src/**/*.{ts,tsx}"
+      instructions: |
+        Review Next.js / React code for:
+        - Proper React 19 / Next.js App Router hooks usage.
+        - Prevention of memory leaks in HTML5 Canvas overlays.
+        - Clean TypeScript type definitions without implicit `any`.
+        - Responsive UI design and accessibility standards.
+
+chat:
+  auto_reply: true

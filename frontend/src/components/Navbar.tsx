@@ -68,12 +68,6 @@ export default function Navbar() {
             <Monitor size={16} /> Biomechanics
           </Link>
           <Link 
-            href="/fantasy" 
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/fantasy" ? "bg-purple-500 text-black shadow-[0_0_15px_rgba(168,85,247,0.5)]" : "text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"}`}
-          >
-            <Star size={16} /> Fantasy AI
-          </Link>
-          <Link 
             href="/tactics" 
             className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/tactics" ? "bg-red-500 text-black shadow-[0_0_15px_rgba(239,68,68,0.5)]" : "text-red-500 hover:text-red-400 hover:bg-red-500/10"}`}
           >

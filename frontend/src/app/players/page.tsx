@@ -10,6 +10,7 @@ import {
 } from "recharts";
 
 import { getBackendUrl } from "@/utils/api";
+import PlayerAvatar from "@/components/PlayerAvatar";
 
 export default function PlayersPage() {
   const [players, setPlayers] = useState<any[]>([]);
@@ -25,7 +26,17 @@ export default function PlayersPage() {
   useEffect(() => {
     fetch(getBackendUrl("/api/players/"))
       .then(res => res.json())
-      .then(data => setPlayers(data.players))
+      .then(data => {
+        if (data.players) {
+          const seen = new Set();
+          const unique = data.players.filter((p: any) => {
+            if (seen.has(p.id)) return false;
+            seen.add(p.id);
+            return true;
+          });
+          setPlayers(unique);
+        }
+      })
       .catch(err => console.error(err));
   }, []);
 
@@ -268,15 +279,13 @@ export default function PlayersPage() {
               </div>
 
               <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                {filteredPlayers.map((player) => (
+                {filteredPlayers.map((player, idx) => (
                   <div 
-                    key={player.id}
+                    key={`${player.id}-${idx}`}
                     onClick={() => fetchPlayerProfile(player.id)}
                     className={`flex items-center gap-4 p-3 rounded-2xl cursor-pointer transition-all ${selectedPlayer?.id === player.id ? 'bg-white/10 border border-white/20' : 'hover:bg-white/5 border border-transparent'}`}
                   >
-                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-800 border border-white/10">
-                      <img src={player.image} alt={player.name} className="w-full h-full object-cover" />
-                    </div>
+                    <PlayerAvatar name={player.name} image={player.image} className="w-12 h-12" />
                     <div className="flex-1">
                       <div className="font-bold text-white text-sm">{player.name}</div>
                       <div className="text-xs text-gray-400">{player.team}</div>
@@ -333,9 +342,7 @@ export default function PlayersPage() {
                     className="bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden"
                   >
                     <div className="flex items-center gap-6 mb-8 relative z-10">
-                      <div className={`w-24 h-24 rounded-full overflow-hidden border-4 ${theme.border}`}>
-                        <img src={selectedPlayer.image} alt={selectedPlayer.name} className="w-full h-full object-cover" />
-                      </div>
+                      <PlayerAvatar name={selectedPlayer.name} image={selectedPlayer.image} className="w-24 h-24" textClassName="text-2xl font-black" borderClassName={`border-4 ${theme.border}`} />
                       <div>
                         <h1 className="text-4xl font-black text-white">{selectedPlayer.name}</h1>
                         <div className="flex items-center gap-3 mt-2 text-sm font-bold text-gray-400 uppercase tracking-widest">
@@ -371,15 +378,13 @@ export default function PlayersPage() {
                           </div>
                           
                           <div className="w-full max-w-sm space-y-2 max-h-[40vh] overflow-y-auto custom-scrollbar">
-                            {compareFilteredPlayers.map((player) => (
+                            {compareFilteredPlayers.map((player, idx) => (
                               <div 
-                                key={player.id}
+                                key={`${player.id}-${idx}`}
                                 onClick={() => fetchPlayerProfile(player.id, true)}
                                 className="flex items-center gap-4 p-3 rounded-2xl cursor-pointer hover:bg-white/5 border border-transparent transition-all"
                               >
-                                <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-800 border border-white/10">
-                                  <img src={player.image} alt={player.name} className="w-full h-full object-cover" />
-                                </div>
+                                <PlayerAvatar name={player.name} image={player.image} className="w-10 h-10" textClassName="text-xs font-black" />
                                 <div className="flex-1 text-left">
                                   <div className="font-bold text-white text-sm">{player.name}</div>
                                   <div className="text-xs text-gray-400">{player.team}</div>
@@ -392,9 +397,7 @@ export default function PlayersPage() {
                       ) : (
                         <>
                           <div className="flex items-center gap-6 mb-8 relative z-10">
-                            <div className={`w-24 h-24 rounded-full overflow-hidden border-4 ${theme.border}`}>
-                              <img src={comparisonPlayer.image} alt={comparisonPlayer.name} className="w-full h-full object-cover" />
-                            </div>
+                            <PlayerAvatar name={comparisonPlayer.name} image={comparisonPlayer.image} className="w-24 h-24" textClassName="text-2xl font-black" borderClassName={`border-4 ${theme.border}`} />
                             <div>
                               <h1 className="text-4xl font-black text-white">{comparisonPlayer.name}</h1>
                               <div className="flex items-center gap-3 mt-2 text-sm font-bold text-gray-400 uppercase tracking-widest">

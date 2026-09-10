@@ -6,13 +6,20 @@ MOCK_PLAYERS = load_all_players()
 
 @router.get("/")
 def get_all_players():
-    # Return brief info for search/list
-    return {
-        "players": [
-            {"id": p["id"], "name": p["name"], "role": p["role"], "team": p["team"], "image": p["image"]}
-            for p in MOCK_PLAYERS
-        ]
-    }
+    # Return brief info for search/list with strictly unique IDs
+    seen_ids = set()
+    unique_players = []
+    for p in MOCK_PLAYERS:
+        if p["id"] not in seen_ids:
+            seen_ids.add(p["id"])
+            unique_players.append({
+                "id": p["id"],
+                "name": p["name"],
+                "role": p["role"],
+                "team": p["team"],
+                "image": p["image"]
+            })
+    return {"players": unique_players}
 
 @router.get("/{player_id}")
 def get_player(player_id: str):
@@ -22,8 +29,9 @@ def get_player(player_id: str):
         from player_scraper import get_player_stats
         scraped_player = get_player_stats(player_id.replace("-", " "))
         if "error" not in scraped_player:
-            # Dynamically add to MOCK_PLAYERS so it caches
-            MOCK_PLAYERS.append(scraped_player)
+            # Dynamically add to MOCK_PLAYERS if not already present
+            if not any(p["id"] == scraped_player.get("id") for p in MOCK_PLAYERS):
+                MOCK_PLAYERS.append(scraped_player)
             return scraped_player
         raise HTTPException(status_code=404, detail="Player not found")
     return player
@@ -45,20 +53,23 @@ if os.path.exists(MODEL_PATH):
 
 @router.get("/simulate/{batsman_id}/{bowler_id}")
 def simulate_matchup(batsman_id: str, bowler_id: str, phase: str = "Middle Overs"):
-    batsman = next((p for p in MOCK_PLAYERS if p["id"] == batsman_id), None)
-    bowler = next((p for p in MOCK_PLAYERS if p["id"] == bowler_id), None)
+    clean_bat = batsman_id.lower().strip().replace(" ", "-").replace(".", "")
+    clean_bowl = bowler_id.lower().strip().replace(" ", "-").replace(".", "")
+    
+    batsman = next((p for p in MOCK_PLAYERS if p["id"] == clean_bat or p["name"].lower() == batsman_id.lower()), None)
+    bowler = next((p for p in MOCK_PLAYERS if p["id"] == clean_bowl or p["name"].lower() == bowler_id.lower()), None)
     
     # Try scraping if not found
     from player_scraper import get_player_stats
     if not batsman:
         scraped_bat = get_player_stats(batsman_id.replace("-", " "))
-        if "error" not in scraped_bat:
+        if "error" not in scraped_bat and not any(p["id"] == scraped_bat.get("id") for p in MOCK_PLAYERS):
             MOCK_PLAYERS.append(scraped_bat)
             batsman = scraped_bat
             
     if not bowler:
         scraped_bowl = get_player_stats(bowler_id.replace("-", " "))
-        if "error" not in scraped_bowl:
+        if "error" not in scraped_bowl and not any(p["id"] == scraped_bowl.get("id") for p in MOCK_PLAYERS):
             MOCK_PLAYERS.append(scraped_bowl)
             bowler = scraped_bowl
             
@@ -70,23 +81,26 @@ def simulate_matchup(batsman_id: str, bowler_id: str, phase: str = "Middle Overs
         phase_map = {"Powerplay": 0, "Middle Overs": 1, "Death Overs": 2}
         p_val = phase_map.get(phase, 1)
         
-        bat_control = batsman["technique"]["control_percentage"]
-        bat_power = batsman["t20_stats"]["strike_rate"] / 2
-        bowl_economy = bowler["t20_stats"]["average"] / 3
-        bowl_sr = bowler["t20_stats"]["strike_rate"]
+        from ml_engine import get_player_ml_features
+        bat_feat = get_player_ml_features(batsman)
+        bowl_feat = get_player_ml_features(bowler)
         
-        # Simulate 1000 deliveries with realistic variance
+        # Generate 1000 deliveries with random risk, deviation, speed delta
+        np.random.seed(42)
+        deliv_risk = np.random.uniform(10.0, 95.0, 1000)
+        deliv_deviation = np.random.uniform(0.0, 4.0, 1000)
+        deliv_speed_delta = np.random.uniform(-8.0, 8.0, 1000)
+        
         features = pd.DataFrame({
-            'batsman_control': [bat_control] * 1000,
-            'batsman_power': [bat_power] * 1000,
-            'bowler_economy': [bowl_economy] * 1000,
-            'bowler_strike_rate': [bowl_sr] * 1000,
-            'match_phase': [p_val] * 1000
+            'batsman_control': [bat_feat["control"]] * 1000,
+            'batsman_power': [bat_feat["power"]] * 1000,
+            'bowler_economy': [bowl_feat["economy"]] * 1000,
+            'bowler_strike_rate': [bowl_feat["strike_rate"]] * 1000,
+            'match_phase': [p_val] * 1000,
+            'delivery_risk': deliv_risk,
+            'delivery_deviation': deliv_deviation,
+            'delivery_speed_delta': deliv_speed_delta
         })
-        
-        # Add random noise to simulate match conditions
-        features['batsman_control'] += np.random.normal(0, 5, 1000)
-        features['batsman_power'] += np.random.normal(0, 3, 1000)
         
         # Run inference using the trained Random Forest
         preds = clf.predict(features)

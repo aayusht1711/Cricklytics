@@ -25,13 +25,22 @@ export default function PremiumDashboard() {
 
   const runSimulation = () => {
     setIsSimulating(true);
-    fetch(getBackendUrl(`/api/players/simulate/${striker}/${bowler}?phase=${phase}`))
-      .then(res => res.json())
+    const batSlug = striker.trim().toLowerCase().replace(/\s+/g, "-");
+    const bowlSlug = bowler.trim().toLowerCase().replace(/\s+/g, "-");
+    fetch(getBackendUrl(`/api/players/simulate/${encodeURIComponent(batSlug)}/${encodeURIComponent(bowlSlug)}?phase=${encodeURIComponent(phase)}`))
+      .then(res => {
+        if (!res.ok) throw new Error("Simulation request failed");
+        return res.json();
+      })
       .then(data => {
-        setTimeout(() => {
-          setSimResult(data);
+        if (data && data.results) {
+          setTimeout(() => {
+            setSimResult(data);
+            setIsSimulating(false);
+          }, 1200);
+        } else {
           setIsSimulating(false);
-        }, 1800); // ML processing delay
+        }
       })
       .catch(err => {
         console.error(err);
@@ -44,8 +53,8 @@ export default function PremiumDashboard() {
   }, []);
 
   const getAreaChartData = () => {
-    if (!simResult) return [];
-    const rpo = simResult.results.expected_runs_per_over;
+    if (!simResult || !simResult.results) return [];
+    const rpo = simResult.results.expected_runs_per_over || 0;
     return [
       { ball: 'B1', runs: rpo / 6 },
       { ball: 'B2', runs: (rpo / 6) * 2 },
@@ -56,9 +65,10 @@ export default function PremiumDashboard() {
     ];
   };
 
-  const getDangerLevel = (wicketProb: number) => {
-    if (wicketProb > 25) return { color: "text-red-500", bg: "bg-red-500", glow: "shadow-[0_0_20px_rgba(239,68,68,0.6)]", label: "CRITICAL" };
-    if (wicketProb > 15) return { color: "text-orange-500", bg: "bg-orange-500", glow: "shadow-[0_0_20px_rgba(249,115,22,0.6)]", label: "HIGH" };
+  const getDangerLevel = (wicketProb: number = 0) => {
+    const prob = wicketProb || 0;
+    if (prob > 25) return { color: "text-red-500", bg: "bg-red-500", glow: "shadow-[0_0_20px_rgba(239,68,68,0.6)]", label: "CRITICAL" };
+    if (prob > 15) return { color: "text-orange-500", bg: "bg-orange-500", glow: "shadow-[0_0_20px_rgba(249,115,22,0.6)]", label: "HIGH" };
     return { color: "text-yellow-500", bg: "bg-yellow-500", glow: "shadow-[0_0_20px_rgba(234,179,8,0.6)]", label: "MODERATE" };
   };
 
@@ -158,7 +168,7 @@ export default function PremiumDashboard() {
                 <h3 className="text-2xl font-black text-white tracking-widest uppercase mt-8">Synthesizing Data</h3>
                 <p className="text-blue-400 font-mono text-sm mt-2">Querying model.pkl via API...</p>
               </div>
-            ) : simResult ? (
+            ) : simResult && simResult.results ? (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
