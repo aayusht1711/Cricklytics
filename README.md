@@ -123,8 +123,8 @@ npm run dev
 1. Connect your repository to **Netlify**.
 2. Base Directory: `frontend`
 3. Build Command: `npm run build`
-4. Publish Directory: `frontend/.next`
-5. Environment Variable: `NEXT_PUBLIC_BACKEND_URL=https://your-backend.onrender.com`
+4. Publish Directory: `frontend/out`
+5. Environment Variable: `NEXT_PUBLIC_BACKEND_URL=https://cricklytics-8rjg.onrender.com`
 
 ### Deploy Backend to Render / Railway
 1. Connect repository to **Render.com** as a Web Service.
