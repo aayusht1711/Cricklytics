@@ -12,7 +12,6 @@ export default function TacticsPage() {
 
   const [loading, setLoading] = useState(false);
   const [simResult, setSimResult] = useState(null);
-  const [flawResult, setFlawResult] = useState(null);
 
   const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
@@ -45,42 +44,13 @@ export default function TacticsPage() {
     }
   };
 
-  const handleScanFlaws = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`${API_URL}/api/biomechanics/scan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          player_id: batsman.toLowerCase().replace(/\s+/g, '-'),
-          player_name: batsman,
-          role: 'Batsman'
-        })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setFlawResult(data);
-      }
-    } catch (err) {
-      console.error('Flaw scan error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-8 py-12">
       <div className="border-b border-white/10 pb-6 mb-8 flex justify-between items-end">
         <div>
           <h1 className="text-4xl font-black text-white">Tactical Duel Simulator</h1>
-          <p className="text-gray-400 mt-2">Simulate physical matchup probabilities & AI biomechanical flaws</p>
+          <p className="text-gray-400 mt-2">Simulate physical matchup probabilities & match-defining tactical duels</p>
         </div>
-        <button
-          onClick={handleScanFlaws}
-          className="px-6 py-3 bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-400/40 rounded-2xl font-bold text-xs uppercase tracking-wider transition-all"
-        >
-          🧬 Scan {batsman} Biomechanical Flaws
-        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -221,25 +191,6 @@ export default function TacticsPage() {
             </div>
           )}
 
-          {flawResult && (
-            <div className="bg-purple-900/10 border border-purple-500/30 p-8 rounded-3xl backdrop-blur-xl">
-              <h3 className="text-xl font-bold text-purple-300 mb-4 flex items-center gap-2">
-                🧬 AI Biomechanical Flaw Detection Output ({flawResult.model_accuracy}% Model Accuracy)
-              </h3>
-              <div className="space-y-4">
-                {flawResult.detected_flaws.map((flaw) => (
-                  <div key={flaw.id} className="bg-black/60 p-4 rounded-2xl border border-purple-500/20">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-bold text-white">{flaw.flaw_title}</span>
-                      <span className="text-xs text-red-400 font-bold uppercase bg-red-500/10 px-3 py-1 rounded-full border border-red-500/30">{flaw.severity}</span>
-                    </div>
-                    <p className="text-xs text-gray-300 mb-2">{flaw.flaw_description}</p>
-                    <p className="text-xs text-yellow-400 font-semibold">Exploit: {flaw.tactical_exploit}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
