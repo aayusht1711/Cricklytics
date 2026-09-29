@@ -61,12 +61,7 @@ export default function Navbar() {
           >
             <Users size={16} /> Players
           </Link>
-          <Link 
-            href="/biomechanics" 
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/biomechanics" ? "bg-cyan-500 text-black shadow-[0_0_15px_rgba(6,182,212,0.5)]" : "text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10"}`}
-          >
-            <Monitor size={16} /> Biomechanics
-          </Link>
+
           <Link 
             href="/tactics" 
             className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${pathname === "/tactics" ? "bg-red-500 text-black shadow-[0_0_15px_rgba(239,68,68,0.5)]" : "text-red-500 hover:text-red-400 hover:bg-red-500/10"}`}
