@@ -9,16 +9,14 @@ import os
 from app.database import get_db, Base, engine
 from app.models import (
     SimulationRequest, SimulationResponse,
-    BiomechanicsRequest, BiomechanicsResponse,
     PlayerScoutCreate, PlayerScoutResponse
 )
 from app import crud
 from ai_engine.simulator import run_tactical_simulation
-from ai_engine.biomechanics import analyze_player_biomechanics
 
 app = FastAPI(
     title="Cricklytics V2.0 API",
-    description="Enterprise-grade AI Scouting, Tactical Match Intelligence, and Biomechanical Flaw Detection Platform",
+    description="Enterprise-grade AI Cricket Scouting & Tactical Match Intelligence Platform",
     version="2.0.0"
 )
 
@@ -80,13 +78,7 @@ def simulate_duel(req: SimulationRequest, db: Session = Depends(get_db)):
     crud.save_simulation_record(db, SimulationResponse(**sim_result))
     return sim_result
 
-@app.post("/api/biomechanics/scan", response_model=BiomechanicsResponse)
-def scan_biomechanics(req: BiomechanicsRequest):
-    """
-    Executes PyTorch Neural Network model analyzing video motion frames.
-    """
-    result = analyze_player_biomechanics(player_name=req.player_name, role=req.role)
-    return result
+
 
 @app.post("/api/scout/players", response_model=PlayerScoutResponse)
 def scout_player(player: PlayerScoutCreate, db: Session = Depends(get_db)):
