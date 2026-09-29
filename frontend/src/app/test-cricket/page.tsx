@@ -6,37 +6,83 @@ import { ShieldAlert, Wind, TrendingUp, Thermometer, Clock } from "lucide-react"
 
 import { getBackendUrl, getWsUrl } from "@/utils/api";
 
+const DEFAULT_TEST_MATCH = {
+  match_info: {
+    title: "IND vs AUS - Border-Gavaskar Trophy Final Test",
+    venue: "WACA Stadium, Perth",
+    day: "Day 4 - Session 2",
+    overs: "68.4 / 90.0",
+    team1: "India",
+    team1_score: "348 & 210",
+    team2: "Australia",
+    team2_score: "189 & 142/3",
+    lead_status: "Australia require 228 runs to win",
+    pitch: "Green Top (Heavy Seam)",
+    wind: "18 km/h NW",
+    temperature: "24°C",
+    session_note: "Bumrah on 4-wicket haul spell; reverse swing visible from Over 38."
+  },
+  sessions: [
+    { name: "Day 1", summary: "India 280/5" },
+    { name: "Day 2", summary: "India 348 all out; Aus 189 all out" },
+    { name: "Day 3", summary: "India 210 all out; Aus 80/1" },
+    { name: "Day 4", summary: "Aus 142/3 (Target 370)" }
+  ],
+  pitch_diagnostics: {
+    seam: "High",
+    spin: "Low",
+    bounce: "Variable",
+    wear: "Over 68 crack development"
+  },
+  battle_zone: {
+    key_matchup: "Jasprit Bumrah vs Steve Smith",
+    win_probability: "India 65% - Aus 35%"
+  }
+};
+
 export default function TestCricketPage() {
-  const [matchData, setMatchData] = useState<any>(null);
+  const [matchData, setMatchData] = useState<any>(DEFAULT_TEST_MATCH);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    let ws: WebSocket | null = null;
     const fetchData = async () => {
       try {
         const response = await fetch(getBackendUrl("/api/matches/1/test-center"));
         if (response.ok) {
           const data = await response.json();
           setMatchData(data);
+          return;
         }
       } catch (error) {
-        console.error("Failed to fetch test center data:", error);
+        console.error("Using fallback test center data:", error);
       }
+      setMatchData(DEFAULT_TEST_MATCH);
     };
 
     fetchData();
 
-    // WebSocket connection for true 0-latency updates
-    const ws = new WebSocket(getWsUrl());
-    
-    ws.onmessage = (event) => {
-      if (event.data === "UPDATE") {
-        fetchData();
-      }
-    };
+    try {
+      ws = new WebSocket(getWsUrl());
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.score_string) {
+            setMatchData((prev: any) => ({
+              ...prev,
+              team2_score: data.score_string,
+              session_note: data.commentary || prev.session_note
+            }));
+          }
+        } catch (e) {}
+      };
+    } catch (e) {}
 
     return () => {
-      ws.close();
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close();
+      }
     };
   }, []);
 
