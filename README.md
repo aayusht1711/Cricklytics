@@ -19,9 +19,10 @@
 ```
 /cricklytics-v2/
 ├── /backend/
+│   ├── main.py             # ASGI Entrypoint (enables uvicorn main:app)
 │   ├── /app/
 │   │   ├── __init__.py
-│   │   ├── main.py         # FastAPI REST & WebSocket Server
+│   │   ├── main.py         # FastAPI REST & WebSocket Router
 │   │   ├── models.py       # Pydantic & SQLAlchemy Schemas
 │   │   ├── database.py     # SQLite Database Setup
 │   │   └── crud.py         # Database CRUD Operations
