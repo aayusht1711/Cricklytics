@@ -36,27 +36,7 @@ class SimulationResponse(BaseModel):
     toss_recommendation: str
     over_sequence: List[BallByBallOutcome]
 
-class BiomechanicsRequest(BaseModel):
-    player_id: str = Field(..., example="virat-kohli")
-    player_name: str = Field(..., example="Virat Kohli")
-    role: str = Field(default="Batsman", example="Batsman")
 
-class BiomechanicalFlaw(BaseModel):
-    id: str
-    flaw_title: str
-    severity: str
-    angle_offset: str
-    keyframe_sec: int
-    freeze_annotation: str
-    flaw_description: str
-    tactical_exploit: str
-
-class BiomechanicsResponse(BaseModel):
-    player_name: str
-    role: str
-    frames_analyzed: int
-    model_accuracy: float
-    detected_flaws: List[BiomechanicalFlaw]
 
 class PlayerScoutCreate(BaseModel):
     player_name: str
