@@ -1,8 +1,22 @@
+# Node.js
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Python
 __pycache__/
 *.pyc
-scratch/
-.system_generated/
-*.log
-data_new.csv
-data/*.csv
-*.zip
+*.pyo
+*.pyd
+venv/
+.env
+*.db
+*.sqlite3
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
