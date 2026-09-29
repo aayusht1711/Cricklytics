@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Cricklytics V2.0 - AI Cricket Scouting Platform',
-  description: 'Enterprise AI Scouting, Tactical Match Intelligence, and Biomechanical Flaw Detection Platform',
+  description: 'Enterprise AI Scouting & Tactical Match Intelligence Platform',
 };
 
 export default function RootLayout({ children }) {
