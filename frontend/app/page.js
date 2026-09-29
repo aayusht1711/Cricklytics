@@ -43,9 +43,9 @@ export default function HomePage() {
         </div>
         <div className="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-xl">
           <span className="text-[#C9A227] text-4xl font-black block mb-4">02</span>
-          <h3 className="text-2xl font-bold text-white mb-2">AI Biomechanical Scan</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">Matchup Intelligence</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            PyTorch deep learning model analyzing video motion vectors to identify head tilt and bat-pad gaps.
+            Historical matchup math models predicting wicket, boundary, dot ball rates, and over sequences.
           </p>
         </div>
         <div className="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-xl">
