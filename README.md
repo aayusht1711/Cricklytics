@@ -6,10 +6,10 @@
 
 ## 📌 Executive Overview
 
-**Cricklytics V2.0** is an enterprise-grade AI scouting, tactical match intelligence, and biomechanical flaw detection monorepo platform. It integrates:
+**Cricklytics V2.0** is an enterprise-grade AI scouting, tactical match intelligence, and duel simulation monorepo platform. Key capabilities include:
 - **0-Latency WebSocket Match Tracking** (`ws://localhost:8000/ws/live-match`)
-- **PyTorch Deep Learning Biomechanical Motion Model** (`99.31% Ensemble Accuracy`)
-- **3D Tactical Duel Simulation & Probability Math Engine**
+- **Batter vs Bowler Tactical Duel Simulator & Probability Engine**
+- **AI Player Scouting Database** (`/api/scout/players`)
 - **Next.js 15+ App Router Frontend** with Tailwind CSS dark-mode sports design
 
 ---
@@ -22,27 +22,26 @@
 │   ├── /app/
 │   │   ├── __init__.py
 │   │   ├── main.py         # FastAPI REST & WebSocket Server
-│   │   ├── models.py       # Pydantic & SQLAlchemy Models
-│   │   ├── database.py     # SQLite Connection Setup
-│   │   └── crud.py         # Database Operations
+│   │   ├── models.py       # Pydantic & SQLAlchemy Schemas
+│   │   ├── database.py     # SQLite Database Setup
+│   │   └── crud.py         # Database CRUD Operations
 │   ├── /ai_engine/
 │   │   ├── __init__.py
-│   │   ├── biomechanics.py # PyTorch Deep Learning Flaw Detector
 │   │   └── simulator.py    # Tactical Duel Probability Simulator
-│   ├── requirements.txt    # Python Dependencies
-│   └── Dockerfile          # Multi-stage Optimized Build
+│   ├── requirements.txt    # Python Dependencies (FastAPI, SQLAlchemy, NumPy)
+│   └── Dockerfile          # Multi-stage Optimized Python Container
 ├── /frontend/
 │   ├── /app/
 │   │   ├── layout.js       # Next.js App Router Root Layout
 │   │   ├── page.js         # Cricklytics V2.0 Landing Page
 │   │   ├── /tactics/
-│   │   │   └── page.js     # Batter vs Bowler Tactical Duel UI
+│   │   │   └── page.js     # Batter vs Bowler Tactical Duel Simulator UI
 │   │   └── /live/
-│   │       └── page.js     # WebSocket 0-Latency Match Ticker UI
+│   │       └── page.js     # WebSocket 0-Latency Live Score Tracking UI
 │   ├── package.json        # Next.js & React Dependencies
-│   └── Dockerfile          # Alpine Build for Next.js
+│   └── Dockerfile          # Alpine Node.js Container for Next.js
 ├── docker-compose.yml      # Monorepo Container Orchestration
-└── README.md               # Complete System Documentation
+└── README.md               # System Documentation
 ```
 
 ---
@@ -66,7 +65,7 @@ docker-compose up --build
 
 ### Option 2: Run Locally (Without Docker)
 
-#### 1. Backend Setup (FastAPI & PyTorch Engine)
+#### 1. Backend Setup (FastAPI & Probability Engine)
 ```bash
 cd backend
 
@@ -94,28 +93,26 @@ npm run dev
 
 ---
 
-## 📡 REST API Specifications
+## 📡 REST & WebSocket API Specifications
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | `GET` | `/` | Health check & API version |
-| `POST` | `/api/simulate` | Executes physical matchup probability calculation & 6-ball over blueprint |
-| `POST` | `/api/biomechanics/scan` | Runs PyTorch neural network flaw analysis on video frame features |
+| `POST` | `/api/simulate` | Calculates physical matchup probabilities & 6-ball over blueprint |
 | `POST` | `/api/scout/players` | Saves scouted player profile into database |
 | `GET` | `/api/scout/players` | Fetches all scouted player records |
 | `WS` | `/ws/live-match` | 0-Latency WebSocket broadcast for live score ticker |
 
 ---
 
-## 🧬 PyTorch Biomechanical Model Benchmarks
+## 🎯 Tactical Simulation Engine Highlights
 
-| Metric | Value |
+| Parameter | Function |
 | :--- | :--- |
-| **Model Type** | Multi-Task Deep Neural Network (`BiomechanicsNet`) |
-| **Training Corpus** | 200,000 Motion Frame Feature Vectors |
-| **Validation Accuracy** | `98.78%` |
-| **Ensemble Accuracy** | `99.31%` |
-| **Flaw Detection Targets** | Off-Axis Head Tilt, Bat-Pad Gap, Release Arm Slot Drop |
+| **Matchup Factors** | Pitch condition (*Green Top*, *Rank Turner*, *Flat Deck*), Phase (*Powerplay*, *Middle*, *Death*), Dew Factor |
+| **Calculated Outputs** | Wicket Probability, Boundary Probability, Dot Ball Rate, Expected RPO |
+| **Toss Analytics** | Automated Toss Strategy & Dew Penalty Calculation |
+| **6-Ball Blueprint** | Ball-by-ball tactical delivery sequence with target zones |
 
 ---
 
@@ -138,4 +135,4 @@ npm run dev
 
 ## 📄 License
 
-Distributed under the MIT License. Built for enterprise cricket analytics & AI scouting.
+Distributed under the MIT License. Built for enterprise cricket analytics & match tactical intelligence.
