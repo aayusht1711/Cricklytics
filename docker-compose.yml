@@ -1,40 +1,26 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:15-alpine
-    container_name: cricklytics_db
-    restart: always
-    environment:
-      POSTGRES_USER: cricklytics_user
-      POSTGRES_PASSWORD: cricklytics_password
-      POSTGRES_DB: cricklytics
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   backend:
-    build: ./backend
-    container_name: cricklytics_backend
-    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
-      - "8001:8001"
+      - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://cricklytics_user:cricklytics_password@db:5432/cricklytics
-    depends_on:
-      - db
+      - DATABASE_URL=sqlite:///./cricklytics_v2.db
+    volumes:
+      - ./backend:/app
+    restart: always
 
   frontend:
-    build: ./frontend
-    container_name: cricklytics_frontend
-    restart: always
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8001
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
     depends_on:
       - backend
-
-volumes:
-  postgres_data:
+    restart: always
